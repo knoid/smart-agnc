@@ -1,7 +1,7 @@
 # Smart AT&T Global Network Client
 
 This tries to create a seamless VPN connection between you and your enterprise.
-This consists of tray icon it keeps you connected whenever possible.
+It consists of tray icon and tries to keep you connected whenever possible.
 
 ## Prerequisites
 
