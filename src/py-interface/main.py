@@ -63,7 +63,7 @@ class AgnNotifier(TrayIcon):
             toggle_btn_text = 'Disconnect'
         self.m_item_conn_toggle.set_label(toggle_btn_text)
 
-        if 'SMX 0x08 - RIGAM10E' in attempt['szStatusText']:
+        if 'SMX 0x0' in attempt['szStatusText']:
             self.want_to = ab.STATE_NOT_CONNECTED
             self.alert('Invalid credentials')
             self.do_configure()
