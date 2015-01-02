@@ -13,7 +13,7 @@ class UserPreferences(object):
 
     def __init__(self, defaults=None, filepath=''):
         if filepath == '':
-            filepath = os.path.expanduser('~/.agnNotifier')
+            filepath = os.path.expanduser('~/.smart-agnc')
 
         self.rcp = ConfigParser.SafeConfigParser(defaults)
         try:
