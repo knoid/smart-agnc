@@ -26,7 +26,7 @@ SERVICE_MANAGER_ADDRESS = '204.146.172.230' # AT&T Production RIG
 class AgnBinder(gobject.GObject):
     """AgnBinder"""
 
-    cmd = '../../dist/agnc-bind'
+    cmd = '../dist/agnc-bind'
 
     def __init__(self):
         super(AgnBinder, self).__init__()
