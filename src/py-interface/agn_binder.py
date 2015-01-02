@@ -24,7 +24,9 @@ STATE_AFTER_CONNECT = 600
 SERVICE_MANAGER_ADDRESS = '204.146.172.230' # AT&T Production RIG
 
 class AgnBinder(gobject.GObject):
-    """AgnBinder"""
+    """
+    Provides an interface between python and AGNC's daemon.
+    """
 
     cmd = '../dist/agnc-bind'
 
@@ -93,28 +95,42 @@ class AgnBinder(gobject.GObject):
         self.proc.stdin.write("\n".join(stdin) + "\n")
 
     def exit(self):
-        """cmd_exit"""
+        """
+        Exit subprocess.
+        """
         self.__send__(0)
 
     def action_connect(self, account, username, password):
-        """cmd_action_connect"""
+        """
+        Issues a connect action to AGNC's daemon with the provided account,
+        username and password against AT&T's production servers.
+        """
         self.__send__(1, [account, username, password, SERVICE_MANAGER_ADDRESS])
 
     def action_disconnect(self):
-        """cmd_action_disconnect"""
+        """
+        Issues a disconnect action to the daemon.
+        """
         self.__send__(2)
 
     def get_connect_attempt_info(self):
-        """cmd_get_connect_attempt_info"""
+        """
+        Returns a dictionary with AGNC's connect attempt information.
+        """
         self.__send__(3)
         return self.__get_object_response__()
 
     def get_state(self):
-        """cmd_get_state"""
+        """
+        Returns an int with AGNC's current state
+        """
         self.__send__(4)
         return int(self.__get_lines__()[0])
 
     def get_user_info(self):
+        """
+        Returns a dictionary with AGNC's user information.
+        """
         self.__send__(5)
         return self.__get_object_response__()
 
