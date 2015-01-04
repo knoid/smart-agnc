@@ -63,9 +63,24 @@ class AgnNotifier(TrayIcon):
             toggle_btn_text = 'Disconnect'
         self.m_item_conn_toggle.set_label(toggle_btn_text)
 
-        if 'SMX 0x0' in attempt['szStatusText']:
+        # TODO: Find out `password change required` status code
+        if 'SMX 0xXX' in attempt['szStatusText']:
+            self.want_to = ab.STATE_NOT_CONNECTED
+            self.alert('It is time to change your password!')
+            self.new_password_win.request_new_password()
+
+        elif 'SMX 0x08' in attempt['szStatusText']:
             self.want_to = ab.STATE_NOT_CONNECTED
             self.alert('Invalid credentials')
+            self.do_configure()
+
+        elif 'SMX 0x00' in attempt['szStatusText']:
+            # unknown error or timeout, try again
+            pass
+
+        elif 'SMX 0x' in attempt['szStatusText']:
+            self.want_to = ab.STATE_NOT_CONNECTED
+            self.alert('Unknown error!\n' + attempt['szStatusText'])
             self.do_configure()
 
         self.m_item_conn_status.set_label(attempt['szStatusText'])
