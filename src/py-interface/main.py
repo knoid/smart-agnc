@@ -59,7 +59,7 @@ class AgnNotifier(TrayIcon):
         attempt = self.vpn.get_connect_attempt_info()
 
         toggle_btn_text = 'Connect'
-        if new_state > ab.STATE_BEFORE_CONNECT:
+        if self.want_to == ab.STATE_CONNECTED:
             toggle_btn_text = 'Disconnect'
         self.m_item_conn_toggle.set_label(toggle_btn_text)
 
@@ -170,7 +170,7 @@ class AgnNotifier(TrayIcon):
 
     def do_toggle_connection(self, _):
         """do_toggle_connection"""
-        if self.last_state >= ab.STATE_CONNECTED:
+        if self.want_to == ab.STATE_CONNECTED:
             self.want_to = ab.STATE_NOT_CONNECTED
             self.vpn.action_disconnect()
         else:
