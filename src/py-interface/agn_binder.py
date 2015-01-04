@@ -113,12 +113,17 @@ class AgnBinder(gobject.GObject):
         """
         self.__send__(0)
 
-    def action_connect(self, account, username, password):
+    def action_connect(self, account, username, password, new_password='',
+                       proxy=None):
         """
         Issues a connect action to AGNC's daemon with the provided account,
         username and password against AT&T's production servers.
         """
-        self.__send__(1, [account, username, password, SERVICE_MANAGER_ADDRESS])
+        args = [account, username, password, new_password,
+                SERVICE_MANAGER_ADDRESS]
+        if proxy:
+            args += [proxy['server'], proxy['user'], proxy['password']]
+        self.__send__(1, args)
         self.__wait__('state_change')
 
     def action_disconnect(self):

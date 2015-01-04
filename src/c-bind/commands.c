@@ -16,15 +16,16 @@ int cmd_action_connect(agnHandle_t handle, int argc, char *argv[]) {
     strcpy(user.szAccount, argv[0]);
     strcpy(user.szUsername, argv[1]);
     strcpy(user.szPassword, argv[2]);
-    strcpy(user.szSMXServer, argv[3]);
-    if (argc > 4) {
-        strcpy(user.szProxyPassword, argv[4]);
+    strcpy(user.szNewPassword, argv[3]);
+    strcpy(user.szSMXServer, argv[4]);
+    if (5 < argc) {
         strcpy(user.szProxyServer, argv[5]);
         strcpy(user.szProxyUser, argv[6]);
+        strcpy(user.szProxyPassword, argv[7]);
     } else {
-        strcpy(user.szProxyPassword, "");
         strcpy(user.szProxyServer, "");
         strcpy(user.szProxyUser, "");
+        strcpy(user.szProxyPassword, "");
     }
 
     agncPostActionRequest(handle, agnActionConnect, &user, sizeof(agnUser_t));
