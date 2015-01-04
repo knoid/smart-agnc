@@ -1,3 +1,3 @@
 #!/bin/sh
 
-python src/py-interface/main.py
+python "`dirname \"$0\"`"/src/py-interface/main.py
