@@ -50,11 +50,10 @@ class AgnBinder(gobject.GObject):
         if out == '':
             return False
         self.__process_line__(out)
-        print 'vpn:', out
+        print 'vpn >', out
         return True
 
-    def __get_lines__(self):
-        lines = []
+    def __next_line__(self):
         while True:
             try:
                 line = __get_line__(self.proc.stdout)
@@ -62,11 +61,24 @@ class AgnBinder(gobject.GObject):
                 print err
                 time.sleep(0.1)
                 continue
-            print 'vpn:', line
+            return line
+
+    def __get_lines__(self):
+        lines = []
+        while True:
+            line = self.__next_line__()
+            print 'vpn >', line
             if line == 'EOF':
                 return lines
             else:
                 lines.append(line)
+
+    def __wait__(self, type_change=None):
+        line = self.__next_line__()
+        print 'vpn >', line
+        self.__process_line__(line)
+        if line.startswith(type_change):
+            return
 
     def __process_line__(self, line):
         try:
@@ -91,8 +103,9 @@ class AgnBinder(gobject.GObject):
         if not args:
             args = []
 
-        stdin = [str(num) + " " + str(len(args))] + args
-        self.proc.stdin.write("\n".join(stdin) + "\n")
+        stdin = '\n'.join([str(num) + ' ' + str(len(args))] + args) + '\n'
+        print 'vpn <', stdin,
+        self.proc.stdin.write(stdin)
 
     def exit(self):
         """
@@ -106,12 +119,14 @@ class AgnBinder(gobject.GObject):
         username and password against AT&T's production servers.
         """
         self.__send__(1, [account, username, password, SERVICE_MANAGER_ADDRESS])
+        self.__wait__('state_change')
 
     def action_disconnect(self):
         """
         Issues a disconnect action to the daemon.
         """
         self.__send__(2)
+        self.__wait__('state_change')
 
     def get_connect_attempt_info(self):
         """
