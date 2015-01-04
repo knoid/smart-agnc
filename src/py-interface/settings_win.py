@@ -4,13 +4,14 @@
 import gobject
 import gtk
 
-class ConfigurationWindow(gtk.Window):
+from _window import _Window
+
+class ConfigurationWindow(_Window):
     """ConfigurationWindow"""
 
     def __init__(self, values=False):
         super(ConfigurationWindow, self).__init__()
 
-        self.set_border_width(10)
         self.set_resizable(False)
         self.set_size_request(400, 200)
         self.set_title('Configuration')
@@ -40,8 +41,7 @@ class ConfigurationWindow(gtk.Window):
 
         self.add(table)
         table.show_all()
-        self.connect('key-press-event', self.on_key)
-        self.connect('delete_event', __prevent_destroy__)
+        self.connect('form_submit', self.__on_submit__)
         if values:
             self.set_values(values)
 
@@ -81,17 +81,8 @@ class ConfigurationWindow(gtk.Window):
         """on_password_visiblity"""
         self.txt_password.set_visibility(widget.get_active())
 
-    def on_key(self, _, evt):
-        """on_key"""
-        if evt.keyval == gtk.keysyms.Escape:
-            self.hide()
-
-        if evt.keyval == gtk.keysyms.Return:
-            self.do_btn_save(False)
-
-def __prevent_destroy__(widget, _=None):
-    widget.hide()
-    return True
+    def __on_submit__(self, _):
+        self.do_btn_save(False)
 
 gobject.signal_new('save', ConfigurationWindow, gobject.SIGNAL_RUN_FIRST,
     None, (str, str, str, ))
