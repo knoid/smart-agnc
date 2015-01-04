@@ -15,14 +15,14 @@ class _Window(gtk.Window):
 
         self.set_border_width(10)
         self.connect('delete_event', __prevent_destroy__)
-        self.connect('key-press-event', self.__on_key__)
+        self.connect('key-press-event', __on_key__)
 
-    def __on_key__(self, _, evt):
-        if evt.keyval == gtk.keysyms.Escape:
-            self.hide()
+def __on_key__(widget, evt):
+    if evt.keyval == gtk.keysyms.Escape:
+        widget.hide()
 
-        if evt.keyval == gtk.keysyms.Return:
-            self.emit('form_submit')
+    if evt.keyval == gtk.keysyms.Return:
+        widget.emit('form_submit')
 
 def __prevent_destroy__(widget, _=None):
     widget.hide()
