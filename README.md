@@ -1,18 +1,27 @@
 # Smart AT&T Global Network Client
 
-This tries to create a seamless VPN connection between you and your enterprise.
-It consists of tray icon and tries to keep you connected whenever possible.
+This will create a seamless VPN connection between you and your enterprise by
+creating a tray icon that tries to keep you connected whenever possible.
 
 ## Prerequisites
 
-Having the normal AT&T Global Network Client is enough. Actually, you only need
-to have the `agnclientd` and `agnLogd` services running and they are already
-there if you have a working VPN connection on you PC.
+I'm assuming you already have the AT&T Global Network Client working so you'll
+only need to compile C programs.
+
+### In Ubuntu
+
+    sudo apt-get install build-essential
+
+### In RedHat
+
+    sudo yum install gcc-c++ glibc-devel.i686
 
 ## Installation
 
-Extract into any folder and compile if necessary. It is useful to add it to the
-"Startup Applications" list.
+ 1. Extract into any folder.
+ 2. Go to `src` folder and compile with `make`.
+ 3. Execute `run.sh`.
+ 4. (optional) Add `run.sh` to the "Startup Applications" list.
 
 ## Disclaimer
 
