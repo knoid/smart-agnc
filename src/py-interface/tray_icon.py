@@ -1,6 +1,7 @@
 """tray_icon.py"""
 
 import gtk
+import os
 
 HAS_APPINDICATOR = False
 
@@ -12,18 +13,18 @@ except ImportError:
 
 if HAS_APPINDICATOR:
 
-    import os, sys
-
     class TrayIcon(appindicator.Indicator):
         """TrayIcon"""
 
         def __init__(self, ti_id):
-            super(TrayIcon, self).__init__(ti_id,
-                "",
+            super(TrayIcon, self).__init__(ti_id, '',
                 appindicator.CATEGORY_SYSTEM_SERVICES)
 
             self.set_status(appindicator.STATUS_ACTIVE)
             self.set_attention_icon('indicator-messages-new')
+
+        def set_icon(self, state):
+            super(TrayIcon, self).set_icon(get_icon_path(state))
 
 else:
 
@@ -38,9 +39,9 @@ else:
             self.set_from_stock(gtk.STOCK_HOME)
             self.connect('button-press-event', self.__on_click__)
 
-        def set_icon(self, icon):
+        def set_icon(self, state):
             """set_icon"""
-            self.set_from_file(icon)
+            self.set_from_file(get_icon_path(state))
 
         def set_menu(self, menu):
             """set_menu"""
@@ -53,6 +54,11 @@ else:
 
         def __position_menu__(self, menu):
             return gtk.status_icon_position_menu(menu, self)
+
+DIR = os.path.dirname(__file__)
+def get_icon_path(state):
+    icon_path = '../../resources/smart-agnc-%s.svg' % state
+    return os.path.join(DIR, icon_path)
 
 def main():
     """

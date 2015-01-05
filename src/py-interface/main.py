@@ -56,6 +56,11 @@ class AgnNotifier(TrayIcon):
         if new_state > ab.STATE_CONNECTED:
             return
 
+        icon_state = 'disabled'
+        if new_state >= ab.STATE_VPN_CONNECTING:
+            icon_state = 'enabled'
+        self.set_icon(icon_state)
+
         attempt = self.vpn.get_connect_attempt_info()
 
         toggle_btn_text = 'Connect'
