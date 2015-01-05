@@ -21,18 +21,23 @@ class UserPreferences(object):
         except ConfigParser.ParsingError:
             pass
 
-        atexit.register(self.__check_write_to_disk__, filepath)
+        atexit.register(self.__check_write_to_disk__)
+        self.filepath = filepath
 
-    def write_to_disk(self, filepath):
+    def write_to_disk(self, filepath=''):
         """Call it at the end, this function won't save it twice"""
+
+        if not filepath:
+            filepath = self.filepath
+
         with open(filepath, 'wb') as fileh:
             self.rcp.write(fileh)
         self.written = True
 
-    def __check_write_to_disk__(self, filepath):
+    def __check_write_to_disk__(self):
         """_check_write_to_disk"""
         if not self.written:
-            self.write_to_disk(filepath)
+            self.write_to_disk()
 
     def set(self, key, value):
         """set"""

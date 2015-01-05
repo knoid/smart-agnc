@@ -176,10 +176,11 @@ class AgnNotifier(TrayIcon):
 
     def do_save(self, _, account, username, password):
         """do_save"""
+        self.config_win.hide()
         self.config.set('account', account)
         self.config.set('username', username)
         self.config.set('password', password)
-        self.config_win.hide()
+        self.config.write_to_disk()
         self.want_to = ab.STATE_CONNECTED
         self.reconnect()
 
