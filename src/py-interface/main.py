@@ -4,6 +4,7 @@
 import gobject
 import gtk
 import pynotify
+from subprocess import Popen
 
 # local imports
 from config import UserPreferences
