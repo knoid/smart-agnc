@@ -16,15 +16,15 @@ class AgnNotifier(TrayIcon):
     """AgnNotifier"""
 
     config_win = None
-    title = 'AT&T Notifier'
+    title = 'Smart AT&T Client'
+    _id = 'at&t-smart'
     reconnect_interval = 10 # seconds
     last_state = 0
     want_to = ab.STATE_CONNECTED
 
     def __init__(self, user_config, vpn):
-        super(AgnNotifier, self).__init__('at&t-smart')
-
-        pynotify.init('AgnNotifier')
+        super(AgnNotifier, self).__init__(self._id)
+        pynotify.init(self._id)
 
         self.config = user_config
         self.vpn = vpn
