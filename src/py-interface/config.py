@@ -2,63 +2,59 @@
 
 import os
 import ConfigParser
-import atexit
-
-SECTION = 'DEFAULT'
 
 class UserPreferences(object):
-    """UserPreferences"""
+    """
+    This is just an even safer implementation of the SafeConfigParser that tries
+    to read and write without throwing exceptions.
+    """
 
-    written = True
+    _modification_time = 0
+    scp = None
 
-    def __init__(self, defaults=None, filepath=''):
-        if filepath == '':
-            filepath = os.path.expanduser('~/.smart-agnc')
+    def __init__(self, defaults=None, filepath='~/.smart-agnc'):
+        self.defaults = defaults if defaults else {}
+        self.filepath = os.path.expanduser(filepath)
 
-        self.rcp = ConfigParser.SafeConfigParser(defaults)
+        self._read_config()
+
+    def _read_config(self):
         try:
-            self.rcp.read(filepath)
-        except ConfigParser.ParsingError:
-            pass
+            new_modification_time = os.path.getmtime(self.filepath)
+        except os.error:
+            new_modification_time = 0
 
-        atexit.register(self.__check_write_to_disk__)
-        self.filepath = filepath
+        if new_modification_time > self._modification_time:
+            self._modification_time = new_modification_time
 
-    def write_to_disk(self, filepath=''):
-        """Call it at the end, this function won't save it twice"""
+            self.scp = ConfigParser.SafeConfigParser()
+            try:
+                self.scp.read(self.filepath)
+            except ConfigParser.ParsingError as err:
+                print err
 
-        if not filepath:
-            filepath = self.filepath
+    def write_to_disk(self):
+        with open(self.filepath, 'wb') as fileh:
+            self.scp.write(fileh)
 
-        with open(filepath, 'wb') as fileh:
-            self.rcp.write(fileh)
-        self.written = True
+    def set(self, section, key, value):
+        self._read_config()
+        return self.scp.set(section, key, value)
 
-    def __check_write_to_disk__(self):
-        """_check_write_to_disk"""
-        if not self.written:
-            self.write_to_disk()
+    def setboolean(self, section, key, value):
+        return self.set(section, key, 'on' if value else 'off')
 
-    def set(self, key, value):
-        """set"""
-        self.rcp.set(SECTION, key, value)
-        self.written = False
-        return value
-
-    def setboolean(self, key, value):
-        """setboolean"""
-        return self.set(key, 'on' if value else 'off')
-
-    def get(self, key):
-        """get"""
+    def get(self, section, key, default=''):
         try:
-            return self.rcp.get(SECTION, key)
+            return self.scp.get(section, key)
         except ConfigParser.NoOptionError:
-            return ''
+            if key in self.defaults:
+                return self.defaults[key]
+            else:
+                return default
 
-    def getboolean(self, key):
-        """getboolean"""
+    def getboolean(self, section, key):
         try:
-            return self.rcp.getboolean(SECTION, key)
+            return self.scp.getboolean(section, key)
         except ConfigParser.NoOptionError:
-            return False
+            return self.get(section, key, False)

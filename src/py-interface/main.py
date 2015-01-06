@@ -127,7 +127,7 @@ class AgnNotifier(TrayIcon):
 
                 cval = self.get_config_values()
                 if len(cval) == 3:
-                    if self.config.getboolean('keepalive'):
+                    if self.config.getboolean('vpn', 'keepalive'):
                         self.vpn_connect(cval)
                 else:
                     self.alert('Complete credentials to connect')
@@ -159,7 +159,7 @@ class AgnNotifier(TrayIcon):
 
         # Auto reconnect checkbox
         m_item = gtk.CheckMenuItem("Keep alive")
-        m_item.set_active(self.config.getboolean('keepalive'))
+        m_item.set_active(self.config.getboolean('vpn', 'keepalive'))
         m_item.connect("activate", self.do_toggle_keepalive)
         menu.append(m_item)
 
@@ -196,9 +196,9 @@ class AgnNotifier(TrayIcon):
     def do_save(self, _, account, username, password):
         """do_save"""
         self.config_win.hide()
-        self.config.set('account', account)
-        self.config.set('username', username)
-        self.config.set('password', password)
+        self.config.set('vpn', 'account', account)
+        self.config.set('vpn', 'username', username)
+        self.config.set('vpn', 'password', password)
         self.config.write_to_disk()
         self.want_to = ab.STATE_CONNECTED
         self.reconnect()
@@ -214,14 +214,14 @@ class AgnNotifier(TrayIcon):
 
     def do_toggle_keepalive(self, win):
         """do_toggle_keepalive"""
-        self.config.setboolean('keepalive', win.get_active())
+        self.config.setboolean('vpn', 'keepalive', win.get_active())
 
     def get_config_values(self):
         """get_config_values"""
         keys = ['account', 'username', 'password']
         values = {}
         for key in keys:
-            val = self.config.get(key)
+            val = self.config.get('vpn', key)
             if len(val) > 0:
                 values[key] = val
 
