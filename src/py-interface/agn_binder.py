@@ -30,8 +30,19 @@ class AgnBinder(gobject.GObject):
 
     cmd = '../dist/agnc-bind'
 
+    # event source id
+    __io_watch = 0
+
     def __init__(self):
         super(AgnBinder, self).__init__()
+        self.setup_process()
+        atexit.register(self.proc.kill)
+
+    def setup_process(self):
+        if self.__io_watch > 0:
+            self.proc.kill()
+            gobject.source_remove(self.__io_watch)
+            self.__io_watch = 0
 
         execfilepath = os.path.join(os.path.dirname(__file__), self.cmd)
         self.proc = proc = Popen([execfilepath], stdout=PIPE, stdin=PIPE)
@@ -42,8 +53,8 @@ class AgnBinder(gobject.GObject):
         file_flags = fcntl.fcntl(fdn, fcntl.F_GETFL)
         fcntl.fcntl(fdn, fcntl.F_SETFL, file_flags | os.O_NDELAY)
 
-        gobject.io_add_watch(proc.stdout, gobject.IO_IN, self.__get_output__)
-        atexit.register(self.proc.kill)
+        self.__io_watch = gobject.io_add_watch(proc.stdout, gobject.IO_IN,
+                                               self.__get_output__)
 
     def __get_output__(self, stdout, _):
         out = __get_line__(stdout)
@@ -54,14 +65,19 @@ class AgnBinder(gobject.GObject):
         return True
 
     def __next_line__(self):
+        tries = 5
         while True:
             try:
-                line = __get_line__(self.proc.stdout)
+                return __get_line__(self.proc.stdout)
             except IOError as err:
                 print err
-                time.sleep(0.1)
-                continue
-            return line
+                tries -= 1
+                if tries > 0:
+                    time.sleep(0.1)
+                    continue
+                else:
+                    self.setup_process()
+                    raise
 
     def __get_lines__(self):
         lines = []
@@ -138,7 +154,10 @@ class AgnBinder(gobject.GObject):
         Returns a dictionary with AGNC's connect attempt information.
         """
         self.__send__(3)
-        return self.__get_object_response__()
+        try:
+            return self.__get_object_response__()
+        except IOError:
+            return self.get_connect_attempt_info()
 
     def get_state(self):
         """
