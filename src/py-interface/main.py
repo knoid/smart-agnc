@@ -250,7 +250,7 @@ class AgnNotifier(TrayIcon):
 
 if __name__ == "__main__":
 
-    CONFIG = UserPreferences({'keepalive': 'on'})
+    CONFIG = UserPreferences({'keepalive': True})
     AGN_BINDER = ab.AgnBinder()
     AgnNotifier(CONFIG, AGN_BINDER)
 
