@@ -60,8 +60,8 @@ class AgnBinder(gobject.GObject):
         out = __get_line__(stdout)
         if out == '':
             return False
-        self.__process_line__(out)
         print 'vpn >', out
+        self.__process_line__(out)
         return True
 
     def __next_line__(self):
