@@ -3,8 +3,10 @@
 # system imports
 import gobject
 import gtk
+import time
 
 from _window import _Window
+from agn_binder import long2ip
 
 class ConnectionInformationWindow(_Window):
     """ConnectionInformationWindow"""
@@ -20,6 +22,27 @@ class ConnectionInformationWindow(_Window):
         text_info.show()
         self.add(text_info)
 
-    def set_text(self, value):
+    def set_dict(self, data):
+        text = []
+        for key, value in data.iteritems():
+            if 'IP' in key:
+                value = long2ip(int(value))
+            if 'Bytes' in key:
+                value = bytes2human(int(value))
+            if 'Time' in key:
+                value = int(value)
+                value = time.ctime(value) if value > 0 else 'None'
+            text.append('%s: %s' % (key, value))
+        self.set_text('\n'.join(sorted(text)))
+
+    def set_text(self, text):
         """set_text"""
-        self.text_info.get_buffer().set_text(value)
+        self.text_info.get_buffer().set_text(text)
+
+# http://stackoverflow.com/questions/1094841
+def bytes2human(num, format='%3.1f %sB'):
+    for unit in ['','Ki','Mi','Gi','Ti','Pi','Ei','Zi']:
+        if abs(num) < 1024.0:
+            return format % (num, unit)
+        num /= 1024.0
+    return format % (num, 'Yi')

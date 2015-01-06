@@ -108,8 +108,6 @@ class AgnBinder(gobject.GObject):
         for line in self.__get_lines__():
             try:
                 (_, prop, value) = line.split("\t")
-                if 'IP' in prop:
-                    value = long2ip(long(value))
                 res[prop] = value
             except ValueError:
                 self.__process_line__(line)

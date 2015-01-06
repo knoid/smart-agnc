@@ -175,9 +175,9 @@ class AgnNotifier(TrayIcon):
         self.conn_info_win.set_text('Refreshing...')
         self.conn_info_win.show_all()
         self.conn_info_win.present()
-        attempt = self.vpn.get_connect_attempt_info().iteritems()
-        attempt_txt = '\n'.join([key + ':' + val for key, val in attempt])
-        self.conn_info_win.set_text(attempt_txt)
+
+        attempt = self.vpn.get_connect_attempt_info()
+        self.conn_info_win.set_dict(attempt)
 
     def do_save(self, _, account, username, password):
         """do_save"""
