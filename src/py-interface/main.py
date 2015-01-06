@@ -57,7 +57,7 @@ class AgnNotifier(TrayIcon):
             return
 
         icon_state = 'disabled'
-        if new_state >= ab.STATE_VPN_CONNECTING:
+        if new_state > ab.STATE_VPN_CONNECTING:
             icon_state = 'enabled'
         self.set_icon(icon_state)
 
