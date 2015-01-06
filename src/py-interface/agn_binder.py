@@ -29,6 +29,7 @@ class AgnBinder(gobject.GObject):
     """
 
     cmd = '../dist/agnc-bind'
+    proc = None
 
     # event source id
     __io_watch = 0

@@ -1,7 +1,6 @@
 """conn_info_win.py"""
 
 # system imports
-import gobject
 import gtk
 import time
 
@@ -40,9 +39,9 @@ class ConnectionInformationWindow(_Window):
         self.text_info.get_buffer().set_text(text)
 
 # http://stackoverflow.com/questions/1094841
-def bytes2human(num, format='%3.1f %sB'):
+def bytes2human(num, format_str='%3.1f %sB'):
     for unit in ['','Ki','Mi','Gi','Ti','Pi','Ei','Zi']:
         if abs(num) < 1024.0:
-            return format % (num, unit)
+            return format_str % (num, unit)
         num /= 1024.0
-    return format % (num, 'Yi')
+    return format_str % (num, 'Yi')
