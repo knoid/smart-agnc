@@ -34,6 +34,7 @@ class AgnNotifier(TrayIcon):
         self.config_win.connect('save', self.do_save)
 
         self.m_item_conn_status = gtk.MenuItem()
+        self.m_item_conn_ip = gtk.MenuItem()
         self.m_item_conn_toggle = gtk.MenuItem()
         self.on_vpn_state_change(None, vpn.get_state())
 
@@ -90,6 +91,11 @@ class AgnNotifier(TrayIcon):
 
         self.m_item_conn_status.set_label(attempt['szStatusText'])
 
+        ip_address = 'None'
+        if new_state > ab.STATE_VPN_CONNECTING:
+            ip_address = ab.long2ip(int(attempt['VPNIPAddress']))
+        self.m_item_conn_ip.set_label('IP: ' + ip_address)
+
         self.last_state = new_state
 
     def reconnect(self):
@@ -136,6 +142,14 @@ class AgnNotifier(TrayIcon):
 
         m_item = self.m_item_conn_status
         m_item.set_sensitive(False)
+        menu.append(m_item)
+
+        m_item = self.m_item_conn_ip
+        m_item.set_sensitive(False)
+        menu.append(m_item)
+
+        # Separator
+        m_item = gtk.SeparatorMenuItem()
         menu.append(m_item)
 
         # Auto reconnect checkbox
