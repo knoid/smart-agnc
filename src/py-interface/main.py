@@ -96,6 +96,13 @@ class AgnNotifier(TrayIcon):
             ip_address = ab.long2ip(int(attempt['VPNIPAddress']))
         self.m_item_conn_ip.set_label('IP: ' + ip_address)
 
+        script_path = self.config.get('scripts', str(new_state))
+        if self.last_state != new_state and len(script_path) > 0:
+            try:
+                Popen([script_path])
+            except OSError as err:
+                print script_path, err
+
         self.last_state = new_state
 
     def reconnect(self, force=False):
