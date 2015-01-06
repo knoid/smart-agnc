@@ -98,7 +98,7 @@ class AgnNotifier(TrayIcon):
 
         self.last_state = new_state
 
-    def reconnect(self):
+    def reconnect(self, force=False):
         """reconnect"""
         print "reconnect"
 
@@ -127,8 +127,15 @@ class AgnNotifier(TrayIcon):
 
                 cval = self.get_config_values()
                 if len(cval) == 3:
-                    if self.config.getboolean('vpn', 'keepalive'):
-                        self.vpn_connect(cval)
+
+                    if force or self.config.getboolean('vpn', 'keepalive'):
+                        self.vpn.action_connect(cval['account'],
+                                                cval['username'],
+                                                cval['password'])
+                    else:
+                        self.alert('VPN Disconnected')
+                        self.want_to = ab.STATE_NOT_CONNECTED
+
                 else:
                     self.alert('Complete credentials to connect')
                     self.do_configure()
@@ -210,7 +217,7 @@ class AgnNotifier(TrayIcon):
             self.vpn.action_disconnect()
         else:
             self.want_to = ab.STATE_CONNECTED
-            self.vpn_connect()
+            self.reconnect(True)
 
     def do_toggle_keepalive(self, win):
         """do_toggle_keepalive"""
@@ -231,16 +238,6 @@ class AgnNotifier(TrayIcon):
                 values[key] = user['sz' + key.title()]
 
         return values
-
-    def vpn_connect(self, cval=None):
-        """vpn_connect"""
-        if not cval:
-            cval = self.get_config_values()
-
-        if len(cval) == 3:
-            self.vpn.action_connect(cval['account'],
-                                    cval['username'],
-                                    cval['password'])
 
 if __name__ == "__main__":
 
