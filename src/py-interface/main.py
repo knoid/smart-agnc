@@ -22,7 +22,7 @@ class AgnNotifier(TrayIcon):
     want_to = ab.STATE_CONNECTED
 
     def __init__(self, user_config, vpn):
-        super(AgnNotifier, self).__init__("at&t-smart")
+        super(AgnNotifier, self).__init__('at&t-smart')
 
         pynotify.init('AgnNotifier')
 
