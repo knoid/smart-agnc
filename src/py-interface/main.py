@@ -222,6 +222,7 @@ class AgnNotifier(TrayIcon):
     def do_toggle_keepalive(self, win):
         """do_toggle_keepalive"""
         self.config.setboolean('vpn', 'keepalive', win.get_active())
+        self.config.write_to_disk()
 
     def get_config_values(self):
         """get_config_values"""
