@@ -39,7 +39,11 @@ class UserPreferences(object):
 
     def set(self, section, key, value):
         self._read_config()
-        return self.scp.set(section, key, value)
+        try:
+            return self.scp.set(section, key, value)
+        except ConfigParser.NoSectionError:
+            self.scp.add_section(section)
+            self.set(section, key, value)
 
     def setboolean(self, section, key, value):
         return self.set(section, key, 'on' if value else 'off')
@@ -47,7 +51,7 @@ class UserPreferences(object):
     def get(self, section, key, default=''):
         try:
             return self.scp.get(section, key)
-        except ConfigParser.NoOptionError:
+        except (ConfigParser.NoSectionError, ConfigParser.NoOptionError):
             if key in self.defaults:
                 return self.defaults[key]
             else:
@@ -56,5 +60,5 @@ class UserPreferences(object):
     def getboolean(self, section, key):
         try:
             return self.scp.getboolean(section, key)
-        except ConfigParser.NoOptionError:
+        except (ConfigParser.NoSectionError, ConfigParser.NoOptionError):
             return self.get(section, key, False)
