@@ -45,4 +45,4 @@ You can find every connection state in [agn_binder.py](src/py-interface/agn_bind
 
 ## Disclaimer
 
-I'm no C programmer, so collaborations will be greatly appreciated.
+I'm not a C programmer, so collaborations will be greatly appreciated.
