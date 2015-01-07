@@ -24,7 +24,7 @@ if HAS_APPINDICATOR:
             self.set_attention_icon('indicator-messages-new')
 
         def set_icon(self, state):
-            super(TrayIcon, self).set_icon(get_icon_path(state))
+            super(TrayIcon, self).set_icon(get_icon_path('indicator', state))
 
 else:
 
@@ -41,7 +41,7 @@ else:
 
         def set_icon(self, state):
             """set_icon"""
-            self.set_from_file(get_icon_path(state))
+            self.set_from_file(get_icon_path('statusicon', state))
 
         def set_menu(self, menu):
             """set_menu"""
@@ -56,8 +56,8 @@ else:
             return gtk.status_icon_position_menu(menu, self)
 
 DIR = os.path.dirname(__file__)
-def get_icon_path(state):
-    icon_path = '../../resources/smart-agnc-%s.svg' % state
+def get_icon_path(prefix, state):
+    icon_path = '../../resources/%s-%s.svg' % (prefix, state)
     return os.path.join(DIR, icon_path)
 
 def main():
