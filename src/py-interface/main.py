@@ -3,6 +3,8 @@
 # system imports
 import gobject
 import gtk
+import logging
+import optparse
 import pynotify
 from subprocess import Popen
 
@@ -12,6 +14,8 @@ from conn_info_win import ConnectionInformationWindow
 from settings_win import ConfigurationWindow
 from tray_icon import TrayIcon
 import agn_binder as ab
+
+logger = logging.getLogger(__name__)
 
 class AgnNotifier(TrayIcon):
     """AgnNotifier"""
@@ -249,6 +253,19 @@ class AgnNotifier(TrayIcon):
         return values
 
 if __name__ == "__main__":
+
+    optp = optparse.OptionParser()
+    optp.add_option('-v', '--verbose', dest='verbose', action='count',
+                    help=_("Increase verbosity (specify multiple times for more)"))
+    opts, args = optp.parse_args()
+
+    log_level = logging.WARNING # default
+    if opts.verbose == 1:
+        log_level = logging.INFO
+    elif opts.verbose >= 2:
+        log_level = logging.DEBUG
+
+    logging.basicConfig(level=log_level)
 
     CONFIG = UserPreferences({'keepalive': True})
     AGN_BINDER = ab.AgnBinder()

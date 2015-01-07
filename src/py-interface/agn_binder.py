@@ -3,6 +3,7 @@
 import atexit
 import fcntl
 import gobject
+import logging
 import os
 import socket
 import struct
@@ -22,6 +23,8 @@ STATE_DISCONNECTING = 500
 STATE_AFTER_CONNECT = 600
 
 SERVICE_MANAGER_ADDRESS = '204.146.172.230' # AT&T Production RIG
+
+logger = logging.getLogger(__name__)
 
 class AgnBinder(gobject.GObject):
     """
@@ -61,7 +64,7 @@ class AgnBinder(gobject.GObject):
         out = __get_line__(stdout)
         if out == '':
             return False
-        print 'vpn >', out
+        logger.debug('vpn > %s', out)
         self.__process_line__(out)
         return True
 
@@ -71,12 +74,13 @@ class AgnBinder(gobject.GObject):
             try:
                 return __get_line__(self.proc.stdout)
             except IOError as err:
-                print err
                 tries -= 1
                 if tries > 0:
+                    logger.debug(err)
                     time.sleep(0.1)
                     continue
                 else:
+                    logger.warning(err)
                     self.setup_process()
                     raise
 
@@ -84,7 +88,7 @@ class AgnBinder(gobject.GObject):
         lines = []
         while True:
             line = self.__next_line__()
-            print 'vpn >', line
+            logger.debug('vpn > %s', line)
             if line == 'EOF':
                 return lines
             else:
@@ -92,7 +96,7 @@ class AgnBinder(gobject.GObject):
 
     def __wait__(self, type_change=None):
         line = self.__next_line__()
-        print 'vpn >', line
+        logger.debug('vpn > %s', line)
         self.__process_line__(line)
         if line.startswith(type_change):
             return
@@ -118,14 +122,15 @@ class AgnBinder(gobject.GObject):
         if not args:
             args = []
 
-        stdin = '\n'.join([str(num) + ' ' + str(len(args))] + args) + '\n'
-        print 'vpn <', stdin,
-        self.proc.stdin.write(stdin)
+        stdin = '\n'.join([str(num) + ' ' + str(len(args))] + args)
+        logger.debug('vpn < %s', stdin)
+        self.proc.stdin.write(stdin + '\n')
 
     def exit(self):
         """
         Exit subprocess.
         """
+        logger.info('exit')
         self.__send__(0)
 
     def action_connect(self, account, username, password, new_password='',
@@ -134,6 +139,8 @@ class AgnBinder(gobject.GObject):
         Issues a connect action to AGNC's daemon with the provided account,
         username and password against AT&T's production servers.
         """
+        logger.info('action_connect')
+
         args = [account, username, password, new_password,
                 SERVICE_MANAGER_ADDRESS]
         if proxy:
@@ -145,6 +152,7 @@ class AgnBinder(gobject.GObject):
         """
         Issues a disconnect action to the daemon.
         """
+        logger.info('action_disconnect')
         self.__send__(2)
         self.__wait__('state_change')
 
@@ -152,6 +160,7 @@ class AgnBinder(gobject.GObject):
         """
         Returns a dictionary with AGNC's connect attempt information.
         """
+        logger.info('get_connect_attempt_info')
         self.__send__(3)
         try:
             return self.__get_object_response__()
@@ -162,6 +171,7 @@ class AgnBinder(gobject.GObject):
         """
         Returns an int with AGNC's current state
         """
+        logger.info('get_state')
         self.__send__(4)
         try:
             return int(self.__get_lines__()[0])
@@ -172,6 +182,7 @@ class AgnBinder(gobject.GObject):
         """
         Returns a dictionary with AGNC's user information.
         """
+        logger.info('get_user_info')
         self.__send__(5)
         try:
             return self.__get_object_response__()
