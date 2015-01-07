@@ -1,10 +1,12 @@
 """main.py"""
 
 # system imports
+import gettext
 import gobject
 import gtk
 import logging
 import optparse
+import os
 import pynotify
 from subprocess import Popen
 
@@ -14,6 +16,8 @@ from conn_info_win import ConnectionInformationWindow
 from settings_win import ConfigurationWindow
 from tray_icon import TrayIcon
 import agn_binder as ab
+
+__title__ = 'smart-agnc'
 
 logger = logging.getLogger(__name__)
 
@@ -52,9 +56,9 @@ class AgnNotifier(TrayIcon):
         """alert"""
         notice = pynotify.Notification(self.title, msg)
         notice.show()
-        print 'Alert:', msg
+        logger.warning('Alert: %s', msg)
 
-    def on_vpn_state_change(self, _, new_state):
+    def on_vpn_state_change(self, vpn, new_state):
         """on_vpn_state_change"""
 
         # ignoring higher states than STATE_CONNECTED we can be sure that 'the
@@ -69,20 +73,20 @@ class AgnNotifier(TrayIcon):
 
         attempt = self.vpn.get_connect_attempt_info()
 
-        toggle_btn_text = 'Connect'
+        toggle_btn_text = _('Connect')
         if self.want_to == ab.STATE_CONNECTED:
-            toggle_btn_text = 'Disconnect'
+            toggle_btn_text = _('Disconnect')
         self.m_item_conn_toggle.set_label(toggle_btn_text)
 
         # TODO: Find out `password change required` status code
         if 'SMX 0xXX' in attempt['szStatusText']:
             self.want_to = ab.STATE_NOT_CONNECTED
-            self.alert('It is time to change your password!')
+            self.alert(_('It is time to change your password!'))
             self.new_password_win.request_new_password()
 
         elif 'SMX 0x08' in attempt['szStatusText']:
             self.want_to = ab.STATE_NOT_CONNECTED
-            self.alert('Invalid credentials')
+            self.alert(_('Invalid credentials'))
             self.do_configure()
 
         elif 'SMX 0x00' in attempt['szStatusText']:
@@ -91,7 +95,7 @@ class AgnNotifier(TrayIcon):
 
         elif 'SMX 0x' in attempt['szStatusText']:
             self.want_to = ab.STATE_NOT_CONNECTED
-            self.alert('Unknown error!\n' + attempt['szStatusText'])
+            self.alert(_('Unknown error!') + '\n' + attempt['szStatusText'])
             self.do_configure()
 
         self.m_item_conn_status.set_label(attempt['szStatusText'])
@@ -99,7 +103,7 @@ class AgnNotifier(TrayIcon):
         ip_address = 'None'
         if new_state > ab.STATE_VPN_CONNECTING:
             ip_address = ab.long2ip(int(attempt['VPNIPAddress']))
-        self.m_item_conn_ip.set_label('IP: ' + ip_address)
+        self.m_item_conn_ip.set_label(_('IP: %s') % ip_address)
 
         script_path = self.config.get('scripts', str(new_state))
         if self.last_state != new_state and len(script_path) > 0:
@@ -112,7 +116,7 @@ class AgnNotifier(TrayIcon):
 
     def reconnect(self, force=False):
         """reconnect"""
-        print "reconnect"
+        logger.info(_('Connection status check'))
 
         state = self.last_state
         if state == ab.STATE_UNKNOWN:
@@ -177,7 +181,7 @@ class AgnNotifier(TrayIcon):
         menu.append(m_item)
 
         # Auto reconnect checkbox
-        m_item = gtk.CheckMenuItem("Keep alive")
+        m_item = gtk.CheckMenuItem(_("Keep alive"))
         m_item.set_active(self.config.getboolean('vpn', 'keepalive'))
         m_item.connect("activate", self.do_toggle_keepalive)
         menu.append(m_item)
@@ -187,34 +191,34 @@ class AgnNotifier(TrayIcon):
         menu.append(m_item)
 
         # Configuration menu item
-        m_item = gtk.MenuItem("VPN Connection Information")
+        m_item = gtk.MenuItem(_("VPN Connection Information"))
         m_item.connect("activate", self.do_conn_info)
         menu.append(m_item)
 
         # Configuration menu item
-        m_item = gtk.MenuItem("Edit Account settings...")
+        m_item = gtk.MenuItem(_("Edit Account settings..."))
         m_item.connect("activate", self.do_configure)
         menu.append(m_item)
 
         menu.show_all()
         return menu
 
-    def do_configure(self, _=None):
+    def do_configure(self, m_item=None):
         """do_configure"""
         self.config_win.present()
 
-    def do_conn_info(self, _=None):
+    def do_conn_info(self, m_item=None):
         """do_conn_info"""
-        self.conn_info_win.set_text('Refreshing...')
+        self.conn_info_win.set_text(_('Refreshing...'))
         self.conn_info_win.show_all()
         self.conn_info_win.present()
 
         attempt = self.vpn.get_connect_attempt_info()
         self.conn_info_win.set_dict(attempt)
 
-    def do_save(self, _, account, username, password):
+    def do_save(self, config_win, account, username, password):
         """do_save"""
-        self.config_win.hide()
+        config_win.hide()
         self.config.set('vpn', 'account', account)
         self.config.set('vpn', 'username', username)
         self.config.set('vpn', 'password', password)
@@ -222,7 +226,7 @@ class AgnNotifier(TrayIcon):
         self.want_to = ab.STATE_CONNECTED
         self.reconnect()
 
-    def do_toggle_connection(self, _):
+    def do_toggle_connection(self, m_item=None):
         """do_toggle_connection"""
         if self.want_to == ab.STATE_CONNECTED:
             self.want_to = ab.STATE_NOT_CONNECTED
@@ -231,9 +235,9 @@ class AgnNotifier(TrayIcon):
             self.want_to = ab.STATE_CONNECTED
             self.reconnect(True)
 
-    def do_toggle_keepalive(self, win):
+    def do_toggle_keepalive(self, m_item):
         """do_toggle_keepalive"""
-        self.config.setboolean('vpn', 'keepalive', win.get_active())
+        self.config.setboolean('vpn', 'keepalive', m_item.get_active())
         self.config.write_to_disk()
 
     def get_config_values(self):
@@ -253,6 +257,10 @@ class AgnNotifier(TrayIcon):
         return values
 
 if __name__ == "__main__":
+
+    __DIR__ = os.path.dirname(__file__)
+    i18n_dir = os.path.join(__DIR__, '../../resources/i18n')
+    gettext.install(__title__, i18n_dir)
 
     optp = optparse.OptionParser()
     optp.add_option('-v', '--verbose', dest='verbose', action='count',

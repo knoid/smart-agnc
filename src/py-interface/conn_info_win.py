@@ -14,7 +14,7 @@ class ConnectionInformationWindow(_Window):
         super(ConnectionInformationWindow, self).__init__()
 
         self.set_size_request(400, 400)
-        self.set_title('Connection Information')
+        self.set_title(_('Connection Information'))
 
         self.text_info = text_info = gtk.TextView()
         text_info.set_editable(False)

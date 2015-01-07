@@ -13,19 +13,19 @@ class ConfigurationWindow(_WindowForm):
         super(ConfigurationWindow, self).__init__()
 
         self.set_resizable(False)
-        self.set_title('Configuration')
+        self.set_title(_('Configuration'))
 
-        self._make_label('Account', 0, 0)
+        self._make_label(_('Account'), 0, 0)
         self.txt_account = self._make_entry(1, 0)
 
-        self._make_label('Username', 0, 1)
+        self._make_label(_('Username'), 0, 1)
         self.txt_username = self._make_entry(1, 1)
 
-        self._make_label('Password', 0, 2)
+        self._make_label(_('Password'), 0, 2)
         self.txt_password = self._make_entry(1, 2)
         self.txt_password.set_visibility(False)
 
-        check_button = gtk.CheckButton('Show password')
+        check_button = gtk.CheckButton(_('Show password'))
         self._attach(check_button, 2, 2)
         check_button.connect('toggled', self.on_password_visiblity)
 

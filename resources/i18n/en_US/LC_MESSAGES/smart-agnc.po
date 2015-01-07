@@ -1,0 +1,89 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: smart-agnc\n"
+"POT-Creation-Date: 2015-01-07 10:52-0300\n"
+"PO-Revision-Date: 2015-01-07 10:52-0300\n"
+"Last-Translator: Ariel Barabas <smart-agnc@knoid.me>\n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ../../../../src/py-interface\n"
+
+#: ../../../../src/py-interface/settings_win.py:16
+msgid "Configuration"
+msgstr "Configuration"
+
+#: ../../../../src/py-interface/settings_win.py:18
+msgid "Account"
+msgstr "Account"
+
+#: ../../../../src/py-interface/settings_win.py:21
+msgid "Username"
+msgstr "Username"
+
+#: ../../../../src/py-interface/settings_win.py:24
+msgid "Password"
+msgstr "Password"
+
+#: ../../../../src/py-interface/settings_win.py:28
+msgid "Show password"
+msgstr "Show password"
+
+#: ../../../../src/py-interface/conn_info_win.py:17
+msgid "Connection Information"
+msgstr "Connection Information"
+
+#: ../../../../src/py-interface/main.py:84
+msgid "Connect"
+msgstr "Connect"
+
+#: ../../../../src/py-interface/main.py:86
+msgid "Disconnect"
+msgstr "Disconnect"
+
+#: ../../../../src/py-interface/main.py:92
+msgid "It is time to change your password!"
+msgstr "It is time to change your password!"
+
+#: ../../../../src/py-interface/main.py:97
+msgid "Invalid credentials"
+msgstr "Invalid credentials"
+
+#: ../../../../src/py-interface/main.py:106
+msgid "Unknown error!"
+msgstr "Unknown error!"
+
+#: ../../../../src/py-interface/main.py:114
+#, python-format
+msgid "IP: %s"
+msgstr "IP: %s"
+
+#: ../../../../src/py-interface/main.py:127
+msgid "Connection status check"
+msgstr "Connection status check"
+
+#: ../../../../src/py-interface/main.py:197
+msgid "Keep alive"
+msgstr "Keep alive"
+
+#: ../../../../src/py-interface/main.py:207
+msgid "VPN Connection Information"
+msgstr "VPN Connection Information"
+
+#: ../../../../src/py-interface/main.py:212
+msgid "Edit Account settings..."
+msgstr "Edit Account settings..."
+
+#: ../../../../src/py-interface/main.py:225
+msgid "Refreshing..."
+msgstr "Refreshing..."
+
+#: ../../../../src/py-interface/main.py:280
+msgid "Increase verbosity (specify multiple times for more)"
+msgstr "Increase verbosity (specify multiple times for more)"
