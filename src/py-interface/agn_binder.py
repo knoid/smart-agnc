@@ -1,13 +1,13 @@
 """agn_binder.py"""
 
 import atexit
+import fcntl
 import gobject
 import os
-import fcntl
 import socket
 import struct
-import time
 from subprocess import Popen, PIPE
+import time
 
 STATE_UNKNOWN = 0
 STATE_UNCHANGED = 1
