@@ -57,7 +57,7 @@ else:
 
 DIR = os.path.dirname(__file__)
 def get_icon_path(prefix, state):
-    icon_path = '../../resources/%s-%s.svg' % (prefix, state)
+    icon_path = '../../resources/icons/%s-%s.svg' % (prefix, state)
     return os.path.join(DIR, icon_path)
 
 def main():
