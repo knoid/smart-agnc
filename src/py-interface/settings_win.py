@@ -4,30 +4,25 @@
 import gobject
 import gtk
 
-from _window import _Window
+from _window_form import _WindowForm
 
-class ConfigurationWindow(_Window):
+class ConfigurationWindow(_WindowForm):
     """ConfigurationWindow"""
 
     def __init__(self, values=False):
         super(ConfigurationWindow, self).__init__()
 
         self.set_resizable(False)
-        self.set_size_request(400, 200)
         self.set_title('Configuration')
 
-        self.table = table = gtk.Table(rows=4, columns=3)
-        table.set_col_spacings(10)
-        table.set_row_spacings(10)
+        self._make_label('Account', 0, 0)
+        self.txt_account = self._make_entry(1, 0)
 
-        self.__make_label__('Account', 0, 0)
-        self.txt_account = self.__make_entry__(1, 0)
+        self._make_label('Username', 0, 1)
+        self.txt_username = self._make_entry(1, 1)
 
-        self.__make_label__('Username', 0, 1)
-        self.txt_username = self.__make_entry__(1, 1)
-
-        self.__make_label__('Password', 0, 2)
-        self.txt_password = self.__make_entry__(1, 2)
+        self._make_label('Password', 0, 2)
+        self.txt_password = self._make_entry(1, 2)
         self.txt_password.set_visibility(False)
 
         check_button = gtk.CheckButton('Show password')
@@ -39,8 +34,7 @@ class ConfigurationWindow(_Window):
         close_save.connect('clicked', self.do_btn_save)
         self._attach(close_save, 1, 3)
 
-        self.add(table)
-        table.show_all()
+        self.table.show_all()
         self.connect('form_submit', self.__on_submit__)
         if values:
             self.set_values(values)
@@ -55,21 +49,6 @@ class ConfigurationWindow(_Window):
         for key, entry in value_mapper.iteritems():
             if key in values:
                 entry.set_text(values[key])
-
-    def _attach(self, widget, left, top):
-        """_attach"""
-        self.table.attach(widget, left, left + 1, top, top + 1, 0, 0, 0, 0)
-
-    def __make_entry__(self, left, top):
-        entry = gtk.Entry()
-        entry.set_max_length(80)
-        entry.set_width_chars(20)
-        self._attach(entry, left, top)
-        return entry
-
-    def __make_label__(self, txt, left, top):
-        label = gtk.Label(txt)
-        self._attach(label, left, top)
 
     def do_btn_save(self, _):
         """do_btn_save"""
