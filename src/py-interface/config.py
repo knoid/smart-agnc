@@ -9,7 +9,7 @@ class UserPreferences(object):
     to read and write without throwing exceptions.
     """
 
-    _modification_time = 0
+    _modification_time = -1
     scp = None
 
     def __init__(self, defaults=None, filepath='~/.smart-agnc'):
@@ -22,16 +22,13 @@ class UserPreferences(object):
         try:
             new_modification_time = os.path.getmtime(self.filepath)
         except os.error:
-            new_modification_time = 0
+            new_modification_time = 0 # force ConfigParser setup
 
         if new_modification_time > self._modification_time:
             self._modification_time = new_modification_time
 
             self.scp = ConfigParser.SafeConfigParser()
-            try:
-                self.scp.read(self.filepath)
-            except ConfigParser.ParsingError as err:
-                print err
+            self.scp.read(self.filepath)
 
     def write_to_disk(self):
         with open(self.filepath, 'wb') as fileh:
