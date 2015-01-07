@@ -269,10 +269,10 @@ class AgnNotifier(TrayIcon):
 
         return values
 
-printables = ''.join([unichr(x) for x in (range(0,32) + range(127,160))])
-printables_re = re.compile('[%s]' % re.escape(printables))
+non_printables = ''.join([unichr(x) for x in (range(0,32) + range(127,160))])
+non_printables_re = re.compile('[%s]' % re.escape(non_printables))
 def is_printable(string):
-    return printables_re.search(string)
+    return non_printables_re.search(string) == None
 
 if __name__ == "__main__":
 
