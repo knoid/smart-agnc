@@ -1,3 +1,10 @@
+## v0.0.3 (2015-01-07)
+
+ * Formatted values inside the "VPN Connection Information" window
+ * Shows VPN's assigned IP inside popup menu
+ * Configuration file supports external edits
+ * Ability to execute external scripts on certain conditions
+
 ## v0.0.2 (2015-01-06)
 
  * Added a tray icon!
