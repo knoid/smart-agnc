@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: smart-agnc\n"
-"POT-Creation-Date: 2015-01-07 13:00-0300\n"
-"PO-Revision-Date: 2015-01-07 13:01-0300\n"
+"POT-Creation-Date: 2015-01-07 16:28-0300\n"
+"PO-Revision-Date: 2015-01-07 16:29-0300\n"
 "Last-Translator: Ariel Barabas <smart-agnc@knoid.me>\n"
 "Language-Team: \n"
 "Language: es_AR\n"
@@ -11,83 +11,87 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop\n"
-"X-Poedit-Basepath: .\n"
+"X-Poedit-Basepath: ../../../..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: ../../../../src/py-interface\n"
+"X-Poedit-SearchPath-0: src/py-interface\n"
 
-#: ../../../../src/py-interface/settings_win.py:16
+#: src/py-interface/settings_win.py:16
 msgid "Configuration"
 msgstr "Configuración"
 
-#: ../../../../src/py-interface/settings_win.py:18
+#: src/py-interface/settings_win.py:18
 msgid "Account"
 msgstr "Cuenta"
 
-#: ../../../../src/py-interface/settings_win.py:21
+#: src/py-interface/settings_win.py:21
 msgid "Username"
 msgstr "Usuario"
 
-#: ../../../../src/py-interface/settings_win.py:24
+#: src/py-interface/settings_win.py:24
 msgid "Password"
 msgstr "Contraseña"
 
-#: ../../../../src/py-interface/settings_win.py:28
+#: src/py-interface/settings_win.py:28
 msgid "Show password"
 msgstr "Mostrar contraseña"
 
-#: ../../../../src/py-interface/conn_info_win.py:17
+#: src/py-interface/conn_info_win.py:17
 msgid "Connection Information"
 msgstr "Información de Conexión"
 
-#: ../../../../src/py-interface/main.py:80
+#: src/py-interface/main.py:82
 msgid "Connect"
 msgstr "Conectar"
 
-#: ../../../../src/py-interface/main.py:82
+#: src/py-interface/main.py:84
 msgid "Disconnect"
 msgstr "Desconectar"
 
-#: ../../../../src/py-interface/main.py:88
+#: src/py-interface/main.py:90
 msgid "It is time to change your password!"
 msgstr "Es tiempo de cambiar tu contraseña!"
 
-#: ../../../../src/py-interface/main.py:93
+#: src/py-interface/main.py:95
 msgid "Invalid credentials"
 msgstr "Credenciales inválidas"
 
-#: ../../../../src/py-interface/main.py:102
+#: src/py-interface/main.py:104
 msgid "Unknown error!"
 msgstr "Error desconocido!"
 
-#: ../../../../src/py-interface/main.py:107
+#: src/py-interface/main.py:109
 msgid "None"
 msgstr "Ninguna"
 
-#: ../../../../src/py-interface/main.py:110
+#: src/py-interface/main.py:112
 #, python-format
 msgid "IP: %s"
 msgstr "IP: %s"
 
-#: ../../../../src/py-interface/main.py:123
+#: src/py-interface/main.py:125
 msgid "Connection status check"
 msgstr "Verificando estado de conexión"
 
-#: ../../../../src/py-interface/main.py:193
+#: src/py-interface/main.py:195
 msgid "Keep alive"
 msgstr "Mantener activo"
 
-#: ../../../../src/py-interface/main.py:203
+#: src/py-interface/main.py:205
 msgid "VPN Connection Information"
 msgstr "Información de Conexión de VPN"
 
-#: ../../../../src/py-interface/main.py:208
+#: src/py-interface/main.py:210
 msgid "Edit Account settings..."
 msgstr "Editar configuración de Cuenta"
 
-#: ../../../../src/py-interface/main.py:221
+#: src/py-interface/main.py:223
 msgid "Refreshing..."
 msgstr "Actualizando..."
 
-#: ../../../../src/py-interface/main.py:276
+#: src/py-interface/main.py:272
+msgid "Password was not encoded in config file."
+msgstr "La contraseña no estaba codificada en el archivo de configuración."
+
+#: src/py-interface/main.py:294
 msgid "Increase verbosity (specify multiple times for more)"
 msgstr "Aumentar verbosidad (indique varias veces para aumentar)"

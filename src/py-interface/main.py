@@ -1,6 +1,7 @@
 """main.py"""
 
 # system imports
+import base64
 import gettext
 import gobject
 import gtk
@@ -8,6 +9,7 @@ import logging
 import optparse
 import os
 import pynotify
+import re
 from subprocess import Popen
 
 # local imports
@@ -221,7 +223,7 @@ class AgnNotifier(TrayIcon):
         config_win.hide()
         self.config.set('vpn', 'account', account)
         self.config.set('vpn', 'username', username)
-        self.config.set('vpn', 'password', password)
+        self.config.set('vpn', 'password', base64.b64encode(password))
         self.config.write_to_disk()
         self.want_to = ab.STATE_CONNECTED
         self.reconnect()
@@ -249,12 +251,28 @@ class AgnNotifier(TrayIcon):
             if len(val) > 0:
                 values[key] = val
 
+        if 'password' in values:
+            try:
+                decoded_password = base64.b64decode(values['password'])
+            except TypeError:
+                decoded_password = ''
+            if len(decoded_password) > 0 and is_printable(decoded_password):
+                # password was base64 encoded
+                values['password'] = decoded_password
+            else:
+                logger.warning(_('Password was not encoded in config file.'))
+
         if len(values) == 0:
             user = self.vpn.get_user_info()
             for key in keys:
                 values[key] = user['sz' + key.title()]
 
         return values
+
+printables = ''.join([unichr(x) for x in (range(0,32) + range(127,160))])
+printables_re = re.compile('[%s]' % re.escape(printables))
+def is_printable(string):
+    return printables_re.search(string)
 
 if __name__ == "__main__":
 
