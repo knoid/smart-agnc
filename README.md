@@ -19,7 +19,7 @@ only need to compile C programs.
 ## Installation
 
  1. Extract into any folder.
- 2. Go to `src` folder and compile with `make`.
+ 2. Go to the extracted folder and compile with `make`.
  3. Execute `run.sh`.
  4. (optional) Add `run.sh` to the "Startup Applications" list.
 
