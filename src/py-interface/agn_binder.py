@@ -163,14 +163,20 @@ class AgnBinder(gobject.GObject):
         Returns an int with AGNC's current state
         """
         self.__send__(4)
-        return int(self.__get_lines__()[0])
+        try:
+            return int(self.__get_lines__()[0])
+        except IOError:
+            return self.get_state()
 
     def get_user_info(self):
         """
         Returns a dictionary with AGNC's user information.
         """
         self.__send__(5)
-        return self.__get_object_response__()
+        try:
+            return self.__get_object_response__()
+        except IOError:
+            return self.get_user_info()
 
 
 def long2ip(long_ip):
