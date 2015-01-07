@@ -100,7 +100,7 @@ class AgnNotifier(TrayIcon):
 
         self.m_item_conn_status.set_label(attempt['szStatusText'])
 
-        ip_address = 'None'
+        ip_address = _('None')
         if new_state > ab.STATE_VPN_CONNECTING:
             ip_address = ab.long2ip(int(attempt['VPNIPAddress']))
         self.m_item_conn_ip.set_label(_('IP: %s') % ip_address)

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: smart-agnc\n"
-"POT-Creation-Date: 2015-01-07 10:52-0300\n"
-"PO-Revision-Date: 2015-01-07 10:52-0300\n"
+"POT-Creation-Date: 2015-01-07 13:00-0300\n"
+"PO-Revision-Date: 2015-01-07 13:01-0300\n"
 "Last-Translator: Ariel Barabas <smart-agnc@knoid.me>\n"
 "Language-Team: \n"
 "Language: es_AR\n"
@@ -39,51 +39,55 @@ msgstr "Mostrar contraseña"
 msgid "Connection Information"
 msgstr "Información de Conexión"
 
-#: ../../../../src/py-interface/main.py:84
+#: ../../../../src/py-interface/main.py:80
 msgid "Connect"
 msgstr "Conectar"
 
-#: ../../../../src/py-interface/main.py:86
+#: ../../../../src/py-interface/main.py:82
 msgid "Disconnect"
 msgstr "Desconectar"
 
-#: ../../../../src/py-interface/main.py:92
+#: ../../../../src/py-interface/main.py:88
 msgid "It is time to change your password!"
 msgstr "Es tiempo de cambiar tu contraseña!"
 
-#: ../../../../src/py-interface/main.py:97
+#: ../../../../src/py-interface/main.py:93
 msgid "Invalid credentials"
 msgstr "Credenciales inválidas"
 
-#: ../../../../src/py-interface/main.py:106
+#: ../../../../src/py-interface/main.py:102
 msgid "Unknown error!"
 msgstr "Error desconocido!"
 
-#: ../../../../src/py-interface/main.py:114
+#: ../../../../src/py-interface/main.py:107
+msgid "None"
+msgstr "Ninguna"
+
+#: ../../../../src/py-interface/main.py:110
 #, python-format
 msgid "IP: %s"
 msgstr "IP: %s"
 
-#: ../../../../src/py-interface/main.py:127
+#: ../../../../src/py-interface/main.py:123
 msgid "Connection status check"
 msgstr "Verificando estado de conexión"
 
-#: ../../../../src/py-interface/main.py:197
+#: ../../../../src/py-interface/main.py:193
 msgid "Keep alive"
 msgstr "Mantener activo"
 
-#: ../../../../src/py-interface/main.py:207
+#: ../../../../src/py-interface/main.py:203
 msgid "VPN Connection Information"
 msgstr "Información de Conexión de VPN"
 
-#: ../../../../src/py-interface/main.py:212
+#: ../../../../src/py-interface/main.py:208
 msgid "Edit Account settings..."
 msgstr "Editar configuración de Cuenta"
 
-#: ../../../../src/py-interface/main.py:225
+#: ../../../../src/py-interface/main.py:221
 msgid "Refreshing..."
 msgstr "Actualizando..."
 
-#: ../../../../src/py-interface/main.py:280
+#: ../../../../src/py-interface/main.py:276
 msgid "Increase verbosity (specify multiple times for more)"
 msgstr "Aumentar verbosidad (indique varias veces para aumentar)"
