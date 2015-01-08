@@ -1,3 +1,10 @@
+## v0.0.4 (2015-01-08)
+
+ * Different icons for different color schemes
+ * Using python's own logging class
+ * Translation into es_AR now available
+ * Encoding password in configuration file
+
 ## v0.0.3 (2015-01-07)
 
  * Formatted values inside the "VPN Connection Information" window
