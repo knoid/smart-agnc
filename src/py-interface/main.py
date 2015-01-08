@@ -1,4 +1,7 @@
-"""main.py"""
+"""
+This app will create a seamless VPN connection between you and your enterprise
+by adding a tray icon and keeping you connected whenever possible.
+"""
 
 # system imports
 import base64
