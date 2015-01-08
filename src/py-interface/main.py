@@ -212,7 +212,7 @@ class AgnNotifier(TrayIcon):
         for key in keys:
             values[key] = self.config.get('vpn', key)
 
-        if 'password' in values:
+        if len(values['password']) > 0:
             try:
                 decoded_password = base64.b64decode(values['password'])
             except TypeError:
