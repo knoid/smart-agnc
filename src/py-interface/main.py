@@ -247,9 +247,7 @@ class AgnNotifier(TrayIcon):
         keys = ['account', 'username', 'password']
         values = {}
         for key in keys:
-            val = self.config.get('vpn', key)
-            if len(val) > 0:
-                values[key] = val
+            values[key] = self.config.get('vpn', key)
 
         if 'password' in values:
             try:
@@ -267,7 +265,8 @@ class AgnNotifier(TrayIcon):
             for key in keys:
                 values[key] = user['sz' + key.title()]
 
-        return values
+        # do not return empty values
+        return dict((key, val) for key, val in values.items() if len(val) > 0)
 
 non_printables = ''.join([unichr(x) for x in (range(0,32) + range(127,160))])
 non_printables_re = re.compile('[%s]' % re.escape(non_printables))
