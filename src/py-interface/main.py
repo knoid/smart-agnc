@@ -15,6 +15,7 @@ from subprocess import Popen
 # local imports
 from config import UserPreferences
 from conn_info_win import ConnectionInformationWindow
+import menu
 from settings_win import ConfigurationWindow
 from tray_icon import TrayIcon
 import agn_binder as ab
@@ -44,13 +45,15 @@ class AgnNotifier(TrayIcon):
         self.config_win = ConfigurationWindow(self.get_config_values())
         self.config_win.connect('save', self.do_save)
 
-        self.m_item_conn_status = gtk.MenuItem()
-        self.m_item_conn_ip = gtk.MenuItem()
-        self.m_item_conn_toggle = gtk.MenuItem()
         self.on_vpn_state_change(None, vpn.get_state())
 
         self.conn_info_win = ConnectionInformationWindow()
-        self.set_menu(self.create_menu())
+        self.set_menu(menu.create(
+                conn_toggle=self.do_toggle_connection,
+                keepalive_init_state=self.config.getboolean('vpn', 'keepalive'),
+                keepalive_toggle=self.do_toggle_keepalive,
+                conn_info=self.do_conn_info,
+                configure=self.do_configure))
 
         gobject.timeout_add(self.reconnect_interval * 1000, self.reconnect)
 
@@ -78,7 +81,7 @@ class AgnNotifier(TrayIcon):
         toggle_btn_text = _('Connect')
         if self.want_to == ab.STATE_CONNECTED:
             toggle_btn_text = _('Disconnect')
-        self.m_item_conn_toggle.set_label(toggle_btn_text)
+        menu.item_conn_toggle.set_label(toggle_btn_text)
 
         # TODO: Find out `password change required` status code
         if 'SMX 0xXX' in attempt['szStatusText']:
@@ -100,12 +103,12 @@ class AgnNotifier(TrayIcon):
             self.alert(_('Unknown error!') + '\n' + attempt['szStatusText'])
             self.do_configure()
 
-        self.m_item_conn_status.set_label(attempt['szStatusText'])
+        menu.item_conn_status.set_label(attempt['szStatusText'])
 
         ip_address = _('None')
         if new_state > ab.STATE_VPN_CONNECTING:
             ip_address = ab.long2ip(int(attempt['VPNIPAddress']))
-        self.m_item_conn_ip.set_label(_('IP: %s') % ip_address)
+        menu.item_conn_ip.set_label(_('IP: %s') % ip_address)
 
         script_path = self.config.get('scripts', str(new_state))
         if self.last_state != new_state and len(script_path) > 0:
@@ -161,49 +164,6 @@ class AgnNotifier(TrayIcon):
 
         return True # prevent the timeout from expiring
 
-    def create_menu(self):
-        """create_menu"""
-        menu = gtk.Menu()
-
-        m_item = self.m_item_conn_status
-        m_item.set_sensitive(False)
-        menu.append(m_item)
-
-        m_item = self.m_item_conn_ip
-        m_item.set_sensitive(False)
-        menu.append(m_item)
-
-        # Separator
-        m_item = gtk.SeparatorMenuItem()
-        menu.append(m_item)
-
-        # Auto reconnect checkbox
-        m_item = self.m_item_conn_toggle
-        m_item.connect("activate", self.do_toggle_connection)
-        menu.append(m_item)
-
-        # Auto reconnect checkbox
-        m_item = gtk.CheckMenuItem(_("Keep alive"))
-        m_item.set_active(self.config.getboolean('vpn', 'keepalive'))
-        m_item.connect("activate", self.do_toggle_keepalive)
-        menu.append(m_item)
-
-        # Separator
-        m_item = gtk.SeparatorMenuItem()
-        menu.append(m_item)
-
-        # Configuration menu item
-        m_item = gtk.MenuItem(_("VPN Connection Information"))
-        m_item.connect("activate", self.do_conn_info)
-        menu.append(m_item)
-
-        # Configuration menu item
-        m_item = gtk.MenuItem(_("Edit Account settings..."))
-        m_item.connect("activate", self.do_configure)
-        menu.append(m_item)
-
-        menu.show_all()
-        return menu
 
     def do_configure(self, m_item=None):
         """do_configure"""
