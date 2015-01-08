@@ -10,7 +10,7 @@ only need to compile C programs.
 
 ### In Ubuntu
 
-    sudo apt-get install build-essential
+    sudo apt-get install build-essential libc6-dev-x32
 
 ### In RedHat
 
