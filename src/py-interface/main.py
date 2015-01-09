@@ -13,7 +13,7 @@ import optparse
 import os
 import pynotify
 import re
-from subprocess import Popen
+from subprocess import Popen, PIPE
 
 # local imports
 from config import UserPreferences
@@ -64,7 +64,7 @@ class AgnNotifier(TrayIcon):
         """alert"""
         notice = pynotify.Notification(self.title, msg)
         notice.show()
-        logger.warning('Alert: %s', msg)
+        logger.warning('Alert: %s', msg.replace('\n', ' \\n '))
 
     def on_vpn_state_change(self, vpn, new_state):
         """on_vpn_state_change"""
@@ -114,11 +114,17 @@ class AgnNotifier(TrayIcon):
         menu.item_conn_ip.set_label(_('IP: %s') % ip_address)
 
         script_path = self.config.get('scripts', str(new_state))
-        if self.last_state != new_state and len(script_path) > 0:
+        if len(script_path) > 0:
+            output = [script_path]
             try:
-                Popen([script_path])
+                proc = Popen(script_path.split(' '),
+                             stdout=PIPE, stderr=PIPE, close_fds=True)
             except OSError as err:
-                print script_path, err
+                output.append(err)
+            stdout, stderr = proc.communicate()
+            output += [s.rstrip() for s in [stdout, stderr] if s]
+            if len(output) > 1:
+                self.alert('\n'.join(output))
 
         self.last_state = new_state
 
