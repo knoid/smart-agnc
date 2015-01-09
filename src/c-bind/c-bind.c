@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
         poll_ret = poll(&fd, 1, 500);
 
         // read input
-        if (poll_ret > 0 && (fd.revents & POLLIN != 0)) {
+        if (poll_ret > 0) {
             line = NULL;
             bytes_read = getline(&line, &nbytes, stdin);
             if (bytes_read > 3) { // number + space + number + line break = 4
