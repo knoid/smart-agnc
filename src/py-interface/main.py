@@ -66,8 +66,24 @@ class AgnNotifier(TrayIcon):
         notice.show()
         logger.warning('Alert: %s', msg.replace('\n', ' \\n '))
 
+    def trigger_external_script(self, state):
+        script_path = self.config.get('scripts', str(state))
+        if len(script_path) > 0:
+            output = [script_path]
+            try:
+                proc = Popen(script_path.split(' '), close_fds=True,
+                             stdout=PIPE, stderr=PIPE)
+            except OSError as err:
+                output.append(err)
+            stdout, stderr = proc.communicate()
+            output += [s.rstrip() for s in [stdout, stderr] if s]
+            if len(output) > 1:
+                self.alert('\n'.join(output))
+
     def on_vpn_state_change(self, vpn, new_state):
         """on_vpn_state_change"""
+
+        self.trigger_external_script(new_state)
 
         # ignoring higher states than STATE_CONNECTED we can be sure that 'the
         # higher the state, the more `connected` we are' remains True
@@ -112,19 +128,6 @@ class AgnNotifier(TrayIcon):
         if new_state > ab.STATE_VPN_CONNECTING:
             ip_address = ab.long2ip(int(attempt['VPNIPAddress']))
         menu.item_conn_ip.set_label(_('IP: %s') % ip_address)
-
-        script_path = self.config.get('scripts', str(new_state))
-        if len(script_path) > 0:
-            output = [script_path]
-            try:
-                proc = Popen(script_path.split(' '),
-                             stdout=PIPE, stderr=PIPE, close_fds=True)
-            except OSError as err:
-                output.append(err)
-            stdout, stderr = proc.communicate()
-            output += [s.rstrip() for s in [stdout, stderr] if s]
-            if len(output) > 1:
-                self.alert('\n'.join(output))
 
         self.last_state = new_state
 
