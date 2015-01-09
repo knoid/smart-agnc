@@ -16,15 +16,16 @@ if HAS_APPINDICATOR:
     class TrayIcon(appindicator.Indicator):
         """TrayIcon"""
 
-        def __init__(self, ti_id):
+        def __init__(self, ti_id, icons_dir):
             super(TrayIcon, self).__init__(ti_id, '',
                 appindicator.CATEGORY_SYSTEM_SERVICES)
 
             self.set_status(appindicator.STATUS_ACTIVE)
             self.set_attention_icon('indicator-messages-new')
+            self.set_icon_theme_path(os.path.abspath(icons_dir))
 
         def set_icon(self, state):
-            super(TrayIcon, self).set_icon(get_icon_path('indicator', state))
+            super(TrayIcon, self).set_icon('smart-agnc-' + state)
 
 else:
 
@@ -33,15 +34,15 @@ else:
 
         menu = None
 
-        def __init__(self, ti_id):
+        def __init__(self, ti_id, icons_dir):
             super(TrayIcon, self).__init__()
             self.ti_id = ti_id
-            self.set_from_stock(gtk.STOCK_HOME)
+            gtk.icon_theme_get_default().append_search_path(icons_dir)
             self.connect('button-press-event', self.__on_click__)
 
         def set_icon(self, state):
             """set_icon"""
-            self.set_from_file(get_icon_path('statusicon', state))
+            self.set_from_icon_name('smart-agnc-' + state)
 
         def set_menu(self, menu):
             """set_menu"""
@@ -54,11 +55,6 @@ else:
 
         def __position_menu__(self, menu):
             return gtk.status_icon_position_menu(menu, self)
-
-DIR = os.path.dirname(__file__)
-def get_icon_path(prefix, state):
-    icon_path = '../../resources/icons/%s-%s.svg' % (prefix, state)
-    return os.path.join(DIR, icon_path)
 
 def main():
     """

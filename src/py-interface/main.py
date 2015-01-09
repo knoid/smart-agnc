@@ -39,8 +39,9 @@ class AgnNotifier(TrayIcon):
     connecting_timeout = 0
     want_to = ab.STATE_CONNECTED
 
-    def __init__(self, user_config, vpn):
-        super(AgnNotifier, self).__init__(self._id)
+    def __init__(self, root_dir, user_config, vpn):
+        icons_dir = os.path.join(root_dir, 'resources', 'icons')
+        super(AgnNotifier, self).__init__(self._id, icons_dir)
         pynotify.init(self._id)
 
         self.config = user_config
@@ -258,8 +259,8 @@ def is_printable(string):
 
 if __name__ == "__main__":
 
-    __DIR__ = os.path.dirname(__file__)
-    i18n_dir = os.path.join(__DIR__, '../../resources/i18n')
+    __ROOT_DIR__ = os.path.join(os.path.dirname(__file__), '..', '..')
+    i18n_dir = os.path.join(__ROOT_DIR__, 'resources', 'i18n')
     gettext.install(__title__, i18n_dir)
 
     optp = optparse.OptionParser()
@@ -277,6 +278,6 @@ if __name__ == "__main__":
 
     CONFIG = UserPreferences({'keepalive': True, 'timeout': 40})
     AGN_BINDER = ab.AgnBinder()
-    AgnNotifier(CONFIG, AGN_BINDER)
+    AgnNotifier(__ROOT_DIR__, CONFIG, AGN_BINDER)
 
     gtk.main()
