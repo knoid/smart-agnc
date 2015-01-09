@@ -14,6 +14,7 @@ import os
 import pynotify
 import re
 from subprocess import Popen, PIPE
+import time
 
 # local imports
 from config import UserPreferences
@@ -35,6 +36,7 @@ class AgnNotifier(TrayIcon):
     _id = 'at&t-smart'
     reconnect_interval = 10 # seconds
     last_state = 0
+    connecting_timeout = 0
     want_to = ab.STATE_CONNECTED
 
     def __init__(self, user_config, vpn):
@@ -146,6 +148,12 @@ class AgnNotifier(TrayIcon):
                     state = ab.STATE_NOT_CONNECTED
             self.last_state = state
 
+        # if it is connecting and exceeds the timeout -> disconnect
+        if ab.STATE_BEFORE_CONNECT < state < ab.STATE_VPN_RECONNECTED and \
+                self.connecting_timeout < time.time():
+            self.vpn.action_disconnect()
+            return True
+
         if ab.STATE_BEFORE_CONNECT <= state <= ab.STATE_CONNECTED:
             # I'm connected
 
@@ -162,9 +170,7 @@ class AgnNotifier(TrayIcon):
                 if len(cval) == 3:
 
                     if force or self.config.getboolean('vpn', 'keepalive'):
-                        self.vpn.action_connect(cval['account'],
-                                                cval['username'],
-                                                cval['password'])
+                        self.vpn_connect(cval)
                     else:
                         self.alert('VPN Disconnected')
                         self.want_to = ab.STATE_NOT_CONNECTED
@@ -176,6 +182,11 @@ class AgnNotifier(TrayIcon):
 
         return True # prevent the timeout from expiring
 
+    def vpn_connect(self, vpn, new_password=''):
+        timeout_secs = self.config.getint('vpn', 'timeout')
+        self.connecting_timeout = time.time() + timeout_secs
+        self.vpn.action_connect(vpn['account'], vpn['username'],
+                                vpn['password'], new_password)
 
     def do_configure(self, m_item=None):
         """do_configure"""
@@ -264,7 +275,7 @@ if __name__ == "__main__":
 
     logging.basicConfig(level=log_level)
 
-    CONFIG = UserPreferences({'keepalive': True})
+    CONFIG = UserPreferences({'keepalive': True, 'timeout': 40})
     AGN_BINDER = ab.AgnBinder()
     AgnNotifier(CONFIG, AGN_BINDER)
 

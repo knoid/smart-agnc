@@ -59,3 +59,9 @@ class UserPreferences(object):
             return self.scp.getboolean(section, key)
         except (ConfigParser.NoSectionError, ConfigParser.NoOptionError):
             return self.get(section, key, False)
+
+    def getint(self, section, key):
+        try:
+            return self.scp.getint(section, key)
+        except (ConfigParser.NoSectionError, ConfigParser.NoOptionError):
+            return self.get(section, key, 0)
