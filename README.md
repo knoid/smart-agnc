@@ -23,25 +23,32 @@ only need to compile C programs.
  3. Execute `run.sh`.
  4. (optional) Add `run.sh` to the "Startup Applications" list.
 
-## Hidden feature
+## Hidden features
+
+To make use of this features, you'll have to modify your configuration file
+located in `~/.smart-agnc`. It is formatted like an `.ini` file with sections
+and keys.
 
 ### Execute a script when a certain connection state is met
 
-Inside your configuration file located in `~/.smart-agnc` you can add a section
-called `scripts` and add there any numeric status code as the key and a file
-path as the value. For example, to execute `my_script.sh` when the connection is
-established you would need:
+Add new section called `scripts` and set there any numeric status code as the
+key and a file path as the value. For example, to execute `my_script.sh` when
+the connection is established you would need:
 
     [vpn]
-    account = ...
-    username = ...
-    password = ...
+    ...
 
     [scripts]
     400 = /home/my_user/my_script.sh
 
 You may also need to use `350 - STATE_VPN_RECONNECTED` depending on your purpose.
 You can find every connection state in [agn_binder.py](src/py-interface/agn_binder.py).
+
+### Timeout for the connection process
+
+You can define the maximum time the client has to get you connected. By adding
+the key `timeout` inside the `vpn` section you set the number of seconds it
+should wait until the process restarts by issuing a disconnect event.
 
 ## Disclaimer
 
