@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: smart-agnc\n"
-"POT-Creation-Date: 2015-01-07 16:28-0300\n"
-"PO-Revision-Date: 2015-01-07 16:28-0300\n"
+"POT-Creation-Date: 2015-01-09 21:11-0300\n"
+"PO-Revision-Date: 2015-01-09 21:11-0300\n"
 "Last-Translator: Ariel Barabas <smart-agnc@knoid.me>\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -39,59 +39,55 @@ msgstr "Show password"
 msgid "Connection Information"
 msgstr "Connection Information"
 
-#: src/py-interface/main.py:82
+#: src/py-interface/main.py:106
 msgid "Connect"
 msgstr "Connect"
 
-#: src/py-interface/main.py:84
+#: src/py-interface/main.py:108
 msgid "Disconnect"
 msgstr "Disconnect"
 
-#: src/py-interface/main.py:90
+#: src/py-interface/main.py:114
 msgid "It is time to change your password!"
 msgstr "It is time to change your password!"
 
-#: src/py-interface/main.py:95
+#: src/py-interface/main.py:119
 msgid "Invalid credentials"
 msgstr "Invalid credentials"
 
-#: src/py-interface/main.py:104
+#: src/py-interface/main.py:128
 msgid "Unknown error!"
 msgstr "Unknown error!"
 
-#: src/py-interface/main.py:109
+#: src/py-interface/main.py:133
 msgid "None"
 msgstr "None"
 
-#: src/py-interface/main.py:112
+#: src/py-interface/main.py:136
 #, python-format
 msgid "IP: %s"
 msgstr "IP: %s"
 
-#: src/py-interface/main.py:125
-msgid "Connection status check"
-msgstr "Connection status check"
-
-#: src/py-interface/main.py:195
-msgid "Keep alive"
-msgstr "Keep alive"
-
-#: src/py-interface/main.py:205
-msgid "VPN Connection Information"
-msgstr "VPN Connection Information"
-
-#: src/py-interface/main.py:210
-msgid "Edit Account settings..."
-msgstr "Edit Account settings..."
-
-#: src/py-interface/main.py:223
+#: src/py-interface/main.py:206
 msgid "Refreshing..."
 msgstr "Refreshing..."
 
-#: src/py-interface/main.py:272
+#: src/py-interface/main.py:253
 msgid "Password was not encoded in config file."
 msgstr "Password was not encoded in the configuration file."
 
-#: src/py-interface/main.py:294
+#: src/py-interface/main.py:276
 msgid "Increase verbosity (specify multiple times for more)"
 msgstr "Increase verbosity (specify multiple times for more)"
+
+#: src/py-interface/menu.py:31
+msgid "Keep alive"
+msgstr "Keep alive"
+
+#: src/py-interface/menu.py:41
+msgid "VPN Connection Information"
+msgstr "VPN Connection Information"
+
+#: src/py-interface/menu.py:46
+msgid "Edit Account settings..."
+msgstr "Edit Account settings..."
