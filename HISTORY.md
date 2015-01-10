@@ -1,3 +1,10 @@
+## v0.0.5 (2015-01-10)
+
+ * Makefile is now compatible with RedHat and Ubuntu's libraries
+ * External script's output now shows up through notify
+ * Timeout for the connecting process, defined in config (default: 40 secs)
+ * Multiple icons sets!
+
 ## v0.0.4 (2015-01-08)
 
  * Different icons for different color schemes
