@@ -47,6 +47,7 @@ class AgnNotifier(TrayIcon):
         self.config = user_config
         self.vpn = vpn
         vpn.connect('agn_state_change', self.on_vpn_state_change)
+        vpn.connect('agn_state_change', self.trigger_external_script)
 
         self.config_win = ConfigurationWindow(self.get_config_values())
         self.config_win.connect('save', self.do_save)
@@ -69,7 +70,7 @@ class AgnNotifier(TrayIcon):
         notice.show()
         logger.warning('Alert: %s', msg.replace('\n', ' \\n '))
 
-    def trigger_external_script(self, state):
+    def trigger_external_script(self, vpn, state):
         script_path = self.config.get('scripts', str(state))
         if len(script_path) > 0:
             output = [script_path]
@@ -85,8 +86,6 @@ class AgnNotifier(TrayIcon):
 
     def on_vpn_state_change(self, vpn, new_state):
         """on_vpn_state_change"""
-
-        self.trigger_external_script(new_state)
 
         # ignoring higher states than STATE_CONNECTED we can be sure that 'the
         # higher the state, the more `connected` we are' remains True
