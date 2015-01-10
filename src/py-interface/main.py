@@ -75,12 +75,13 @@ class AgnNotifier(TrayIcon):
         if len(script_path) > 0:
             output = [script_path]
             try:
-                proc = Popen(script_path.split(' '), close_fds=True,
-                             stdout=PIPE, stderr=PIPE)
+                proc = Popen([os.path.expanduser(script_path)],
+                             close_fds=True, stdout=PIPE, stderr=PIPE)
             except OSError as err:
-                output.append(err)
-            stdout, stderr = proc.communicate()
-            output += [s.rstrip() for s in [stdout, stderr] if s]
+                output.append(str(err))
+                proc = False
+            if proc: # the external process was successfully initialized
+                output += [s.rstrip() for s in proc.communicate() if s]
             if len(output) > 1:
                 self.alert('\n'.join(output))
 
