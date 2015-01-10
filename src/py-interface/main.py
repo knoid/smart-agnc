@@ -136,7 +136,7 @@ class AgnNotifier(TrayIcon):
 
     def reconnect(self, force=False):
         """reconnect"""
-        logger.info(_('Connection status check'))
+        logger.info('Connection status check')
 
         state = self.last_state
         if state == ab.STATE_UNKNOWN:
@@ -152,6 +152,7 @@ class AgnNotifier(TrayIcon):
         # if it is connecting and exceeds the timeout -> disconnect
         if ab.STATE_BEFORE_CONNECT < state < ab.STATE_VPN_RECONNECTED and \
                 self.connecting_timeout < time.time():
+            logger.info('Timeout! Disconnecting...')
             self.vpn.action_disconnect()
             return True
 
