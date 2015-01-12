@@ -235,6 +235,7 @@ class AgnNotifier(TrayIcon):
         if self.want_to == ab.STATE_CONNECTED:
             self.want_to = ab.STATE_NOT_CONNECTED
             self.vpn.action_disconnect()
+            self.on_vpn_state_change(self.vpn, ab.STATE_NOT_CONNECTED)
         else:
             self.want_to = ab.STATE_CONNECTED
             self.reconnect(True)
