@@ -124,20 +124,20 @@ class AgnNotifier(TrayIcon):
             self.alert(_('Invalid credentials'))
             self.do_configure()
 
-        elif 'SMX 0x00' in attempt['szStatusText']:
+        elif 'SMX 0x00' in attempt['StatusText']:
             # unknown error or timeout, try again
             pass
 
-        elif 'SMX 0x' in attempt['szStatusText']:
+        elif 'SMX 0x' in attempt['StatusText']:
             self.want_to = ab.STATE_NOT_CONNECTED
-            self.alert(_('Unknown error!') + '\n' + attempt['szStatusText'])
+            self.alert(_('Unknown error!') + '\n' + attempt['StatusText'])
             self.do_configure()
 
-        menu.item_conn_status.set_label(attempt['szStatusText'])
+        menu.item_conn_status.set_label(attempt['StatusText'])
 
         ip_address = _('None')
         if new_state > ab.STATE_VPN_CONNECTING:
-            ip_address = ab.long2ip(int(attempt['VPNIPAddress']))
+            ip_address = ab.long2ip(attempt['VPNIPAddress'])
         menu.item_conn_ip.set_label(_('IP: %s') % ip_address)
 
         self.last_state = new_state
@@ -151,7 +151,7 @@ class AgnNotifier(TrayIcon):
             state = self.vpn.get_state()
             if state == ab.STATE_UNKNOWN:
                 attempt = self.vpn.get_connect_attempt_info()
-                if attempt['szStatusText'] in ["Connected.", "Reconnected."]:
+                if attempt['StatusText'] in ["Connected.", "Reconnected."]:
                     state = ab.STATE_CONNECTED
                 else:
                     state = ab.STATE_NOT_CONNECTED
@@ -268,7 +268,7 @@ class AgnNotifier(TrayIcon):
         if len(values) == 0:
             user = self.vpn.get_user_info()
             for key in keys:
-                values[key] = user['sz' + key.title()]
+                values[key] = user[key.title()]
 
         # do not return empty values
         return dict((key, val) for key, val in values.items() if len(val) > 0)

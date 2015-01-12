@@ -113,6 +113,10 @@ class AgnBinder(gobject.GObject):
         for line in self.__get_lines__():
             try:
                 (_, prop, value) = line.split("\t")
+                if prop.startswith('sz'):
+                    prop = prop[2:]
+                else:
+                    value = int(value)
                 res[prop] = value
             except ValueError:
                 self.__process_line__(line)
@@ -163,9 +167,7 @@ class AgnBinder(gobject.GObject):
         logger.info('get_connect_attempt_info')
         self.__send__(3)
         try:
-            attempt = self.__get_object_response__()
-            attempt['StatusCode'] = int(attempt['StatusCode'])
-            return attempt
+            return self.__get_object_response__()
         except IOError:
             return self.get_connect_attempt_info()
 
