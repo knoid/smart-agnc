@@ -2,6 +2,7 @@
 
  * External scripts configuration supports `~` in the path
  * Automatic and manual change password dialog
+ * AgnBinder events don't overlap (fixes IP: None bug)
 
 ## v0.0.5 (2015-01-10)
 
