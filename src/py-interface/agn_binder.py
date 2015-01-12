@@ -104,7 +104,7 @@ class AgnBinder(gobject.GObject):
     def __process_line__(self, line):
         try:
             (change_type, param) = line.split('\t')
-            self.emit('agn_' + change_type, int(param))
+            gobject.idle_add(self.emit, 'agn_' + change_type, int(param))
         except ValueError:
             pass
 
@@ -207,4 +207,4 @@ def __get_line__(stream):
     return line[0:len(line) - 1]
 
 for evt in ['agn_action_requested', 'agn_state_change']:
-    gobject.signal_new(evt, AgnBinder, gobject.SIGNAL_RUN_CLEANUP, None, (int, ))
+    gobject.signal_new(evt, AgnBinder, gobject.SIGNAL_RUN_FIRST, None, (int, ))
