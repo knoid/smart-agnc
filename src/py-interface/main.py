@@ -119,16 +119,14 @@ class AgnNotifier(TrayIcon):
             self.alert(_('It is time to change your password!'))
             self.new_password_win.request_new_password()
 
+        # 8 = Invalid credentials
         elif 8 == attempt['StatusCode']:
             self.want_to = ab.STATE_NOT_CONNECTED
             self.alert(_('Invalid credentials'))
             self.do_configure()
 
-        elif 'SMX 0x00' in attempt['StatusText']:
-            # unknown error or timeout, try again
-            pass
-
-        elif 'SMX 0x' in attempt['StatusText']:
+        # 502 = User-requested disconnect
+        elif 0 < attempt['StatusCode'] and 502 != attempt['StatusCode']:
             self.want_to = ab.STATE_NOT_CONNECTED
             self.alert(_('Unknown error!') + '\n' + attempt['StatusText'])
             self.do_configure()
