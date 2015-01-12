@@ -1,3 +1,8 @@
+## v0.0.6 (2015-01-12)
+
+ * External scripts configuration supports `~` in the path
+ * Automatic and manual change password dialog
+
 ## v0.0.5 (2015-01-10)
 
  * Makefile is now compatible with RedHat and Ubuntu's libraries

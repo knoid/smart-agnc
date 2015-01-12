@@ -163,7 +163,9 @@ class AgnBinder(gobject.GObject):
         logger.info('get_connect_attempt_info')
         self.__send__(3)
         try:
-            return self.__get_object_response__()
+            attempt = self.__get_object_response__()
+            attempt['StatusCode'] = int(attempt['StatusCode'])
+            return attempt
         except IOError:
             return self.get_connect_attempt_info()
 

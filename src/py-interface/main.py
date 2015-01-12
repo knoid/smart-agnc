@@ -20,6 +20,7 @@ import time
 from config import UserPreferences
 from conn_info_win import ConnectionInformationWindow
 import menu
+from new_password_win import NewPasswordWindow
 from settings_win import ConfigurationWindow
 from tray_icon import TrayIcon
 import agn_binder as ab
@@ -36,6 +37,7 @@ class AgnNotifier(TrayIcon):
     _id = 'at&t-smart'
     reconnect_interval = 10 # seconds
     last_state = 0
+    changing_password = False
     connecting_timeout = 0
     want_to = ab.STATE_CONNECTED
 
@@ -45,11 +47,16 @@ class AgnNotifier(TrayIcon):
         pynotify.init(self._id)
 
         self.config = user_config
+
+        self.new_password_win = NewPasswordWindow()
+        self.new_password_win.connect('new-password', self.set_new_password)
+
         self.vpn = vpn
         vpn.connect('agn_state_change', self.on_vpn_state_change)
         vpn.connect('agn_state_change', self.trigger_external_script)
 
-        self.config_win = ConfigurationWindow(self.get_config_values())
+        self.config_win = ConfigurationWindow(vpn, self.get_config_values(),
+                                              self.new_password_win)
         self.config_win.connect('save', self.do_save)
 
         self.on_vpn_state_change(None, vpn.get_state())
@@ -105,13 +112,14 @@ class AgnNotifier(TrayIcon):
             toggle_btn_text = _('Disconnect')
         menu.item_conn_toggle.set_label(toggle_btn_text)
 
-        # TODO: Find out `password change required` status code
-        if 'SMX 0xXX' in attempt['szStatusText']:
+        # 12 = password expired
+        # 16 = incorrect new password
+        if attempt['StatusCode'] in [12, 16]:
             self.want_to = ab.STATE_NOT_CONNECTED
             self.alert(_('It is time to change your password!'))
             self.new_password_win.request_new_password()
 
-        elif 'SMX 0x08' in attempt['szStatusText']:
+        elif 8 == attempt['StatusCode']:
             self.want_to = ab.STATE_NOT_CONNECTED
             self.alert(_('Invalid credentials'))
             self.do_configure()
@@ -159,6 +167,12 @@ class AgnNotifier(TrayIcon):
         if ab.STATE_BEFORE_CONNECT <= state <= ab.STATE_CONNECTED:
             # I'm connected
 
+            if self.changing_password:
+                encoded_password = base64.b64encode(self.changing_password)
+                self.config.set('vpn', 'password', encoded_password)
+                self.config.write_to_disk()
+                self.changing_password = False
+
             if self.want_to < state: # I want to get disconnected
 
                 self.vpn.action_disconnect()
@@ -183,6 +197,12 @@ class AgnNotifier(TrayIcon):
                     self.want_to = ab.STATE_NOT_CONNECTED
 
         return True # prevent the timeout from expiring
+
+    def set_new_password(self, win, new_password):
+        cval = self.get_config_values()
+        self.changing_password = new_password
+        self.vpn_connect(cval, new_password)
+        self.want_to = ab.STATE_CONNECTED
 
     def vpn_connect(self, vpn, new_password=''):
         timeout_secs = self.config.getint('vpn', 'timeout')
