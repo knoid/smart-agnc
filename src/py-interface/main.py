@@ -93,7 +93,7 @@ class AgnNotifier(TrayIcon):
                 self.alert('\n'.join(output))
 
     def on_vpn_state_change(self, vpn, new_state):
-        """on_vpn_state_change"""
+        logger.info('on_vpn_state_change, new_state=%d', new_state)
 
         # ignoring higher states than STATE_CONNECTED we can be sure that 'the
         # higher the state, the more `connected` we are' remains True
@@ -141,8 +141,7 @@ class AgnNotifier(TrayIcon):
         self.last_state = new_state
 
     def reconnect(self, force=False):
-        """reconnect"""
-        logger.info('Connection status check')
+        logger.info('Connection status check, force=%s', str(force))
 
         state = self.last_state
         if state == ab.STATE_UNKNOWN:
