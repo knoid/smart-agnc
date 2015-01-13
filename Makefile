@@ -1,5 +1,6 @@
-TRANSLATIONS_IN = $(wildcard resources/i18n/*/LC_MESSAGES/*.po)
+TRANSLATIONS_IN = $(wildcard resources/locale/*/LC_MESSAGES/*.po)
 TRANSLATIONS = $(patsubst %.po,%.mo,$(TRANSLATIONS_IN))
+PYC_FILES = $(wildcard src/smart_agnc/*.pyc)
 
 all: $(TRANSLATIONS)
 	mkdir -p src/dist
@@ -10,4 +11,4 @@ all: $(TRANSLATIONS)
 	msgfmt -c -o $@ $^
 
 clean:
-	rm -rf src/dist $(TRANSLATIONS)
+	rm -rf src/dist $(TRANSLATIONS) $(PYC_FILES)

@@ -1,3 +1,4 @@
 #!/bin/sh
 
-python "`dirname \"$0\"`"/src/py-interface/main.py $*
+cd "`dirname \"$0\"`"/src
+python -m smart_agnc $*

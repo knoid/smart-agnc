@@ -3,26 +3,27 @@
 import gtk
 import os
 
-HAS_APPINDICATOR = False
-
 try:
     import appindicator
     HAS_APPINDICATOR = True
 except ImportError:
-    pass
+    HAS_APPINDICATOR = False
+
+from . import resource_dir
+icons_dir = os.path.join(resource_dir, 'icons')
 
 if HAS_APPINDICATOR:
 
     class TrayIcon(appindicator.Indicator):
         """TrayIcon"""
 
-        def __init__(self, ti_id, icons_dir):
+        def __init__(self, ti_id):
             super(TrayIcon, self).__init__(ti_id, '',
                 appindicator.CATEGORY_SYSTEM_SERVICES)
 
             self.set_status(appindicator.STATUS_ACTIVE)
             self.set_attention_icon('indicator-messages-new')
-            self.set_icon_theme_path(os.path.abspath(icons_dir))
+            self.set_icon_theme_path(icons_dir)
 
         def set_icon(self, state):
             super(TrayIcon, self).set_icon('smart-agnc-' + state)
@@ -34,7 +35,7 @@ else:
 
         menu = None
 
-        def __init__(self, ti_id, icons_dir):
+        def __init__(self, ti_id):
             super(TrayIcon, self).__init__()
             self.ti_id = ti_id
             gtk.icon_theme_get_default().append_search_path(icons_dir)

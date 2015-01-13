@@ -1,15 +1,8 @@
-"""
-This app will create a seamless VPN connection between you and your enterprise
-by adding a tray icon and keeping you connected whenever possible.
-"""
 
 # system imports
 import base64
-import gettext
 import gobject
-import gtk
 import logging
-import optparse
 import os
 import pynotify
 import re
@@ -17,7 +10,6 @@ from subprocess import Popen, PIPE
 import time
 
 # local imports
-from config import UserPreferences
 from conn_info_win import ConnectionInformationWindow
 import menu
 from new_password_win import NewPasswordWindow
@@ -41,9 +33,8 @@ class AgnNotifier(TrayIcon):
     connecting_timeout = 0
     want_to = ab.STATE_CONNECTED
 
-    def __init__(self, root_dir, user_config, vpn):
-        icons_dir = os.path.join(root_dir, 'resources', 'icons')
-        super(AgnNotifier, self).__init__(self._id, icons_dir)
+    def __init__(self, user_config, vpn):
+        super(AgnNotifier, self).__init__(self._id)
         pynotify.init(self._id)
 
         self.config = user_config
@@ -145,14 +136,7 @@ class AgnNotifier(TrayIcon):
 
         state = self.last_state
         if state == ab.STATE_UNKNOWN:
-            state = self.vpn.get_state()
-            if state == ab.STATE_UNKNOWN:
-                attempt = self.vpn.get_connect_attempt_info()
-                if attempt['StatusText'] in ["Connected.", "Reconnected."]:
-                    state = ab.STATE_CONNECTED
-                else:
-                    state = ab.STATE_NOT_CONNECTED
-            self.last_state = state
+            state = self.last_state = self.vpn.get_state()
 
         # if it is connecting and exceeds the timeout -> disconnect
         if ab.STATE_BEFORE_CONNECT < state < ab.STATE_VPN_RECONNECTED and \
@@ -261,7 +245,7 @@ class AgnNotifier(TrayIcon):
                 # password was base64 encoded
                 values['password'] = decoded_password
             else:
-                logger.warning(_('Password was not encoded in config file.'))
+                logger.warning('Password was not encoded in config file.')
 
         if len(values) == 0:
             user = self.vpn.get_user_info()
@@ -275,28 +259,3 @@ non_printables = ''.join([unichr(x) for x in (range(0,32) + range(127,160))])
 non_printables_re = re.compile('[%s]' % re.escape(non_printables))
 def is_printable(string):
     return non_printables_re.search(string) == None
-
-if __name__ == "__main__":
-
-    __ROOT_DIR__ = os.path.join(os.path.dirname(__file__), '..', '..')
-    i18n_dir = os.path.join(__ROOT_DIR__, 'resources', 'i18n')
-    gettext.install(__title__, i18n_dir)
-
-    optp = optparse.OptionParser()
-    optp.add_option('-v', '--verbose', dest='verbose', action='count',
-                    help=_("Increase verbosity (specify multiple times for more)"))
-    opts, args = optp.parse_args()
-
-    log_level = logging.WARNING # default
-    if opts.verbose == 1:
-        log_level = logging.INFO
-    elif opts.verbose >= 2:
-        log_level = logging.DEBUG
-
-    logging.basicConfig(level=log_level)
-
-    CONFIG = UserPreferences({'keepalive': True, 'timeout': 40})
-    AGN_BINDER = ab.AgnBinder()
-    AgnNotifier(__ROOT_DIR__, CONFIG, AGN_BINDER)
-
-    gtk.main()
