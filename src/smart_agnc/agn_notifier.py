@@ -18,8 +18,6 @@ from settings_win import ConfigurationWindow
 from tray_icon import TrayIcon
 import agn_binder as ab
 
-__title__ = 'smart-agnc'
-
 logger = logging.getLogger(__name__)
 
 class AgnNotifier(TrayIcon):

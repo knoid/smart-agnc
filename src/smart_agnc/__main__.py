@@ -7,9 +7,9 @@ from optparse import OptionParser
 import os
 
 from . import __title__, resource_dir
-from config import UserPreferences
 from agn_binder import AgnBinder
-from main import AgnNotifier
+from agn_notifier import AgnNotifier
+from config import UserPreferences
 
 i18n_dir = os.path.join(resource_dir, 'locale')
 gettext.install(__title__, i18n_dir)
