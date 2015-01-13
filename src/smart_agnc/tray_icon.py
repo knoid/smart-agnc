@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """tray_icon.py"""
 
 import gtk

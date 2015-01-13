@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """this file is intended to handle the configuration files and data"""
 
 import os

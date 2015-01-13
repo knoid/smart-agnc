@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 
 # system imports
 import base64

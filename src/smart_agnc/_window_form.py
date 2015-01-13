@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import gtk
 
 from _window import _Window

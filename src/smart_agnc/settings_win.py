@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """settings_win.py"""
 
 # system imports

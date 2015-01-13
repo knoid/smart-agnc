@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """conn_info_win.py"""
 
 # system imports
