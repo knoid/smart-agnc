@@ -19,7 +19,7 @@ optp.add_option('-v', '--verbose', dest='verbose', action='count',
                 help='Increase verbosity (specify multiple times for more)')
 opts, args = optp.parse_args()
 
-log_level = logging.WARNING # default
+log_level = logging.WARNING  # default
 if opts.verbose == 1:
     log_level = logging.INFO
 elif opts.verbose >= 2:

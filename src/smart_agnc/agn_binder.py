@@ -24,9 +24,10 @@ STATE_CONNECTED = 400
 STATE_DISCONNECTING = 500
 STATE_AFTER_CONNECT = 600
 
-SERVICE_MANAGER_ADDRESS = '204.146.172.230' # AT&T Production RIG
+SERVICE_MANAGER_ADDRESS = '204.146.172.230'  # AT&T Production RIG
 
 logger = logging.getLogger(__name__)
+
 
 class AgnBinder(gobject.GObject):
     """
@@ -202,6 +203,7 @@ def long2ip(long_ip):
     """
     packed = struct.pack('<L', long_ip)
     return socket.inet_ntoa(packed)
+
 
 def __get_line__(stream):
     line = stream.readline()

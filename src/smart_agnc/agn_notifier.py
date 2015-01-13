@@ -20,13 +20,17 @@ import agn_binder as ab
 
 logger = logging.getLogger(__name__)
 
+
 class AgnNotifier(TrayIcon):
     """AgnNotifier"""
 
     config_win = None
     title = 'Smart AT&T Client'
     _id = 'at&t-smart'
-    reconnect_interval = 10 # seconds
+
+    reconnect_interval = 10
+    """Time interval (in seconds) between VPN connection checks."""
+
     last_state = 0
     changing_password = False
     connecting_timeout = 0
@@ -53,11 +57,12 @@ class AgnNotifier(TrayIcon):
 
         self.conn_info_win = ConnectionInformationWindow()
         self.set_menu(menu.create(
-                conn_toggle=self.do_toggle_connection,
-                keepalive_init_state=self.config.getboolean('vpn', 'keepalive'),
-                keepalive_toggle=self.do_toggle_keepalive,
-                conn_info=self.do_conn_info,
-                configure=self.do_configure))
+            conn_toggle=self.do_toggle_connection,
+            keepalive_init_state=self.config.getboolean('vpn', 'keepalive'),
+            keepalive_toggle=self.do_toggle_keepalive,
+            conn_info=self.do_conn_info,
+            configure=self.do_configure,
+            service_restart=self.do_service_restart))
 
         gobject.timeout_add(self.reconnect_interval * 1000, self.reconnect)
 
@@ -77,7 +82,7 @@ class AgnNotifier(TrayIcon):
             except OSError as err:
                 output.append(str(err))
                 proc = False
-            if proc: # the external process was successfully initialized
+            if proc:  # the external process was successfully initialized
                 output += [s.rstrip() for s in proc.communicate() if s]
             if len(output) > 1:
                 self.alert('\n'.join(output))
@@ -153,14 +158,14 @@ class AgnNotifier(TrayIcon):
                 self.config.write_to_disk()
                 self.changing_password = False
 
-            if self.want_to < state: # I want to get disconnected
+            if self.want_to < state:  # I want to get disconnected
 
                 self.vpn.action_disconnect()
 
         else:
             # I'm disconnected
 
-            if self.want_to > state: # I want to get connected
+            if self.want_to > state:  # I want to get connected
 
                 cval = self.get_config_values()
                 if len(cval) == 3:
@@ -176,7 +181,7 @@ class AgnNotifier(TrayIcon):
                     self.do_configure()
                     self.want_to = ab.STATE_NOT_CONNECTED
 
-        return True # prevent the timeout from expiring
+        return True  # prevent the timeout from expiring
 
     def set_new_password(self, win, new_password):
         cval = self.get_config_values()
@@ -254,7 +259,9 @@ class AgnNotifier(TrayIcon):
         # do not return empty values
         return dict((key, val) for key, val in values.items() if len(val) > 0)
 
-non_printables = ''.join([unichr(x) for x in (range(0,32) + range(127,160))])
+non_printables = ''.join([unichr(x) for x in (range(0, 32) + range(127, 160))])
 non_printables_re = re.compile('[%s]' % re.escape(non_printables))
+
+
 def is_printable(string):
-    return non_printables_re.search(string) == None
+    return non_printables_re.search(string) is None

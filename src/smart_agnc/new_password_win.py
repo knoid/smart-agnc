@@ -9,6 +9,7 @@ import re
 
 from _window_form import _WindowForm
 
+
 class NewPasswordWindow(_WindowForm):
     """NewPasswordWindow"""
 
@@ -40,10 +41,11 @@ class NewPasswordWindow(_WindowForm):
     def request_new_password(self):
         new_password = random_string()
 
-        dialog = gtk.MessageDialog(None,
-                gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_OK_CANCEL,
-                _('The password `%s` has been generated for you. Would you ' +
-                 'like to use it? Be sure to copy it first.') % new_password)
+        dialog = gtk.MessageDialog(
+            None,
+            gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_OK_CANCEL,
+            _('The password `%s` has been generated for you. Would you like' +
+              'to use it? Be sure to copy it first.') % new_password)
         dialog.set_title(_('Smart AGNC: Time for a new password'))
 
         response = dialog.run()
@@ -72,8 +74,9 @@ class NewPasswordWindow(_WindowForm):
             dialog.run()
             dialog.destroy()
 
-gobject.signal_new('new-password', NewPasswordWindow, gobject.SIGNAL_RUN_CLEANUP,
-        None, (str, ))
+gobject.signal_new('new-password', NewPasswordWindow,
+                   gobject.SIGNAL_RUN_CLEANUP, None, (str, ))
+
 
 def random_string(length=8):
     r_string = ''
@@ -82,6 +85,8 @@ def random_string(length=8):
     return r_string
 
 test_number = re.compile('[0-9]')
+
+
 def is_valid_password(password):
     return len(password) > 7 and password != password.lower() \
-            and test_number.search(password)
+        and test_number.search(password)

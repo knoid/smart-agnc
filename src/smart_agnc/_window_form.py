@@ -4,6 +4,7 @@ import gtk
 
 from _window import _Window
 
+
 class _WindowForm(_Window):
 
     def __init__(self):

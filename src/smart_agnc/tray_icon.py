@@ -20,8 +20,8 @@ if HAS_APPINDICATOR:
         """TrayIcon"""
 
         def __init__(self, ti_id):
-            super(TrayIcon, self).__init__(ti_id, '',
-                appindicator.CATEGORY_SYSTEM_SERVICES)
+            super(TrayIcon, self).__init__(
+                ti_id, '', appindicator.CATEGORY_SYSTEM_SERVICES)
 
             self.set_status(appindicator.STATUS_ACTIVE)
             self.set_attention_icon('indicator-messages-new')
@@ -58,25 +58,3 @@ else:
 
         def __position_menu__(self, menu):
             return gtk.status_icon_position_menu(menu, self)
-
-def main():
-    """
-    Tests the TrayIcon implementation
-    """
-
-    t_icon = TrayIcon('test-tray-icon')
-
-    menu = gtk.Menu()
-
-    m_item = gtk.MenuItem()
-    m_item.set_label('Test Item')
-    menu.append(m_item)
-
-    menu.show_all()
-
-    t_icon.set_menu(menu)
-
-    gtk.main()
-
-if __name__ == '__main__':
-    main()

@@ -6,6 +6,7 @@ item_conn_status = gtk.MenuItem()
 item_conn_ip = gtk.MenuItem()
 item_conn_toggle = gtk.MenuItem()
 
+
 def create(conn_toggle, keepalive_init_state, keepalive_toggle, conn_info,
            configure):
 

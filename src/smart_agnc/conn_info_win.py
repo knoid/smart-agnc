@@ -9,6 +9,7 @@ import time
 from _window import _Window
 from agn_binder import long2ip
 
+
 class ConnectionInformationWindow(_Window):
     """ConnectionInformationWindow"""
 
@@ -40,9 +41,10 @@ class ConnectionInformationWindow(_Window):
         """set_text"""
         self.text_info.get_buffer().set_text(text)
 
-# http://stackoverflow.com/questions/1094841
+
 def bytes2human(num, format_str='%3.1f %sB'):
-    for unit in ['','Ki','Mi','Gi','Ti','Pi','Ei','Zi']:
+    """http://stackoverflow.com/questions/1094841"""
+    for unit in ['', 'Ki', 'Mi', 'Gi', 'Ti', 'Pi', 'Ei', 'Zi']:
         if abs(num) < 1024.0:
             return format_str % (num, unit)
         num /= 1024.0

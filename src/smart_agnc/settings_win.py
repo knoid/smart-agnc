@@ -9,6 +9,7 @@ import gtk
 from _window_form import _WindowForm
 import agn_binder as ab
 
+
 class ConfigurationWindow(_WindowForm):
     """ConfigurationWindow"""
 
@@ -63,9 +64,10 @@ class ConfigurationWindow(_WindowForm):
 
     def do_btn_save(self, _):
         """do_btn_save"""
-        self.emit('save', self.txt_account.get_text(),
-                          self.txt_username.get_text(),
-                          self.txt_password.get_text())
+        self.emit('save',
+                  self.txt_account.get_text(),
+                  self.txt_username.get_text(),
+                  self.txt_password.get_text())
 
     def on_agn_state_change(self, vpn, state):
         enabled = state < ab.STATE_BEFORE_CONNECT
@@ -79,8 +81,9 @@ class ConfigurationWindow(_WindowForm):
     def __on_submit__(self, _):
         self.do_btn_save(False)
 
+
 def present_window(win):
     return lambda w: win.present()
 
 gobject.signal_new('save', ConfigurationWindow, gobject.SIGNAL_RUN_FIRST,
-    None, (str, str, str, ))
+                   None, (str, str, str, ))

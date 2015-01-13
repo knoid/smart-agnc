@@ -5,10 +5,11 @@
 import os
 import ConfigParser
 
+
 class UserPreferences(object):
     """
-    This is just an even safer implementation of the SafeConfigParser that tries
-    to read and write without throwing exceptions.
+    This is just an even safer implementation of the SafeConfigParser that
+    tries to read and write without throwing exceptions.
     """
 
     _modification_time = -1
@@ -24,7 +25,7 @@ class UserPreferences(object):
         try:
             new_modification_time = os.path.getmtime(self.filepath)
         except os.error:
-            new_modification_time = 0 # force ConfigParser setup
+            new_modification_time = 0  # force ConfigParser setup
 
         if new_modification_time > self._modification_time:
             self._modification_time = new_modification_time
