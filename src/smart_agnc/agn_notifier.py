@@ -94,17 +94,22 @@ class AgnNotifier(TrayIcon):
         if new_state > ab.STATE_CONNECTED:
             return
 
-        icon_state = 'disabled'
-        if new_state > ab.STATE_VPN_CONNECTING:
-            icon_state = 'enabled'
-        self.set_icon(icon_state)
-
         attempt = self.vpn.get_connect_attempt_info()
+        menu.item_conn_status.set_label(attempt['StatusText'])
 
         toggle_btn_text = _('Connect')
         if self.want_to == ab.STATE_CONNECTED:
             toggle_btn_text = _('Disconnect')
         menu.item_conn_toggle.set_label(toggle_btn_text)
+
+        ip_address = _('None')
+        icon_state = 'disabled'
+        if new_state > ab.STATE_VPN_CONNECTING:
+            ip_address = ab.long2ip(attempt['VPNIPAddress'])
+            icon_state = 'enabled'
+            self.fail_connect = 0
+        menu.item_conn_ip.set_label(_('IP: %s') % ip_address)
+        self.set_icon(icon_state)
 
         # 12 = password expired
         # 16 = incorrect new password
@@ -124,13 +129,6 @@ class AgnNotifier(TrayIcon):
             self.want_to = ab.STATE_NOT_CONNECTED
             self.alert(_('Unknown error!') + '\n' + attempt['StatusText'])
             self.do_configure()
-
-        menu.item_conn_status.set_label(attempt['StatusText'])
-
-        ip_address = _('None')
-        if new_state > ab.STATE_VPN_CONNECTING:
-            ip_address = ab.long2ip(attempt['VPNIPAddress'])
-        menu.item_conn_ip.set_label(_('IP: %s') % ip_address)
 
         self.last_state = new_state
 
