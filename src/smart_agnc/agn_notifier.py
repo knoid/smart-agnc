@@ -69,7 +69,7 @@ class AgnNotifier(TrayIcon):
         """alert"""
         notice = pynotify.Notification(self.title, msg)
         notice.show()
-        logger.warning('Alert: %s', msg.replace('\n', ' \\n '))
+        logger.warning('Alert: %s', msg.replace('\n', '\n > '))
 
     def trigger_external_script(self, vpn, state):
         script_path = self.config.get('scripts', str(state))
