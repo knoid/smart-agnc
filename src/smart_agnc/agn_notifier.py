@@ -61,8 +61,7 @@ class AgnNotifier(TrayIcon):
             keepalive_init_state=self.config.getboolean('vpn', 'keepalive'),
             keepalive_toggle=self.do_toggle_keepalive,
             conn_info=self.do_conn_info,
-            configure=self.do_configure,
-            service_restart=self.do_service_restart))
+            configure=self.do_configure))
 
         gobject.timeout_add(self.reconnect_interval * 1000, self.reconnect)
 

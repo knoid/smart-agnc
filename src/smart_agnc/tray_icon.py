@@ -11,8 +11,8 @@ try:
 except ImportError:
     HAS_APPINDICATOR = False
 
-from . import resource_dir
-icons_dir = os.path.join(resource_dir, 'icons')
+from . import share_dir
+icons_dir = os.path.join(share_dir, 'icons')
 
 if HAS_APPINDICATOR:
 
