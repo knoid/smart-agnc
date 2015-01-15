@@ -5,7 +5,7 @@ PYC_FILES = $(wildcard src/smart_agnc/*.pyc)
 all: $(TRANSLATIONS)
 	mkdir -p src/dist
 	gcc -m32 -ggdb -std=gnu99 -I/opt/agns/include -pthread -L/opt/agns/lib \
-	-o src/dist/agnc-bind src/c-bind/*.c -l:libagnc.so.1 -l:libagnLogc.so.1
+	-o src/dist/sagnc-bind src/c-bind/*.c -l:libagnc.so.1 -l:libagnLogc.so.1
 
 %.mo: %.po
 	msgfmt -c -o $@ $^

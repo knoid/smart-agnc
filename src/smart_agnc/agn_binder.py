@@ -34,7 +34,6 @@ class AgnBinder(gobject.GObject):
     Provides an interface between python and AGNC's daemon.
     """
 
-    cmd = '../dist/agnc-bind'
     proc = None
 
     # event source id
@@ -51,8 +50,8 @@ class AgnBinder(gobject.GObject):
             gobject.source_remove(self.__io_watch)
             self.__io_watch = 0
 
-        execfilepath = os.path.join(os.path.dirname(__file__), self.cmd)
-        self.proc = proc = Popen([execfilepath], stdout=PIPE, stdin=PIPE)
+        self.proc = proc = Popen([find_executable('sagnc-bind')],
+                                 stdout=PIPE, stdin=PIPE)
 
         # https://www.domenkozar.com/2009/09/13/read-popenstdout-object- \
         #   asynchronously-or-why-low-level-knowledge-holes-are-killing-me/
