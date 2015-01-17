@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: smart-agnc\n"
-"POT-Creation-Date: 2015-01-12 09:28-0300\n"
-"PO-Revision-Date: 2015-01-12 09:33-0300\n"
+"POT-Creation-Date: 2015-01-17 01:26-0300\n"
+"PO-Revision-Date: 2015-01-17 01:27-0300\n"
 "Last-Translator: Ariel Barabas <smart-agnc@knoid.me>\n"
 "Language-Team: \n"
 "Language: es_AR\n"
@@ -13,53 +13,53 @@ msgstr ""
 "X-Poedit-KeywordsList: _;gettext;gettext_noop\n"
 "X-Poedit-Basepath: ../../../..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: src/py-interface\n"
+"X-Poedit-SearchPath-0: src/smart_agnc\n"
 
-#: src/py-interface/settings_win.py:17
+#: src/smart_agnc/settings_win.py:20
 msgid "Configuration"
 msgstr "Configuración"
 
-#: src/py-interface/settings_win.py:19
+#: src/smart_agnc/settings_win.py:22
 msgid "Account"
 msgstr "Cuenta"
 
-#: src/py-interface/settings_win.py:22
+#: src/smart_agnc/settings_win.py:25
 msgid "Username"
 msgstr "Usuario"
 
-#: src/py-interface/settings_win.py:25
+#: src/smart_agnc/settings_win.py:28
 msgid "Password"
 msgstr "Contraseña"
 
-#: src/py-interface/settings_win.py:29
+#: src/smart_agnc/settings_win.py:32
 msgid "Show password"
 msgstr "Mostrar contraseña"
 
-#: src/py-interface/settings_win.py:38
+#: src/smart_agnc/settings_win.py:41
 msgid "Change Password"
 msgstr "Cambiar Contraseña"
 
-#: src/py-interface/settings_win.py:39
+#: src/smart_agnc/settings_win.py:42
 msgid "You should disconnect first"
 msgstr "Primero debes desconectarte"
 
-#: src/py-interface/conn_info_win.py:17
+#: src/smart_agnc/conn_info_win.py:20
 msgid "Connection Information"
 msgstr "Información de Conexión"
 
-#: src/py-interface/new_password_win.py:17
+#: src/smart_agnc/new_password_win.py:19
 msgid "Smart AGNC: Set new password"
 msgstr "Smart AGNC: Configura una nueva contraseña"
 
-#: src/py-interface/new_password_win.py:19
+#: src/smart_agnc/new_password_win.py:21
 msgid "New password:"
 msgstr "Nueva contraseña:"
 
-#: src/py-interface/new_password_win.py:23
+#: src/smart_agnc/new_password_win.py:25
 msgid "Repeat password:"
 msgstr "Repite la contraseña:"
 
-#: src/py-interface/new_password_win.py:44
+#: src/smart_agnc/new_password_win.py:47
 #, python-format
 msgid ""
 "The password `%s` has been generated for you. Would you like to use it? Be "
@@ -68,71 +68,77 @@ msgstr ""
 "La contraseña `%s` fue generada para ti. ¿Quieres usarla? Asegúrate de "
 "copiarla primero."
 
-#: src/py-interface/new_password_win.py:46
+#: src/smart_agnc/new_password_win.py:49
 msgid "Smart AGNC: Time for a new password"
 msgstr "Smart AGNC: Es tiempo de una nueva contraseña"
 
-#: src/py-interface/new_password_win.py:63
+#: src/smart_agnc/new_password_win.py:66
 msgid "Password must contain numbers, uppercase and lowercase letters."
 msgstr "La contraseña debe contener números y letras mayúsculas y minúsculas."
 
-#: src/py-interface/new_password_win.py:66
+#: src/smart_agnc/new_password_win.py:69
 msgid "Passwords don't match."
 msgstr "Las contraseñas no coinciden"
 
-#: src/py-interface/new_password_win.py:70
+#: src/smart_agnc/new_password_win.py:73
 msgid "Error"
 msgstr "Error"
 
-#: src/py-interface/main.py:110
+#: src/smart_agnc/menu.py:30
+msgid "Restart AGNC Services"
+msgstr "Reiniciar servicios AGNC"
+
+#: src/smart_agnc/menu.py:40
+msgid "Keep alive"
+msgstr "Mantener activo"
+
+#: src/smart_agnc/menu.py:50
+msgid "VPN Connection Information"
+msgstr "Información de Conexión de VPN"
+
+#: src/smart_agnc/menu.py:55
+msgid "Edit Account settings..."
+msgstr "Editar configuración de Cuenta"
+
+#: src/smart_agnc/menu.py:65
+msgid "Exit"
+msgstr "Salir"
+
+#: src/smart_agnc/agn_notifier.py:106
 msgid "Connect"
 msgstr "Conectar"
 
-#: src/py-interface/main.py:112
+#: src/smart_agnc/agn_notifier.py:108
 msgid "Disconnect"
 msgstr "Desconectar"
 
-#: src/py-interface/main.py:119
-msgid "It is time to change your password!"
-msgstr "Es tiempo de cambiar tu contraseña!"
-
-#: src/py-interface/main.py:124
-msgid "Invalid credentials"
-msgstr "Credenciales inválidas"
-
-#: src/py-interface/main.py:134
-msgid "Unknown error!"
-msgstr "Error desconocido!"
-
-#: src/py-interface/main.py:139
+#: src/smart_agnc/agn_notifier.py:111
 msgid "None"
 msgstr "Ninguna"
 
-#: src/py-interface/main.py:142
+#: src/smart_agnc/agn_notifier.py:117
 #, python-format
 msgid "IP: %s"
 msgstr "IP: %s"
 
-#: src/py-interface/main.py:220
+#: src/smart_agnc/agn_notifier.py:127
+msgid "It is time to change your password!"
+msgstr "Es tiempo de cambiar tu contraseña!"
+
+#: src/smart_agnc/agn_notifier.py:133
+msgid "Invalid credentials"
+msgstr "Credenciales inválidas"
+
+#: src/smart_agnc/agn_notifier.py:139
+msgid "Unknown error!"
+msgstr "Error desconocido!"
+
+#: src/smart_agnc/agn_notifier.py:224
 msgid "Refreshing..."
 msgstr "Actualizando..."
 
-#: src/py-interface/main.py:267
-msgid "Password was not encoded in config file."
-msgstr "La contraseña no estaba codificada en el archivo de configuración."
+#~ msgid "Password was not encoded in config file."
+#~ msgstr "La contraseña no estaba codificada en el archivo de configuración."
 
-#: src/py-interface/main.py:290
-msgid "Increase verbosity (specify multiple times for more)"
-msgstr "Aumentar verbosidad (indique varias veces para aumentar)"
-
-#: src/py-interface/menu.py:31
-msgid "Keep alive"
-msgstr "Mantener activo"
-
-#: src/py-interface/menu.py:41
-msgid "VPN Connection Information"
-msgstr "Información de Conexión de VPN"
-
-#: src/py-interface/menu.py:46
-msgid "Edit Account settings..."
-msgstr "Editar configuración de Cuenta"
+#~ msgid "Increase verbosity (specify multiple times for more)"
+#~ msgstr "Aumentar verbosidad (indique varias veces para aumentar)"
