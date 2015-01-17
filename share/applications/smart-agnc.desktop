@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=2.0
+Encoding=UTF-8
+Name=Smart AT&T Global Network Client
+Comment=Smarter remote access VPN client
+Exec=/usr/bin/smart-agnc
+Icon=/usr/share/icons/hicolor/128x128/apps/smart-agnc.png
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Categories=Application;Network;
+StartupNotify=true
