@@ -16,9 +16,6 @@ if module_dir.startswith('/usr/'):  # we are in production
     root_path = '/usr'
 else:
     root_path = os.path.abspath(os.path.join(module_dir, '..', '..'))
-    os.environ["PATH"] += os.pathsep + os.pathsep.join([
-        os.path.join(root_path, 'bin'),
-        os.path.join(root_path, 'src', 'dist')
-    ])
+    os.environ["PATH"] += os.pathsep + os.path.join(root_path, 'bin')
 
 share_dir = os.path.join(root_path, 'share')
