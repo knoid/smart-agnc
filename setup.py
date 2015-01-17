@@ -31,7 +31,7 @@ share_files = get_files('share', '/usr')
 
 setup(
     name='smart-agnc',
-    version='0.0.6',
+    version='0.0.7',
     description='AT&T Global Network Client on steroids',
     author='Ariel Barabas',
     author_email='smart-agnc@knoid.me',

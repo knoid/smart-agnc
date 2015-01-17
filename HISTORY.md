@@ -1,3 +1,10 @@
+## v0.0.7 (2015-01-17)
+
+ * Turned the project into a python module
+ * Alert messages with better syntax
+ * Automatic AGNC services restart when they misbehave
+ * Optional exit button
+
 ## v0.0.6 (2015-01-12)
 
  * External scripts configuration supports `~` in the path
