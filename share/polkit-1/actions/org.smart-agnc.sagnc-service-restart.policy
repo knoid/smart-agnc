@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC
+ "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
+<policyconfig>
+
+  <vendor>Smart AT&amp;T Global Network Client</vendor>
+  <vendor_url>https://github.com/knoid/smart-agnc</vendor_url>
+
+  <action id="org.smart-agnc.sagnc-service-restart">
+    <description>Restart AGNC Services</description>
+    <icon_name>audio-x-generic</icon_name>
+    <defaults>
+      <allow_any>no</allow_any>
+      <allow_inactive>no</allow_inactive>
+      <allow_active>yes</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/bin/sagnc-service-restart</annotate>
+  </action>
+
+</policyconfig>

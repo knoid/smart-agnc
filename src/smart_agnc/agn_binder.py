@@ -3,13 +3,15 @@
 """agn_binder.py"""
 
 import atexit
+from distutils.spawn import find_executable
 import fcntl
+import dbus
 import gobject
 import logging
 import os
 import socket
 import struct
-from subprocess import Popen, PIPE
+from subprocess import call, PIPE, Popen
 import time
 
 STATE_UNKNOWN = 0
@@ -202,6 +204,29 @@ def long2ip(long_ip):
     """
     packed = struct.pack('<L', long_ip)
     return socket.inet_ntoa(packed)
+
+bus = dbus.SystemBus()
+proxy = bus.get_object('org.freedesktop.PolicyKit1',
+                       '/org/freedesktop/PolicyKit1/Authority')
+authority = dbus.Interface(
+    proxy, dbus_interface='org.freedesktop.PolicyKit1.Authority')
+
+
+def can_restart_agnc_services():
+    subject = ('system-bus-name', {'name': bus.get_unique_name()})
+    action_id = 'org.smart-agnc.sagnc-service-restart'
+    flags = 1             # AllowUserInteraction flag
+    cancellation_id = ''  # No cancellation id
+    try:
+        is_authorized, is_challenge, details = authority.CheckAuthorization(
+            subject, action_id, {}, flags, cancellation_id)
+        return bool(is_authorized)
+    except dbus.exceptions.DBusException:
+        return False
+
+
+def restart_agnc_services():
+    call(['pkexec', find_executable('sagnc-service-restart')])
 
 
 def __get_line__(stream):

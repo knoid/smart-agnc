@@ -5,10 +5,11 @@ import gtk
 item_conn_status = gtk.MenuItem()
 item_conn_ip = gtk.MenuItem()
 item_conn_toggle = gtk.MenuItem()
+item_restart_service = gtk.MenuItem()
 
 
 def create(conn_toggle, keepalive_init_state, keepalive_toggle, conn_info,
-           configure):
+           configure, restart_agnc_services):
 
     menu = gtk.Menu()
 
@@ -24,7 +25,13 @@ def create(conn_toggle, keepalive_init_state, keepalive_toggle, conn_info,
     m_item = gtk.SeparatorMenuItem()
     menu.append(m_item)
 
-    # Auto reconnect checkbox
+    # Restart AGNC services (only visible after a few connection timeouts)
+    m_item = item_restart_service
+    m_item.set_label('>> %s <<' % _('Restart AGNC Services'))
+    m_item.connect('activate', restart_agnc_services)
+    menu.append(m_item)
+
+    # Toggle connection state
     m_item = item_conn_toggle
     m_item.connect("activate", conn_toggle)
     menu.append(m_item)
@@ -50,4 +57,6 @@ def create(conn_toggle, keepalive_init_state, keepalive_toggle, conn_info,
     menu.append(m_item)
 
     menu.show_all()
+    item_restart_service.hide()
+
     return menu

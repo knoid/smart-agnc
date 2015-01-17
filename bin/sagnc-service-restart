@@ -1,0 +1,7 @@
+#!/bin/bash
+
+/etc/init.d/agnclientd stop
+/etc/init.d/agnLogd stop
+sleep 2
+/etc/init.d/agnLogd start
+/etc/init.d/agnclientd start

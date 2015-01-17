@@ -31,8 +31,12 @@ class AgnNotifier(TrayIcon):
     reconnect_interval = 10
     """Time interval (in seconds) between VPN connection checks."""
 
+    services_restart_after = 0
+    """Amount of connection failures to wait after an AGNC Service Restart"""
+
     last_state = 0
     changing_password = False
+    fail_connect = 0
     connecting_timeout = 0
     want_to = ab.STATE_CONNECTED
 
@@ -61,7 +65,8 @@ class AgnNotifier(TrayIcon):
             keepalive_init_state=self.config.getboolean('vpn', 'keepalive'),
             keepalive_toggle=self.do_toggle_keepalive,
             conn_info=self.do_conn_info,
-            configure=self.do_configure))
+            configure=self.do_configure,
+            restart_agnc_services=self.do_restart_agnc_services))
 
         gobject.timeout_add(self.reconnect_interval * 1000, self.reconnect)
 
@@ -144,10 +149,24 @@ class AgnNotifier(TrayIcon):
                 self.connecting_timeout < time.time():
             logger.info('Timeout! Disconnecting...')
             self.vpn.action_disconnect()
+
+            if self.fail_connect > self.services_restart_after:
+                logger.info('AGNC Services should be restarted')
+
+                if ab.can_restart_agnc_services():
+                    ab.restart_agnc_services()
+                    self.fail_connect = 0
+                else:
+                    menu.item_restart_service.show()
+            else:
+                self.fail_connect += 1
+
             return True
 
         if ab.STATE_BEFORE_CONNECT <= state <= ab.STATE_CONNECTED:
             # I'm connected
+
+            menu.item_restart_service.hide()
 
             if self.changing_password:
                 encoded_password = base64.b64encode(self.changing_password)
@@ -204,6 +223,9 @@ class AgnNotifier(TrayIcon):
 
         attempt = self.vpn.get_connect_attempt_info()
         self.conn_info_win.set_dict(attempt)
+
+    def do_restart_agnc_services(self, m_item=None):
+        ab.restart_agnc_services()
 
     def do_save(self, config_win, account, username, password):
         """do_save"""
