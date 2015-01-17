@@ -50,6 +50,11 @@ You can define the maximum time the client has to get you connected. By adding
 the key `timeout` inside the `vpn` section you set the number of seconds it
 should wait until the process restarts by issuing a disconnect event.
 
+### Exit button
+
+Adding the option `--exit-button` when starting the app you can add an exit
+button to the context menu.
+
 ## Disclaimer
 
 I'm not a C programmer, so collaborations will be greatly appreciated.

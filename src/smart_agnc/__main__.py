@@ -17,6 +17,7 @@ gettext.install(__title__, i18n_dir)
 optp = OptionParser()
 optp.add_option('-v', '--verbose', dest='verbose', action='count',
                 help='Increase verbosity (specify multiple times for more)')
+optp.add_option('--exit-button', dest='exit_button', action='store_true')
 opts, args = optp.parse_args()
 
 log_level = logging.WARNING  # default
@@ -29,6 +30,6 @@ logging.basicConfig(level=log_level)
 
 CONFIG = UserPreferences({'keepalive': True, 'timeout': 40})
 AGN_BINDER = AgnBinder()
-AgnNotifier(CONFIG, AGN_BINDER)
+AgnNotifier(CONFIG, AGN_BINDER, opts.exit_button)
 
 gtk.main()

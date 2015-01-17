@@ -9,7 +9,7 @@ item_restart_service = gtk.MenuItem()
 
 
 def create(conn_toggle, keepalive_init_state, keepalive_toggle, conn_info,
-           configure, restart_agnc_services):
+           configure, restart_agnc_services, exit_button):
 
     menu = gtk.Menu()
 
@@ -55,6 +55,16 @@ def create(conn_toggle, keepalive_init_state, keepalive_toggle, conn_info,
     m_item = gtk.MenuItem(_("Edit Account settings..."))
     m_item.connect("activate", configure)
     menu.append(m_item)
+
+    if exit_button:
+        # Separator
+        m_item = gtk.SeparatorMenuItem()
+        menu.append(m_item)
+
+        # Exit button
+        m_item = gtk.MenuItem(_("Exit"))
+        m_item.connect("activate", gtk.main_quit)
+        menu.append(m_item)
 
     menu.show_all()
     item_restart_service.hide()

@@ -40,7 +40,7 @@ class AgnNotifier(TrayIcon):
     connecting_timeout = 0
     want_to = ab.STATE_CONNECTED
 
-    def __init__(self, user_config, vpn):
+    def __init__(self, user_config, vpn, exit_button):
         super(AgnNotifier, self).__init__(self._id)
         pynotify.init(self._id)
 
@@ -66,7 +66,8 @@ class AgnNotifier(TrayIcon):
             keepalive_toggle=self.do_toggle_keepalive,
             conn_info=self.do_conn_info,
             configure=self.do_configure,
-            restart_agnc_services=self.do_restart_agnc_services))
+            restart_agnc_services=self.do_restart_agnc_services,
+            exit_button=exit_button))
 
         gobject.timeout_add(self.reconnect_interval * 1000, self.reconnect)
 
