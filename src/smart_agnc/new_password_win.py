@@ -44,7 +44,7 @@ class NewPasswordWindow(_WindowForm):
         dialog = gtk.MessageDialog(
             None,
             gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_OK_CANCEL,
-            _('The password `%s` has been generated for you. Would you like' +
+            _('The password `%s` has been generated for you. Would you like ' +
               'to use it? Be sure to copy it first.') % new_password)
         dialog.set_title(_('Smart AGNC: Time for a new password'))
 
