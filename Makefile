@@ -13,7 +13,7 @@ clean:
 	$(TRANSLATIONS) $(PYC_FILES) $(PNG_FILES)
 
 %.png: %.svg
-	convert -density 72 -background transparent $^ PNG32:$@
+	rsvg-convert -o $@ $^
 
 %.mo: %.po
 	msgfmt -c -o $@ $^
