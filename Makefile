@@ -6,10 +6,7 @@ PNG_FILES = $(patsubst %.svg,%.png,$(SVG_FILES))
 
 all: $(TRANSLATIONS) $(PNG_FILES)
 	gcc -m32 -s -ggdb -std=gnu99 -I/opt/agns/include -pthread -L/opt/agns/lib \
-	-o bin/sagnc-bind src/c-bind/*.c -l:libagnc.so.1 -l:libagnLogc.so.1
-
-deb: all
-	python setup.py --command-packages=stdeb.command bdist_deb
+	-o bin/sagnc-bind src/c-bind/*.c -l:libagnc.so.1.0.0 -l:libagnLogc.so.1.0.0
 
 clean:
 	rm -rf bin/sagnc-bind deb_dist dist MANIFEST smart-agnc-*.tar.gz \
