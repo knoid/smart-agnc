@@ -52,8 +52,8 @@ def get_files(path, prefix=''):
             all_files.append((os.path.join(prefix, root), dir_files))
     return all_files
 
-share_files = get_files('share', '/usr')
-share_files += [('', ['Makefile']), get_files('src/c-bind', '')]
+share_files = get_files('share', '/usr') + get_files('src/c-bind', '')
+share_files.append(('', ['Makefile']))
 
 setup(
     name=name,
