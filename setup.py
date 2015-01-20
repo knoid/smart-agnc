@@ -20,16 +20,18 @@ class PreInstall(install_data):
     data_files = []
 
     def run(self):
-        with open('debian/control', 'r') as f:
-            lines = f.readlines()
-        with open('debian/control', 'w') as f:
-            for line in lines:
-                if line.startswith('Architecture'):
-                    if '64' in platform.processor():
-                        line = line.replace('all', 'amd64')
-                    else:
-                        line = line.replace('all', 'i386')
-                f.write(line)
+        if os.path.isdir('debian'):
+            with open('debian/control', 'r') as f:
+                lines = f.readlines()
+            with open('debian/control', 'w') as f:
+                for line in lines:
+                    if line.startswith('Architecture'):
+                        if '64' in platform.processor():
+                            line = line.replace('all', 'amd64')
+                        else:
+                            line = line.replace('all', 'i386')
+                    f.write(line)
+
         data_files = []
         for path, files in self.data_files:
             files = [fpath for fpath in files if not
