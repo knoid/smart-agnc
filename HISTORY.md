@@ -2,7 +2,7 @@
 
  * Packages for everybody!
  * fixed python 2.4 module compatibility
- * fix custom scripts rerun
+ * improved agnc subprocess' stability
 
 ## v0.0.7 (2015-01-17)
 
