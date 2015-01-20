@@ -78,6 +78,7 @@ class AgnNotifier(TrayIcon):
         logger.warning('Alert: %s', msg.replace('\n', '\n > '))
 
     def trigger_external_script(self, vpn, state):
+        logger.info('trigger_external_script, state=%d', state)
         script_path = self.config.get('scripts', str(state))
         if len(script_path) > 0:
             output = [script_path]
