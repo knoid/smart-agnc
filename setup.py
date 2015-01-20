@@ -38,7 +38,6 @@ class PreInstall(install_data):
                 data_files.append((path, files))
         self.data_files = data_files
 
-        print self.data_files
         install_data.run(self)
 
 
