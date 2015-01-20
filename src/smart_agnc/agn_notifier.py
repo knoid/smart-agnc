@@ -142,9 +142,8 @@ class AgnNotifier(TrayIcon):
     def reconnect(self, force=False):
         logger.info('Connection status check, force=%s', str(force))
 
-        state = self.last_state
-        if state == ab.STATE_UNKNOWN:
-            state = self.last_state = self.vpn.get_state()
+        # to keep the subprocess alive
+        state = self.last_state = self.vpn.get_state()
 
         # if it is connecting and exceeds the timeout -> disconnect
         if ab.STATE_BEFORE_CONNECT < state < ab.STATE_VPN_RECONNECTED and \

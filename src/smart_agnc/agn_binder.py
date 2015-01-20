@@ -132,7 +132,12 @@ class AgnBinder(gobject.GObject):
 
         stdin = '\n'.join([str(num) + ' ' + str(len(args))] + args)
         logger.debug('vpn < %s', stdin)
-        self.proc.stdin.write(stdin + '\n')
+        try:
+            self.proc.stdin.write(stdin + '\n')
+        except IOError:
+            logger.info('Subprocess is dead, spawning a new one.')
+            self.setup_process()
+            self.__send__(num, args)
 
     def exit(self):
         """
