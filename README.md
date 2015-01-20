@@ -1,33 +1,24 @@
 # Smart AT&T Global Network Client
 
-This will create a seamless VPN connection between you and your enterprise by
-adding a tray icon and keeping you connected whenever possible.
+Smart AT&T Global Network Client improves upon the AT&T Global Network Client by
+ * showing the status of the VPN connection with just a glance at the tray icon
+ * reconnecting the VPN connection when it drops
+ * providing quick connection through the tray icon
+ * customized scripts to extend it your way.
 
 ## Prerequisites
 
-I'm assuming you already have the AT&T Global Network Client working so you'll
-only need to compile C programs.
-
-### In Ubuntu
-
-    sudo apt-get install build-essential libc6-dev-x32
-
-### In RedHat
-
-    sudo yum install gcc-c++ glibc-devel.i686
+Have the AT&T Global Network Client installed.
 
 ## Installation
 
- 1. Extract into any folder.
- 2. Go to the extracted folder and compile with `make`.
- 3. Execute `run.sh`.
- 4. (optional) Add `run.sh` to the "Startup Applications" list.
+Just download the package you need from the
+[releases](/knoid/smart-agnc/releases) page.
 
 ## Hidden features
 
-To make use of this features, you'll have to modify your configuration file
-located in `~/.smart-agnc`. It is formatted like an `.ini` file with sections
-and keys.
+Some of this features require modifying the configuration file in
+`~/.smart-agnc`. File uses `.ini` format with section and keys.
 
 ### Execute a script when a certain connection state is met
 
@@ -44,16 +35,19 @@ the connection is established you would need:
 You may also need to use `350 - STATE_VPN_RECONNECTED` depending on your purpose.
 You can find every connection state in [agn_binder.py](src/py-interface/agn_binder.py).
 
-### Timeout for the connection process
+### Customize maximum timeout for connection attempt
 
-You can define the maximum time the client has to get you connected. By adding
-the key `timeout` inside the `vpn` section you set the number of seconds it
-should wait until the process restarts by issuing a disconnect event.
+The maximum time out for establishing a VPN connection by the client can be
+defined in the configuration file. Add `timeout` key followed by timeout, in
+seconds, in the `vpn` section.
+
+If a connection is not established within the max number of seconds timeout,
+a disconnect event is issued to restart the connection process.
 
 ### Exit button
 
-Adding the option `--exit-button` when starting the app you can add an exit
-button to the context menu.
+Adding the option `--exit-button` when starting the app will add an exit button
+to the context menu.
 
 ## Disclaimer
 
