@@ -8,7 +8,7 @@ by adding a tray icon and keeping you connected whenever possible.
 import os
 
 __title__ = 'smart_agnc'
-__version__ = '0.0.7'
+__version__ = '0.0.8'
 
 module_dir = os.path.abspath(os.path.dirname(__file__))
 

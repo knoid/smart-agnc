@@ -58,7 +58,7 @@ share_files.append(('', ['Makefile']))
 
 setup(
     name=name,
-    version='0.0.7',
+    version='0.0.8',
     description='AT&T Global Network Client on steroids',
     #long_description=readme,
     author='Ariel Barabas',

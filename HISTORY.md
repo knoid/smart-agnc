@@ -1,3 +1,9 @@
+## v0.0.8 (2015-01-20)
+
+ * Packages for everybody!
+ * fixed python 2.4 module compatibility
+ * fix custom scripts rerun
+
 ## v0.0.7 (2015-01-17)
 
  * Turned the project into a python module
