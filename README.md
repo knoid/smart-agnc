@@ -13,7 +13,7 @@ Have the AT&T Global Network Client installed.
 ## Installation
 
 Just download the package you need from the
-[releases](/knoid/smart-agnc/releases) page.
+[releases](//github.com/knoid/smart-agnc/releases) page.
 
 ## Hidden features
 
