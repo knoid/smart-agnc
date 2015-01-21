@@ -17,26 +17,28 @@ class _WindowForm(_Window):
 
         self.table = table
 
-    def _attach(self, widget, left, top):
+    def _attach(self, widget, left, top, width=1, height=1, table=None):
         """
         Attaches a widget into a position inside the table occupying one cell.
         Returns the inserted widget
         """
-        self.table.attach(widget, left, left + 1, top, top + 1, 0, 0, 0, 0)
+        if not table:
+            table = self.table
+        table.attach(widget, left, left + width, top, top + height, 0, 0, 0, 0)
         return widget
 
-    def _make_entry(self, left, top):
+    def _make_entry(self, left, top, table=None):
         """
         Returns and attaches an entry with some defaults appropriate to AGNC.
         """
         entry = gtk.Entry()
         entry.set_max_length(128)
         entry.set_width_chars(20)
-        return self._attach(entry, left, top)
+        return self._attach(entry, left, top, table=table)
 
-    def _make_label(self, txt, left, top):
+    def _make_label(self, txt, left, top, table=None):
         """
         Attaches a label to the table. Returns the new label.
         """
         label = gtk.Label(txt)
-        return self._attach(label, left, top)
+        return self._attach(label, left, top, table=table)

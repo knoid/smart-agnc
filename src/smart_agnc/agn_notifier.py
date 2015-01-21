@@ -53,8 +53,10 @@ class AgnNotifier(TrayIcon):
         vpn.connect('agn_state_change', self.on_vpn_state_change)
         vpn.connect('agn_state_change', self.trigger_external_script)
 
-        self.config_win = ConfigurationWindow(vpn, self.get_config_values(),
-                                              self.new_password_win)
+        vpn_values, proxy_values = self.get_config_values()
+        self.config_win = ConfigurationWindow(
+            vpn, vpn_values, user_config.getboolean('proxy', 'enabled'),
+            proxy_values, self.new_password_win)
         self.config_win.connect('save', self.do_save)
 
         self.on_vpn_state_change(None, vpn.get_state())
@@ -184,11 +186,12 @@ class AgnNotifier(TrayIcon):
 
             if self.want_to > state:  # I want to get connected
 
-                cval = self.get_config_values()
-                if len(cval) == 3:
+                vpn, proxy = self.get_config_values()
+                use_proxy = self.config.getboolean('proxy', 'enabled')
+                if len(vpn) == 3 and (not use_proxy or len(proxy) == 3):
 
                     if force or self.config.getboolean('vpn', 'keepalive'):
-                        self.vpn_connect(cval)
+                        self.vpn_connect(vpn, proxy)
                     else:
                         self.alert('VPN Disconnected')
                         self.want_to = ab.STATE_NOT_CONNECTED
@@ -201,16 +204,18 @@ class AgnNotifier(TrayIcon):
         return True  # prevent the timeout from expiring
 
     def set_new_password(self, win, new_password):
-        cval = self.get_config_values()
+        vpn, proxy = self.get_config_values()
         self.changing_password = new_password
-        self.vpn_connect(cval, new_password)
+        self.vpn_connect(vpn, proxy, new_password)
         self.want_to = ab.STATE_CONNECTED
 
-    def vpn_connect(self, vpn, new_password=''):
+    def vpn_connect(self, vpn, proxy=None, new_password=''):
         timeout_secs = self.config.getint('vpn', 'timeout')
+        if not self.config.getboolean('proxy', 'enabled'):
+            proxy = None
         self.connecting_timeout = time.time() + timeout_secs
         self.vpn.action_connect(vpn['account'], vpn['username'],
-                                vpn['password'], new_password)
+                                vpn['password'], new_password, proxy)
 
     def do_configure(self, m_item=None):
         """do_configure"""
@@ -228,12 +233,17 @@ class AgnNotifier(TrayIcon):
     def do_restart_agnc_services(self, m_item=None):
         ab.restart_agnc_services()
 
-    def do_save(self, config_win, account, username, password):
-        """do_save"""
+    def do_save(self, config_win,
+                v_account, v_username, v_password,
+                use_proxy, p_server, p_user, p_password):
         config_win.hide()
-        self.config.set('vpn', 'account', account)
-        self.config.set('vpn', 'username', username)
-        self.config.set('vpn', 'password', base64.b64encode(password))
+        self.config.set('vpn', 'account', v_account)
+        self.config.set('vpn', 'username', v_username)
+        self.config.set('vpn', 'password', base64.b64encode(v_password))
+        self.config.setboolean('proxy', 'enabled', use_proxy)
+        self.config.set('proxy', 'server', p_server)
+        self.config.set('proxy', 'user', p_user)
+        self.config.set('proxy', 'password', base64.b64encode(p_password))
         self.config.write_to_disk()
         self.want_to = ab.STATE_CONNECTED
         self.reconnect()
@@ -255,29 +265,37 @@ class AgnNotifier(TrayIcon):
 
     def get_config_values(self):
         """get_config_values"""
-        keys = ['account', 'username', 'password']
-        values = {}
-        for key in keys:
-            values[key] = self.config.get('vpn', key)
+        section_keys = (('vpn', ['account', 'username', 'password']),
+                        ('proxy', ['server', 'user', 'password']))
+        user_info = None
+        res = []
 
-        if len(values['password']) > 0:
-            try:
-                decoded_password = base64.b64decode(values['password'])
-            except TypeError:
-                decoded_password = ''
-            if len(decoded_password) > 0 and is_printable(decoded_password):
-                # password was base64 encoded
-                values['password'] = decoded_password
-            else:
-                logger.warning('Password was not encoded in config file.')
-
-        if len(values) == 0:
-            user = self.vpn.get_user_info()
+        for section, keys in section_keys:
+            values = {}
             for key in keys:
-                values[key] = user[key.title()]
+                values[key] = self.config.get(section, key)
 
-        # do not return empty values
-        return dict((key, val) for key, val in values.items() if len(val) > 0)
+            if len(values['password']) > 0:
+                try:
+                    decoded_password = base64.b64decode(values['password'])
+                except TypeError:
+                    decoded_password = ''
+                if len(decoded_password) > 0 and is_printable(decoded_password):
+                    # password was base64 encoded
+                    values['password'] = decoded_password
+                else:
+                    logger.warning('Password was not encoded in config file.')
+
+            if len(values) == 0:
+                if not user_info:
+                    user_info = self.vpn.get_user_info()
+                for key in keys:
+                    agnc_key = 'Proxy' * (section == 'proxy') + key.title()
+                    values[key] = user_info[agnc_key]
+
+            res.append(filter_empty(values))
+
+        return res
 
 non_printables = ''.join([unichr(x) for x in (range(0, 32) + range(127, 160))])
 non_printables_re = re.compile('[%s]' % re.escape(non_printables))
@@ -285,3 +303,7 @@ non_printables_re = re.compile('[%s]' % re.escape(non_printables))
 
 def is_printable(string):
     return non_printables_re.search(string) is None
+
+
+def filter_empty(values):
+    return dict((key, val) for key, val in values.items() if len(val) > 0)

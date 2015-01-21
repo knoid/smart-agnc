@@ -196,10 +196,10 @@ def long2ip(long_ip):
     return socket.inet_ntoa(packed)
 
 bus = dbus.SystemBus()
-proxy = bus.get_object('org.freedesktop.PolicyKit1',
+b_proxy = bus.get_object('org.freedesktop.PolicyKit1',
                        '/org/freedesktop/PolicyKit1/Authority')
 authority = dbus.Interface(
-    proxy, dbus_interface='org.freedesktop.PolicyKit1.Authority')
+    b_proxy, dbus_interface='org.freedesktop.PolicyKit1.Authority')
 
 
 def can_restart_agnc_services():

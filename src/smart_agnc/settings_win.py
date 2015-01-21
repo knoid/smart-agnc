@@ -12,7 +12,15 @@ import agn_binder as ab
 
 class ConfigurationWindow(_WindowForm):
 
-    def __init__(self, vpn, values, change_password_win):
+    txt_account = None
+    txt_username = None
+    txt_password = None
+
+    txt_proxy_server = None
+    txt_proxy_user = None
+    txt_proxy_password = None
+
+    def __init__(self, agn, vpn, use_proxy, proxy, change_password_win):
         super(ConfigurationWindow, self).__init__()
 
         self.set_resizable(False)
@@ -32,39 +40,83 @@ class ConfigurationWindow(_WindowForm):
         self._attach(check_button, 2, 2)
         check_button.connect('toggled', self.on_password_visiblity)
 
-        close_save = gtk.Button(stock=gtk.STOCK_SAVE)
+        self.check_proxy = gtk.CheckButton(_('Enable proxy settings'))
+        self.check_proxy.set_active(use_proxy)
+        self._attach(self.check_proxy, 1, 3)
+        self.check_proxy.connect('toggled', self.on_proxy_toggled)
+
+        self.close_save = close_save = gtk.Button(stock=gtk.STOCK_SAVE)
         close_save.set_flags(gtk.CAN_DEFAULT)
         close_save.connect('clicked', self.do_btn_save)
-        self._attach(close_save, 1, 3)
+        self._attach(close_save, 1, 5)
 
         self.change_password = button = gtk.Button(_('Change Password'))
         button.set_tooltip_text(_('You should disconnect first'))
         button.connect('clicked', present_window(change_password_win))
-        self._attach(button, 2, 3)
+        self._attach(button, 2, 5)
 
         self.table.show_all()
         self.connect('form_submit', self.__on_submit__)
 
-        vpn.connect('agn_state_change', self.on_agn_state_change)
-        self.on_agn_state_change(vpn, vpn.get_state())
+        self.proxy_table = self.init_proxy_table()
+        self._attach(self.proxy_table, 0, 4, 2)
 
-        self.set_values(values)
+        agn.connect('agn_state_change', self.on_agn_state_change)
+        self.on_agn_state_change(vpn, agn.get_state())
+        self.on_proxy_toggled(self.check_proxy)
 
-    def set_values(self, values):
-        value_mapper = {
+        self.vpn_mapper = {
             'account':  self.txt_account,
             'username': self.txt_username,
             'password': self.txt_password
         }
-        for key, entry in value_mapper.iteritems():
-            if key in values:
-                entry.set_text(values[key])
+        self.proxy_mapper = {
+            'server': self.txt_proxy_server,
+            'user': self.txt_proxy_user,
+            'password': self.txt_proxy_password
+        }
+
+        self.set_values(vpn, use_proxy, proxy)
+
+    def init_proxy_table(self):
+        table = gtk.Table()
+        table.set_col_spacings(10)
+        table.set_row_spacings(10)
+        self._make_label(_('Server'), 0, 0, table)
+        self.txt_proxy_server = self._make_entry(1, 0, table)
+
+        self._make_label(_('User'), 0, 1, table)
+        self.txt_proxy_user = self._make_entry(1, 1, table)
+
+        self._make_label(_('Password'), 0, 2, table)
+        self.txt_proxy_password = self._make_entry(1, 2, table)
+        table.show_all()
+        return table
+
+    def set_values(self, vpn, use_proxy, proxy):
+        for mapper, values in ((self.vpn_mapper, vpn),
+                               (self.proxy_mapper, proxy)):
+            for key, entry in mapper.iteritems():
+                if key in values:
+                    entry.set_text(values[key])
+
+        self.check_proxy.set_active(use_proxy)
+        self.on_proxy_toggled(self.check_proxy)
 
     def do_btn_save(self, _):
+        ret = {}
+        mappers = [('vpn', self.vpn_mapper), ('proxy', self.proxy_mapper)]
+        for sect, mapper in mappers:
+            items = mapper.iteritems()
+            ret[sect] = (dict([(key, txt.get_text()) for key, txt in items]))
         self.emit('save',
-                  self.txt_account.get_text(),
-                  self.txt_username.get_text(),
-                  self.txt_password.get_text())
+                  ret['vpn']['account'],
+                  ret['vpn']['username'],
+                  ret['vpn']['password'],
+                  self.check_proxy.get_active(),
+                  ret['proxy']['server'],
+                  ret['proxy']['user'],
+                  ret['proxy']['password'])
 
     def on_agn_state_change(self, vpn, state):
         enabled = state < ab.STATE_BEFORE_CONNECT
@@ -74,6 +126,12 @@ class ConfigurationWindow(_WindowForm):
     def on_password_visiblity(self, widget):
         self.txt_password.set_visibility(widget.get_active())
 
+    def on_proxy_toggled(self, widget):
+        if widget.get_active():
+            self.proxy_table.show()
+        else:
+            self.proxy_table.hide()
+
     def __on_submit__(self, _):
         self.do_btn_save(False)
 
@@ -82,4 +140,4 @@ def present_window(win):
     return lambda w: win.present()
 
 gobject.signal_new('save', ConfigurationWindow, gobject.SIGNAL_RUN_FIRST,
-                   None, (str, str, str, ))
+                   None, (str, str, str, bool, str, str, str, ))
