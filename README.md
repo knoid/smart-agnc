@@ -32,8 +32,9 @@ the connection is established you would need:
     [scripts]
     400 = /home/my_user/my_script.sh
 
-You may also need to use `350 - STATE_VPN_RECONNECTED` depending on your purpose.
-You can find every connection state in [agn_binder.py](src/py-interface/agn_binder.py).
+You may also need to use `350 - STATE_VPN_RECONNECTED` depending on your
+purpose. You can find every connection state in
+[agn_binder.py](src/smart_agnc/agn_binder.py).
 
 ### Customize maximum timeout for connection attempt
 
