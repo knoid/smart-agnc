@@ -53,23 +53,27 @@ class AgnBinder(gobject.GObject):
             self.__io_watch = 0
 
         self.proc = proc = Popen([find_executable('sagnc-bind')],
-                                 stdout=PIPE, stdin=PIPE)
+                                 stdout=PIPE, stderr=PIPE, stdin=PIPE)
 
         # https://www.domenkozar.com/2009/09/13/read-popenstdout-object- \
         #   asynchronously-or-why-low-level-knowledge-holes-are-killing-me/
-        fdn = proc.stdout.fileno()
-        file_flags = fcntl.fcntl(fdn, fcntl.F_GETFL)
-        fcntl.fcntl(fdn, fcntl.F_SETFL, file_flags | os.O_NDELAY)
+        for stream in (proc.stdout, proc.stderr):
+            fdn = stream.fileno()
+            file_flags = fcntl.fcntl(fdn, fcntl.F_GETFL)
+            fcntl.fcntl(fdn, fcntl.F_SETFL, file_flags | os.O_NDELAY)
 
-        self.__io_watch = gobject.io_add_watch(proc.stdout, gobject.IO_IN,
-                                               self.__get_output__)
+        self.__io_watch = gobject.io_add_watch(proc.stderr, gobject.IO_IN,
+                                               self.__get_event__)
 
-    def __get_output__(self, stdout, _):
-        out = __get_line__(stdout)
-        if out == '':
+    def __get_event__(self, stderr, _):
+        line = __get_line__(stderr)
+        if line == '':
             return False
-        logger.debug('vpn > %s', out)
-        self.__process_line__(out)
+        try:
+            (change_type, param) = line.split('\t')
+            gobject.idle_add(self.emit, 'agn_' + change_type, int(param))
+        except ValueError:
+            pass
         return True
 
     def __next_line__(self):
@@ -98,32 +102,15 @@ class AgnBinder(gobject.GObject):
             else:
                 lines.append(line)
 
-    def __wait__(self, type_change=None):
-        line = self.__next_line__()
-        logger.debug('vpn > %s', line)
-        self.__process_line__(line)
-        if line.startswith(type_change):
-            return
-
-    def __process_line__(self, line):
-        try:
-            (change_type, param) = line.split('\t')
-            gobject.idle_add(self.emit, 'agn_' + change_type, int(param))
-        except ValueError:
-            pass
-
     def __get_object_response__(self):
         res = {}
         for line in self.__get_lines__():
-            try:
-                (_, prop, value) = line.split("\t")
-                if prop.startswith('sz'):
-                    prop = prop[2:]
-                else:
-                    value = int(value)
-                res[prop] = value
-            except ValueError:
-                self.__process_line__(line)
+            (_, prop, value) = line.split("\t")
+            if prop.startswith('sz'):
+                prop = prop[2:]
+            else:
+                value = int(value)
+            res[prop] = value
         return res
 
     def __send__(self, num, args=None):
@@ -159,7 +146,6 @@ class AgnBinder(gobject.GObject):
         if proxy:
             args += [proxy['server'], proxy['user'], proxy['password']]
         self.__send__(1, args)
-        self.__wait__('state_change')
 
     def action_disconnect(self):
         """
@@ -167,7 +153,6 @@ class AgnBinder(gobject.GObject):
         """
         logger.info('action_disconnect')
         self.__send__(2)
-        self.__wait__('state_change')
 
     def get_connect_attempt_info(self):
         """

@@ -13,12 +13,12 @@
 #define MAX_COMMANDS 6
 
 int state_change_callback(int parameter) {
-    printf("state_change\t%d\n", parameter);
+    fprintf(stderr, "state_change\t%d\n", parameter);
     return EXIT_SUCCESS;
 }
 
 int action_requested_callback(int parameter) {
-    printf("action_requested\t%d\n", parameter);
+    fprintf(stderr, "action_requested\t%d\n", parameter);
     return EXIT_SUCCESS;
 }
 
@@ -103,7 +103,6 @@ int main(int argc, char *argv[]) {
             free(args);
 
         } else if (poll_ret > 0) {
-            fprintf(stderr, "Invalid command\n");
             break;
         }
     }
