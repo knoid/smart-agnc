@@ -74,7 +74,6 @@ class AgnNotifier(TrayIcon):
         gobject.timeout_add(self.reconnect_interval * 1000, self.reconnect)
 
     def alert(self, msg):
-        """alert"""
         notice = pynotify.Notification(self.title, msg)
         notice.show()
         logger.warning('Alert: %s', msg.replace('\n', '\n > '))
@@ -218,11 +217,9 @@ class AgnNotifier(TrayIcon):
                                 vpn['password'], new_password, proxy)
 
     def do_configure(self, m_item=None):
-        """do_configure"""
         self.config_win.present()
 
     def do_conn_info(self, m_item=None):
-        """do_conn_info"""
         self.conn_info_win.set_text(_('Refreshing...'))
         self.conn_info_win.show_all()
         self.conn_info_win.present()
@@ -249,7 +246,6 @@ class AgnNotifier(TrayIcon):
         self.reconnect()
 
     def do_toggle_connection(self, m_item=None):
-        """do_toggle_connection"""
         if self.want_to == ab.STATE_CONNECTED:
             self.want_to = ab.STATE_NOT_CONNECTED
             self.vpn.action_disconnect()
@@ -259,12 +255,10 @@ class AgnNotifier(TrayIcon):
             self.reconnect(True)
 
     def do_toggle_keepalive(self, m_item):
-        """do_toggle_keepalive"""
         self.config.setboolean('vpn', 'keepalive', m_item.get_active())
         self.config.write_to_disk()
 
     def get_config_values(self):
-        """get_config_values"""
         section_keys = (('vpn', ['account', 'username', 'password']),
                         ('proxy', ['server', 'user', 'password']))
         user_info = None

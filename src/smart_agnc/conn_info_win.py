@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-"""conn_info_win.py"""
-
 # system imports
 import gtk
 import time
@@ -11,7 +9,6 @@ from agn_binder import long2ip
 
 
 class ConnectionInformationWindow(_Window):
-    """ConnectionInformationWindow"""
 
     def __init__(self):
         super(ConnectionInformationWindow, self).__init__()
@@ -38,7 +35,6 @@ class ConnectionInformationWindow(_Window):
         self.set_text('\n'.join(sorted(text)))
 
     def set_text(self, text):
-        """set_text"""
         self.text_info.get_buffer().set_text(text)
 
 

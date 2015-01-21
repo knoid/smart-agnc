@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-"""tray_icon.py"""
-
 import gtk
 import os
 
@@ -17,7 +15,6 @@ icons_dir = os.path.join(share_dir, 'icons')
 if HAS_APPINDICATOR:
 
     class TrayIcon(appindicator.Indicator):
-        """TrayIcon"""
 
         def __init__(self, ti_id):
             super(TrayIcon, self).__init__(
@@ -33,7 +30,6 @@ if HAS_APPINDICATOR:
 else:
 
     class TrayIcon(gtk.StatusIcon):
-        """TrayIcon"""
 
         menu = None
 
@@ -44,11 +40,9 @@ else:
             self.connect('button-press-event', self.__on_click__)
 
         def set_icon(self, state):
-            """set_icon"""
             self.set_from_icon_name('smart-agnc-' + state)
 
         def set_menu(self, menu):
-            """set_menu"""
             self.menu = menu
 
         def __on_click__(self, _, evt):

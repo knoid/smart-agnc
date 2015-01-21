@@ -11,7 +11,6 @@ from _window_form import _WindowForm
 
 
 class NewPasswordWindow(_WindowForm):
-    """NewPasswordWindow"""
 
     def __init__(self):
         super(NewPasswordWindow, self).__init__()

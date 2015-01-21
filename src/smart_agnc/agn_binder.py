@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-"""agn_binder.py"""
-
 import atexit
 from distutils.spawn import find_executable
 import fcntl
