@@ -38,7 +38,8 @@ class ConfigurationWindow(_WindowForm):
 
         check_button = gtk.CheckButton(_('Show password'))
         self._attach(check_button, 2, 2)
-        check_button.connect('toggled', self.on_password_visiblity)
+        check_button.connect('toggled', self.on_password_visiblity,
+                             self.txt_password)
 
         self.check_proxy = gtk.CheckButton(_('Enable proxy settings'))
         self.check_proxy.set_active(use_proxy)
@@ -59,7 +60,7 @@ class ConfigurationWindow(_WindowForm):
         self.connect('form_submit', self.__on_submit__)
 
         self.proxy_table = self.init_proxy_table()
-        self._attach(self.proxy_table, 0, 4, 2)
+        self._attach(self.proxy_table, 0, 4, 3)
 
         agn.connect('agn_state_change', self.on_agn_state_change)
         self.on_agn_state_change(vpn, agn.get_state())
@@ -90,6 +91,13 @@ class ConfigurationWindow(_WindowForm):
 
         self._make_label(_('Password'), 0, 2, table)
         self.txt_proxy_password = self._make_entry(1, 2, table)
+        self.txt_proxy_password.set_visibility(False)
+
+        check_button = gtk.CheckButton(_('Show password'))
+        self._attach(check_button, 2, 2, table=table)
+        check_button.connect('toggled', self.on_password_visiblity,
+                             self.txt_proxy_password)
+
         table.show_all()
         return table
 
@@ -123,8 +131,8 @@ class ConfigurationWindow(_WindowForm):
         self.change_password.set_sensitive(enabled)
         self.change_password.set_has_tooltip(not enabled)
 
-    def on_password_visiblity(self, widget):
-        self.txt_password.set_visibility(widget.get_active())
+    def on_password_visiblity(self, widget, password_field):
+        password_field.set_visibility(widget.get_active())
 
     def on_proxy_toggled(self, widget):
         if widget.get_active():
