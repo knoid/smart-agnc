@@ -1,18 +1,25 @@
-from distutils.command.build_scripts import build_scripts
 from distutils.command.install_data import install_data
+from distutils.command.sdist import sdist
 from distutils.core import setup
 import os
 import platform
-from subprocess import call
 
 name = 'smart-agnc'
 package = name.replace('-', '_')
 
 
-class PreBuildScripts(build_scripts):
+class PreSourceBuild(sdist):
     def run(self):
-        call('make')
-        build_scripts.run(self)
+        manifest_files = get_files('bin') + get_files('share') + \
+            get_files(os.path.join('src', package)) + \
+            [('', ['setup.py'])]
+        with open('MANIFEST', 'w') as f:
+            for path, files in manifest_files:
+                for fpath in files:
+                    if not (fpath.endswith('.svg') or fpath.endswith('.po')):
+                        f.write(fpath + '\n')
+
+        sdist.run(self)
 
 
 class PreInstall(install_data):
@@ -32,14 +39,6 @@ class PreInstall(install_data):
                             line = line.replace('all', 'i386')
                     f.write(line)
 
-        data_files = []
-        for path, files in self.data_files:
-            files = [fpath for fpath in files if not
-                     (fpath.endswith('.svg') or fpath.endswith('.po'))]
-            if len(path) > 0 and not path.startswith('src'):
-                data_files.append((path, files))
-        self.data_files = data_files
-
         install_data.run(self)
 
 
@@ -52,9 +51,6 @@ def get_files(path, prefix=''):
         if len(dir_files) > 0:
             all_files.append((os.path.join(prefix, root), dir_files))
     return all_files
-
-share_files = get_files('share', '/usr') + get_files('src/c-bind', '')
-share_files.append(('', ['Makefile']))
 
 setup(
     name=name,
@@ -69,7 +65,7 @@ setup(
     scripts=['bin/smart-agnc',
              'bin/sagnc-service-restart', 'bin/sagnc-bind'],
     license='GNUv2',
-    cmdclass={'build_scripts': PreBuildScripts, 'install_data': PreInstall},
-    data_files=share_files,
+    cmdclass={'sdist': PreSourceBuild, 'install_data': PreInstall},
+    data_files=get_files('share', '/usr'),
     package_dir={package: os.path.join('src', package)}
 )
