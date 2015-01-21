@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: smart-agnc\n"
-"POT-Creation-Date: 2015-01-17 01:26-0300\n"
-"PO-Revision-Date: 2015-01-17 01:27-0300\n"
+"POT-Creation-Date: 2015-01-21 19:14-0300\n"
+"PO-Revision-Date: 2015-01-21 19:15-0300\n"
 "Last-Translator: Ariel Barabas <smart-agnc@knoid.me>\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -15,33 +15,45 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: src/smart_agnc\n"
 
-#: src/smart_agnc/settings_win.py:20
+#: src/smart_agnc/settings_win.py:27
 msgid "Configuration"
 msgstr "Configuration"
 
-#: src/smart_agnc/settings_win.py:22
+#: src/smart_agnc/settings_win.py:29
 msgid "Account"
 msgstr "Account"
 
-#: src/smart_agnc/settings_win.py:25
+#: src/smart_agnc/settings_win.py:32
 msgid "Username"
 msgstr "Username"
 
-#: src/smart_agnc/settings_win.py:28
+#: src/smart_agnc/settings_win.py:35 src/smart_agnc/settings_win.py:91
 msgid "Password"
 msgstr "Password"
 
-#: src/smart_agnc/settings_win.py:32
+#: src/smart_agnc/settings_win.py:39
 msgid "Show password"
 msgstr "Show password"
 
-#: src/smart_agnc/settings_win.py:41
+#: src/smart_agnc/settings_win.py:43
+msgid "Enable proxy settings"
+msgstr "Enable proxy settings"
+
+#: src/smart_agnc/settings_win.py:53
 msgid "Change Password"
 msgstr "Change Password"
 
-#: src/smart_agnc/settings_win.py:42
+#: src/smart_agnc/settings_win.py:54
 msgid "You should disconnect first"
 msgstr "You should disconnect first"
+
+#: src/smart_agnc/settings_win.py:85
+msgid "Server"
+msgstr "Server"
+
+#: src/smart_agnc/settings_win.py:88
+msgid "User"
+msgstr "User"
 
 #: src/smart_agnc/conn_info_win.py:20
 msgid "Connection Information"
@@ -104,41 +116,35 @@ msgstr "Edit Account settings..."
 msgid "Exit"
 msgstr "Exit"
 
-#: src/smart_agnc/agn_notifier.py:106
+#: src/smart_agnc/agn_notifier.py:109
 msgid "Connect"
 msgstr "Connect"
 
-#: src/smart_agnc/agn_notifier.py:108
+#: src/smart_agnc/agn_notifier.py:111
 msgid "Disconnect"
 msgstr "Disconnect"
 
-#: src/smart_agnc/agn_notifier.py:111
+#: src/smart_agnc/agn_notifier.py:114
 msgid "None"
 msgstr "None"
 
-#: src/smart_agnc/agn_notifier.py:117
+#: src/smart_agnc/agn_notifier.py:120
 #, python-format
 msgid "IP: %s"
 msgstr "IP: %s"
 
-#: src/smart_agnc/agn_notifier.py:127
+#: src/smart_agnc/agn_notifier.py:130
 msgid "It is time to change your password!"
 msgstr "It is time to change your password!"
 
-#: src/smart_agnc/agn_notifier.py:133
+#: src/smart_agnc/agn_notifier.py:136
 msgid "Invalid credentials"
 msgstr "Invalid credentials"
 
-#: src/smart_agnc/agn_notifier.py:139
+#: src/smart_agnc/agn_notifier.py:142
 msgid "Unknown error!"
 msgstr "Unknown error!"
 
-#: src/smart_agnc/agn_notifier.py:224
+#: src/smart_agnc/agn_notifier.py:229
 msgid "Refreshing..."
 msgstr "Refreshing..."
-
-#~ msgid "Password was not encoded in config file."
-#~ msgstr "Password was not encoded in the configuration file."
-
-#~ msgid "Increase verbosity (specify multiple times for more)"
-#~ msgstr "Increase verbosity (specify multiple times for more)"
