@@ -11,7 +11,6 @@ import agn_binder as ab
 
 
 class ConfigurationWindow(_WindowForm):
-    """ConfigurationWindow"""
 
     def __init__(self, vpn, values, change_password_win):
         super(ConfigurationWindow, self).__init__()
@@ -52,7 +51,6 @@ class ConfigurationWindow(_WindowForm):
         self.set_values(values)
 
     def set_values(self, values):
-        """set_values"""
         value_mapper = {
             'account':  self.txt_account,
             'username': self.txt_username,
@@ -63,7 +61,6 @@ class ConfigurationWindow(_WindowForm):
                 entry.set_text(values[key])
 
     def do_btn_save(self, _):
-        """do_btn_save"""
         self.emit('save',
                   self.txt_account.get_text(),
                   self.txt_username.get_text(),
@@ -75,7 +72,6 @@ class ConfigurationWindow(_WindowForm):
         self.change_password.set_has_tooltip(not enabled)
 
     def on_password_visiblity(self, widget):
-        """on_password_visiblity"""
         self.txt_password.set_visibility(widget.get_active())
 
     def __on_submit__(self, _):
