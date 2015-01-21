@@ -18,7 +18,7 @@ Just download the package you need from the
 ## Hidden features
 
 Some of this features require modifying the configuration file in
-`~/.smart-agnc`. File uses `.ini` format with section and keys.
+`~/.smart-agnc/config`. File uses `.ini` format with section and keys.
 
 ### Execute a script when a certain connection state is met
 

@@ -5,6 +5,8 @@
 import os
 import ConfigParser
 
+from . import config_file
+
 
 class UserPreferences(object):
     """
@@ -15,15 +17,13 @@ class UserPreferences(object):
     _modification_time = -1
     scp = None
 
-    def __init__(self, defaults=None, filepath='~/.smart-agnc'):
+    def __init__(self, defaults=None):
         self.defaults = defaults if defaults else {}
-        self.filepath = os.path.expanduser(filepath)
-
         self._read_config()
 
     def _read_config(self):
         try:
-            new_modification_time = os.path.getmtime(self.filepath)
+            new_modification_time = os.path.getmtime(config_file)
         except os.error:
             new_modification_time = 0  # force ConfigParser setup
 
@@ -31,10 +31,10 @@ class UserPreferences(object):
             self._modification_time = new_modification_time
 
             self.scp = ConfigParser.SafeConfigParser()
-            self.scp.read(self.filepath)
+            self.scp.read(config_file)
 
     def write_to_disk(self):
-        with open(self.filepath, 'wb') as fileh:
+        with open(config_file, 'wb') as fileh:
             self.scp.write(fileh)
 
     def set(self, section, key, value):

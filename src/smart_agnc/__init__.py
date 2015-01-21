@@ -18,4 +18,7 @@ else:
     root_path = os.path.abspath(os.path.join(module_dir, '..', '..'))
     os.environ["PATH"] += os.pathsep + os.path.join(root_path, 'bin')
 
+config_dir = os.path.expanduser('~/.smart-agnc')
+logs_dir = os.path.join(config_dir, 'logs')
+config_file = os.path.join(config_dir, 'config')
 share_dir = os.path.join(root_path, 'share')
