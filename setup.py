@@ -1,3 +1,4 @@
+from distutils.command.bdist_rpm import bdist_rpm
 from distutils.command.install_data import install_data
 from distutils.command.sdist import sdist
 from distutils.core import setup
@@ -42,6 +43,17 @@ class PreInstall(install_data):
         install_data.run(self)
 
 
+class PreBdistRpm(bdist_rpm):
+    def run(self):
+        self.post_uninstall = self.post_install = 'post-install.sh'
+        with open(self.post_install, 'w') as pi:
+            for dirname in os.listdir(os.path.join('share', 'icons')):
+                pi.write('gtk-update-icon-cache -q -t -f %s\n' %
+                         os.path.join('/usr', 'share', 'icons', dirname))
+
+        bdist_rpm.run(self)
+
+
 def get_files(path, prefix=''):
     all_files = []
     for root, subdirs, files in os.walk(path):
@@ -65,7 +77,11 @@ setup(
     scripts=['bin/smart-agnc',
              'bin/sagnc-service-restart', 'bin/sagnc-bind'],
     license='GNUv2',
-    cmdclass={'sdist': PreSourceBuild, 'install_data': PreInstall},
+    cmdclass={
+        'sdist': PreSourceBuild,
+        'install_data': PreInstall,
+        'bdist_rpm': PreBdistRpm
+    },
     data_files=get_files('share', '/usr'),
     package_dir={package: os.path.join('src', package)}
 )
