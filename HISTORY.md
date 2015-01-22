@@ -1,3 +1,9 @@
+## v0.1.0 (2015-01-22)
+
+ * All main features implemented, so bumping version to 0.1.0
+ * Added proxy settings
+ * Added logs to improve feedback quality
+
 ## v0.0.8 (2015-01-20)
 
  * Packages for everybody!

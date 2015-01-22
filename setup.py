@@ -66,7 +66,7 @@ def get_files(path, prefix=''):
 
 setup(
     name=name,
-    version='0.0.8',
+    version='0.1.0',
     description='AT&T Global Network Client on steroids',
     #long_description=readme,
     author='Ariel Barabas',
