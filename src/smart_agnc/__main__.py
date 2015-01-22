@@ -40,7 +40,7 @@ elif opts.verbose >= 2:
     log_level = logging.DEBUG
 
 # setting up two loggers
-streamLog = logging.StreamHandler(stream=sys.stdout)
+streamLog = logging.StreamHandler(sys.stdout)
 streamLog.setLevel(log_level)
 
 fileLog = TimedRotatingFileHandler(os.path.join(logs_dir, 'log'),
