@@ -24,7 +24,7 @@ class _WindowForm(_Window):
         """
         if not table:
             table = self.table
-        table.attach(widget, left, left + width, top, top + height, 0, 0, 0, 0)
+        table.attach(widget, left, left + width, top, top + height)
         return widget
 
     def _make_entry(self, left, top, table=None):
@@ -41,4 +41,5 @@ class _WindowForm(_Window):
         Attaches a label to the table. Returns the new label.
         """
         label = gtk.Label(txt)
+        label.set_alignment(0, 0.5)
         return self._attach(label, left, top, table=table)

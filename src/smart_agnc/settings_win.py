@@ -21,7 +21,6 @@ class ConfigurationWindow(_WindowForm):
     def __init__(self, agn, vpn, use_proxy, proxy, change_password_win):
         super(ConfigurationWindow, self).__init__()
 
-        self.set_resizable(False)
         self.set_title(_('Configuration'))
 
         self._make_label(_('Account'), 0, 0)
@@ -41,7 +40,8 @@ class ConfigurationWindow(_WindowForm):
 
         self.check_proxy = gtk.CheckButton(_('Enable proxy settings'))
         self.check_proxy.set_active(use_proxy)
-        self._attach(self.check_proxy, 1, 3)
+        self.check_proxy.set_alignment(0, 0.5)
+        self._attach(self.check_proxy, 1, 3, 2)
         self.check_proxy.connect('toggled', self.on_proxy_toggled)
 
         self.close_save = close_save = gtk.Button(stock=gtk.STOCK_SAVE)

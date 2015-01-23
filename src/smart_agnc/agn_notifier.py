@@ -110,7 +110,7 @@ class AgnNotifier(TrayIcon):
             toggle_btn_text = _('Disconnect')
         menu.item_conn_toggle.set_label(toggle_btn_text)
 
-        ip_address = _('None')
+        ip_address = _('Not available.')
         icon_state = 'disabled'
         if new_state > ab.STATE_VPN_CONNECTING:
             ip_address = ab.long2ip(attempt['VPNIPAddress'])
@@ -220,8 +220,6 @@ class AgnNotifier(TrayIcon):
         self.config_win.present()
 
     def do_conn_info(self, m_item=None):
-        self.conn_info_win.set_text(_('Refreshing...'))
-        self.conn_info_win.show_all()
         self.conn_info_win.present()
 
         attempt = self.vpn.get_connect_attempt_info()

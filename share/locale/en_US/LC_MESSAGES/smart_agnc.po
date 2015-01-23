@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: smart-agnc\n"
-"POT-Creation-Date: 2015-01-21 19:14-0300\n"
-"PO-Revision-Date: 2015-01-21 19:15-0300\n"
+"POT-Creation-Date: 2015-01-23 16:17-0300\n"
+"PO-Revision-Date: 2015-01-23 16:17-0300\n"
 "Last-Translator: Ariel Barabas <smart-agnc@knoid.me>\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -15,63 +15,139 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: src/smart_agnc\n"
 
-#: src/smart_agnc/settings_win.py:27
+#: src/smart_agnc/settings_win.py:24
 msgid "Configuration"
 msgstr "Configuration"
 
-#: src/smart_agnc/settings_win.py:29
+#: src/smart_agnc/settings_win.py:26
 msgid "Account"
 msgstr "Account"
 
-#: src/smart_agnc/settings_win.py:32
+#: src/smart_agnc/settings_win.py:29
 msgid "Username"
 msgstr "Username"
 
-#: src/smart_agnc/settings_win.py:35 src/smart_agnc/settings_win.py:91
+#: src/smart_agnc/settings_win.py:32 src/smart_agnc/settings_win.py:89
 msgid "Password"
 msgstr "Password"
 
-#: src/smart_agnc/settings_win.py:39
+#: src/smart_agnc/settings_win.py:36 src/smart_agnc/settings_win.py:93
 msgid "Show password"
 msgstr "Show password"
 
-#: src/smart_agnc/settings_win.py:43
+#: src/smart_agnc/settings_win.py:41
 msgid "Enable proxy settings"
 msgstr "Enable proxy settings"
 
-#: src/smart_agnc/settings_win.py:53
+#: src/smart_agnc/settings_win.py:51
 msgid "Change Password"
 msgstr "Change Password"
 
-#: src/smart_agnc/settings_win.py:54
+#: src/smart_agnc/settings_win.py:52
 msgid "You should disconnect first"
 msgstr "You should disconnect first"
 
-#: src/smart_agnc/settings_win.py:85
+#: src/smart_agnc/settings_win.py:83
 msgid "Server"
 msgstr "Server"
 
-#: src/smart_agnc/settings_win.py:88
+#: src/smart_agnc/settings_win.py:86
 msgid "User"
 msgstr "User"
 
+#: src/smart_agnc/conn_info_win.py:13
+msgid "StatusText"
+msgstr "Status text"
+
+#: src/smart_agnc/conn_info_win.py:14
+msgid "TimeStarted"
+msgstr "Started time"
+
+#: src/smart_agnc/conn_info_win.py:15
+msgid "TimeConnected"
+msgstr "Connected time"
+
+#: src/smart_agnc/conn_info_win.py:16
+msgid "TimeCompleted"
+msgstr "Completed time"
+
+#: src/smart_agnc/conn_info_win.py:17
+msgid "VPNIPAddress"
+msgstr "VPN IP address"
+
+#: src/smart_agnc/conn_info_win.py:18
+msgid "VPNServerIPAddress"
+msgstr "VPN server IP address"
+
+#: src/smart_agnc/conn_info_win.py:19
+msgid "VPNTunnelAdapter"
+msgstr "VPN tunnel adapter"
+
 #: src/smart_agnc/conn_info_win.py:20
+msgid "ConnectType"
+msgstr "Connect type"
+
+#: src/smart_agnc/conn_info_win.py:21
+msgid "StatusCode"
+msgstr "Status code"
+
+#: src/smart_agnc/conn_info_win.py:22
+msgid "InternetIPAddress"
+msgstr "Internet IP address"
+
+#: src/smart_agnc/conn_info_win.py:23
+msgid "InternetGatewayIPAddress"
+msgstr "Internet gateway IP address"
+
+#: src/smart_agnc/conn_info_win.py:24
+msgid "InternetAdapter"
+msgstr "Internet adapter"
+
+#: src/smart_agnc/conn_info_win.py:25
+msgid "InternetMACAddress"
+msgstr "Internet MAC address"
+
+#: src/smart_agnc/conn_info_win.py:26
+msgid "VPNCompressionActive"
+msgstr "Is VPN compression active?"
+
+#: src/smart_agnc/conn_info_win.py:27
+msgid "BytesReceivedAtStartOfConnection"
+msgstr "Bytes received at start of connection"
+
+#: src/smart_agnc/conn_info_win.py:28
+msgid "BytesSentAtStartOfConnection"
+msgstr "Bytes sent at start of connection"
+
+#: src/smart_agnc/conn_info_win.py:37
 msgid "Connection Information"
 msgstr "Connection Information"
 
-#: src/smart_agnc/new_password_win.py:19
+#: src/smart_agnc/conn_info_win.py:49 src/smart_agnc/agn_notifier.py:113
+msgid "Not available."
+msgstr "Not available."
+
+#: src/smart_agnc/conn_info_win.py:51
+msgid "Yes."
+msgstr "Yes."
+
+#: src/smart_agnc/conn_info_win.py:51
+msgid "No."
+msgstr "No."
+
+#: src/smart_agnc/new_password_win.py:18
 msgid "Smart AGNC: Set new password"
 msgstr "Smart AGNC: Set new password"
 
-#: src/smart_agnc/new_password_win.py:21
+#: src/smart_agnc/new_password_win.py:20
 msgid "New password:"
 msgstr "New password:"
 
-#: src/smart_agnc/new_password_win.py:25
+#: src/smart_agnc/new_password_win.py:24
 msgid "Repeat password:"
 msgstr "Repeat password:"
 
-#: src/smart_agnc/new_password_win.py:47
+#: src/smart_agnc/new_password_win.py:46
 #, python-format
 msgid ""
 "The password `%s` has been generated for you. Would you like to use it? Be "
@@ -80,19 +156,19 @@ msgstr ""
 "The password `%s` has been generated for you. Would you like to use it? Be "
 "sure to copy it first."
 
-#: src/smart_agnc/new_password_win.py:49
+#: src/smart_agnc/new_password_win.py:48
 msgid "Smart AGNC: Time for a new password"
 msgstr "Smart AGNC: Time for a new password"
 
-#: src/smart_agnc/new_password_win.py:66
+#: src/smart_agnc/new_password_win.py:65
 msgid "Password must contain numbers, uppercase and lowercase letters."
 msgstr "Password must contain numbers, uppercase and lowercase letters."
 
-#: src/smart_agnc/new_password_win.py:69
+#: src/smart_agnc/new_password_win.py:68
 msgid "Passwords don't match."
 msgstr "Passwords don't match."
 
-#: src/smart_agnc/new_password_win.py:73
+#: src/smart_agnc/new_password_win.py:72
 msgid "Error"
 msgstr "Error"
 
@@ -116,39 +192,31 @@ msgstr "Edit Account settings..."
 msgid "Exit"
 msgstr "Exit"
 
-#: src/smart_agnc/agn_notifier.py:109
+#: src/smart_agnc/agn_notifier.py:108
 msgid "Connect"
 msgstr "Connect"
 
-#: src/smart_agnc/agn_notifier.py:111
+#: src/smart_agnc/agn_notifier.py:110
 msgid "Disconnect"
 msgstr "Disconnect"
 
-#: src/smart_agnc/agn_notifier.py:114
-msgid "None"
-msgstr "None"
-
-#: src/smart_agnc/agn_notifier.py:120
+#: src/smart_agnc/agn_notifier.py:119
 #, python-format
 msgid "IP: %s"
 msgstr "IP: %s"
 
-#: src/smart_agnc/agn_notifier.py:130
+#: src/smart_agnc/agn_notifier.py:129
 msgid "It is time to change your password!"
 msgstr "It is time to change your password!"
 
-#: src/smart_agnc/agn_notifier.py:136
+#: src/smart_agnc/agn_notifier.py:135
 msgid "Invalid credentials"
 msgstr "Invalid credentials"
 
-#: src/smart_agnc/agn_notifier.py:142
+#: src/smart_agnc/agn_notifier.py:141
 msgid "Unknown error!"
 msgstr "Unknown error!"
 
 #: src/smart_agnc/agn_notifier.py:164
 msgid "AGNC Services should be restarted."
 msgstr "AGNC Services should be restarted."
-
-#: src/smart_agnc/agn_notifier.py:226
-msgid "Refreshing..."
-msgstr "Refreshing..."

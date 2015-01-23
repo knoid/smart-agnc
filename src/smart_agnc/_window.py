@@ -15,6 +15,7 @@ class _Window(gtk.Window):
     def __init__(self):
         super(_Window, self).__init__()
 
+        self.set_resizable(False)
         self.set_border_width(10)
         self.connect('delete_event', __prevent_destroy__)
         self.connect('key-press-event', __on_key__)
