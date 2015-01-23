@@ -41,12 +41,3 @@ class AboutWindow(_WindowForm):
         key.modify_font(pango.FontDescription("bold"))
 
         self._make_label(value, 1, top)
-
-if __name__ == '__main__':
-    import gettext
-    gettext.install('smart-agnc')
-
-    a = About()
-    a.present()
-
-    gtk.main()
