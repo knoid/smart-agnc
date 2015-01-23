@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: smart-agnc\n"
-"POT-Creation-Date: 2015-01-23 16:17-0300\n"
-"PO-Revision-Date: 2015-01-23 16:26-0300\n"
+"POT-Creation-Date: 2015-01-23 19:22-0300\n"
+"PO-Revision-Date: 2015-01-23 19:23-0300\n"
 "Last-Translator: Ariel Barabas <smart-agnc@knoid.me>\n"
 "Language-Team: \n"
 "Language: es_AR\n"
@@ -27,11 +27,11 @@ msgstr "Cuenta"
 msgid "Username"
 msgstr "Usuario"
 
-#: src/smart_agnc/settings_win.py:32 src/smart_agnc/settings_win.py:89
+#: src/smart_agnc/settings_win.py:32 src/smart_agnc/settings_win.py:90
 msgid "Password"
 msgstr "Contraseña"
 
-#: src/smart_agnc/settings_win.py:36 src/smart_agnc/settings_win.py:93
+#: src/smart_agnc/settings_win.py:36 src/smart_agnc/settings_win.py:94
 msgid "Show password"
 msgstr "Mostrar contraseña"
 
@@ -39,101 +39,102 @@ msgstr "Mostrar contraseña"
 msgid "Enable proxy settings"
 msgstr "Habilitar configuración del proxy"
 
-#: src/smart_agnc/settings_win.py:51
+#: src/smart_agnc/settings_win.py:52
 msgid "Change Password"
 msgstr "Cambiar Contraseña"
 
-#: src/smart_agnc/settings_win.py:52
+#: src/smart_agnc/settings_win.py:53
 msgid "You should disconnect first"
 msgstr "Primero debes desconectarte"
 
-#: src/smart_agnc/settings_win.py:83
+#: src/smart_agnc/settings_win.py:84
 msgid "Server"
 msgstr "Servidor"
 
-#: src/smart_agnc/settings_win.py:86
+#: src/smart_agnc/settings_win.py:87
 msgid "User"
 msgstr "Usuario"
 
-#: src/smart_agnc/conn_info_win.py:13
-msgid "StatusText"
-msgstr "Estado"
-
-#: src/smart_agnc/conn_info_win.py:14
-msgid "TimeStarted"
-msgstr "Tiempo de comienzo"
-
-#: src/smart_agnc/conn_info_win.py:15
-msgid "TimeConnected"
-msgstr "Tiempo al conectar"
-
-#: src/smart_agnc/conn_info_win.py:16
-msgid "TimeCompleted"
-msgstr "Tiempo final"
-
 #: src/smart_agnc/conn_info_win.py:17
-msgid "VPNIPAddress"
-msgstr "Dirección IP en la VPN"
-
-#: src/smart_agnc/conn_info_win.py:18
-msgid "VPNServerIPAddress"
-msgstr "Dirección IP del servidor de VPN"
-
-#: src/smart_agnc/conn_info_win.py:19
-msgid "VPNTunnelAdapter"
-msgstr "Adaptador del túnel de VPN"
-
-#: src/smart_agnc/conn_info_win.py:20
-msgid "ConnectType"
-msgstr "Tipo de conexión"
-
-#: src/smart_agnc/conn_info_win.py:21
-msgid "StatusCode"
-msgstr "Código de estado"
-
-#: src/smart_agnc/conn_info_win.py:22
-msgid "InternetIPAddress"
-msgstr "Dirección IP de Internet"
-
-#: src/smart_agnc/conn_info_win.py:23
-msgid "InternetGatewayIPAddress"
-msgstr "Dirección IP del gateway"
-
-#: src/smart_agnc/conn_info_win.py:24
-msgid "InternetAdapter"
-msgstr "Adaptador de Internet"
-
-#: src/smart_agnc/conn_info_win.py:25
-msgid "InternetMACAddress"
-msgstr "Dirección MAC de Internet"
-
-#: src/smart_agnc/conn_info_win.py:26
-msgid "VPNCompressionActive"
-msgstr "Compresión de datos en VPN activada"
-
-#: src/smart_agnc/conn_info_win.py:27
-msgid "BytesReceivedAtStartOfConnection"
-msgstr "Bytes recibidos al comienzo de la conexión"
-
-#: src/smart_agnc/conn_info_win.py:28
-msgid "BytesSentAtStartOfConnection"
-msgstr "Bytes enviados al comienzo de la conexión"
-
-#: src/smart_agnc/conn_info_win.py:37
 msgid "Connection Information"
 msgstr "Información de Conexión"
 
-#: src/smart_agnc/conn_info_win.py:49 src/smart_agnc/agn_notifier.py:113
+#: src/smart_agnc/conn_info_win.py:24 src/smart_agnc/conn_info_win.py:28
+#: src/smart_agnc/agn_notifier.py:113
 msgid "Not available."
 msgstr "No disponible."
 
-#: src/smart_agnc/conn_info_win.py:51
+#: src/smart_agnc/conn_info_win.py:30
 msgid "Yes."
 msgstr "Si."
 
-#: src/smart_agnc/conn_info_win.py:51
+#: src/smart_agnc/conn_info_win.py:30
 msgid "No."
 msgstr "No."
+
+#: src/smart_agnc/conn_info_win.py:54
+msgid "BytesReceivedAtStartOfConnection"
+msgstr "Bytes recibidos al comienzo de la conexión"
+
+#: src/smart_agnc/conn_info_win.py:55
+msgid "BytesSentAtStartOfConnection"
+msgstr "Bytes enviados al comienzo de la conexión"
+
+#: src/smart_agnc/conn_info_win.py:56
+msgid "ConnectType"
+msgstr "Tipo de conexión"
+
+#: src/smart_agnc/conn_info_win.py:57
+msgid "InternetIPAddress"
+msgstr "Dirección IP de Internet"
+
+#: src/smart_agnc/conn_info_win.py:58
+msgid "InternetGatewayIPAddress"
+msgstr "Dirección IP del gateway"
+
+#: src/smart_agnc/conn_info_win.py:59
+msgid "InternetAdapter"
+msgstr "Adaptador de Internet"
+
+#: src/smart_agnc/conn_info_win.py:60
+msgid "InternetMACAddress"
+msgstr "Dirección MAC de Internet"
+
+#: src/smart_agnc/conn_info_win.py:61
+msgid "StatusCode"
+msgstr "Código de estado"
+
+#: src/smart_agnc/conn_info_win.py:62
+msgid "StatusText"
+msgstr "Estado"
+
+#: src/smart_agnc/conn_info_win.py:63
+msgid "TimeCompleted"
+msgstr "Tiempo final"
+
+#: src/smart_agnc/conn_info_win.py:64
+msgid "TimeConnected"
+msgstr "Tiempo al conectar"
+
+#: src/smart_agnc/conn_info_win.py:65
+msgid "TimeStarted"
+msgstr "Tiempo de comienzo"
+
+#: src/smart_agnc/conn_info_win.py:66
+msgid "VPNCompressionActive"
+msgstr "Compresión de datos en VPN activada"
+
+#: src/smart_agnc/conn_info_win.py:67
+msgid "VPNIPAddress"
+msgstr "Dirección IP en la VPN"
+
+#: src/smart_agnc/conn_info_win.py:68
+msgid "VPNServerIPAddress"
+msgstr "Dirección IP del servidor de VPN"
+
+#: src/smart_agnc/conn_info_win.py:69
+msgid "VPNTunnelAdapter"
+msgstr "Adaptador del túnel de VPN"
 
 #: src/smart_agnc/new_password_win.py:18
 msgid "Smart AGNC: Set new password"
@@ -172,23 +173,48 @@ msgstr "Las contraseñas no coinciden"
 msgid "Error"
 msgstr "Error"
 
-#: src/smart_agnc/menu.py:30
+#: src/smart_agnc/about_win.py:18
+msgid "About Smart AGNC"
+msgstr "Acerca de Smart AGNC"
+
+#: src/smart_agnc/about_win.py:28
+#, python-format
+msgid ""
+"Please go to %s\n"
+"and click on Like if you've found this app to be useful."
+msgstr ""
+"Por favor ve a %s\n"
+"y haz click en Like si esta aplicación de pareció útil."
+
+#: src/smart_agnc/about_win.py:33
+msgid "Author"
+msgstr "Autor"
+
+#: src/smart_agnc/about_win.py:34
+msgid "Version"
+msgstr "Versión"
+
+#: src/smart_agnc/menu.py:34
 msgid "Restart AGNC Services"
 msgstr "Reiniciar servicios AGNC"
 
-#: src/smart_agnc/menu.py:40
+#: src/smart_agnc/menu.py:44
 msgid "Keep alive"
 msgstr "Mantener activo"
 
-#: src/smart_agnc/menu.py:50
+#: src/smart_agnc/menu.py:54
 msgid "VPN Connection Information"
 msgstr "Información de Conexión de VPN"
 
-#: src/smart_agnc/menu.py:55
+#: src/smart_agnc/menu.py:59
 msgid "Edit Account settings..."
 msgstr "Editar configuración de Cuenta"
 
-#: src/smart_agnc/menu.py:65
+#: src/smart_agnc/menu.py:68
+msgid "About"
+msgstr "Acerca de"
+
+#: src/smart_agnc/menu.py:74
 msgid "Exit"
 msgstr "Salir"
 

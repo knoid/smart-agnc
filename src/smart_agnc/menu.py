@@ -2,6 +2,8 @@
 
 import gtk
 
+from about_win import AboutWindow
+
 item_conn_status = gtk.MenuItem()
 item_conn_ip = gtk.MenuItem()
 item_conn_toggle = gtk.MenuItem()
@@ -10,6 +12,8 @@ item_restart_service = gtk.MenuItem()
 
 def create(conn_toggle, keepalive_init_state, keepalive_toggle, conn_info,
            configure, restart_agnc_services, exit_button):
+
+    about = AboutWindow()
 
     menu = gtk.Menu()
 
@@ -56,12 +60,17 @@ def create(conn_toggle, keepalive_init_state, keepalive_toggle, conn_info,
     m_item.connect("activate", configure)
     menu.append(m_item)
 
-    if exit_button:
-        # Separator
-        m_item = gtk.SeparatorMenuItem()
-        menu.append(m_item)
+    # Separator
+    m_item = gtk.SeparatorMenuItem()
+    menu.append(m_item)
 
-        # Exit button
+    # About
+    m_item = gtk.MenuItem(_("About"))
+    m_item.connect("activate", lambda a: about.present())
+    menu.append(m_item)
+
+    # Exit button
+    if exit_button:
         m_item = gtk.MenuItem(_("Exit"))
         m_item.connect("activate", gtk.main_quit)
         menu.append(m_item)
