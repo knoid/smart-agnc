@@ -145,6 +145,10 @@ msgstr "Invalid credentials"
 msgid "Unknown error!"
 msgstr "Unknown error!"
 
-#: src/smart_agnc/agn_notifier.py:229
+#: src/smart_agnc/agn_notifier.py:164
+msgid "AGNC Services should be restarted."
+msgstr "AGNC Services should be restarted."
+
+#: src/smart_agnc/agn_notifier.py:226
 msgid "Refreshing..."
 msgstr "Refreshing..."

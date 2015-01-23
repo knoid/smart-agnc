@@ -153,12 +153,12 @@ class AgnNotifier(TrayIcon):
             self.vpn.action_disconnect()
 
             if self.fail_connect > self.services_restart_after:
-                logger.info('AGNC Services should be restarted')
 
                 if ab.can_restart_agnc_services():
                     ab.restart_agnc_services()
                     self.fail_connect = 0
                 else:
+                    self.alert(_('AGNC Services should be restarted.'))
                     menu.item_restart_service.show()
             else:
                 self.fail_connect += 1

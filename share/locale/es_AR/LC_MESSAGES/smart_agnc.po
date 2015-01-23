@@ -145,6 +145,10 @@ msgstr "Credenciales inválidas"
 msgid "Unknown error!"
 msgstr "Error desconocido!"
 
-#: src/smart_agnc/agn_notifier.py:229
+#: src/smart_agnc/agn_notifier.py:164
+msgid "AGNC Services should be restarted."
+msgstr "Los servicios del AGNC deben ser reiniciados."
+
+#: src/smart_agnc/agn_notifier.py:226
 msgid "Refreshing..."
 msgstr "Actualizando..."

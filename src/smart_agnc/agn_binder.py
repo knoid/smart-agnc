@@ -3,6 +3,7 @@
 import atexit
 from distutils.spawn import find_executable
 import fcntl
+from functools import wraps
 import dbus
 import gobject
 import logging
@@ -27,6 +28,25 @@ STATE_AFTER_CONNECT = 600
 SERVICE_MANAGER_ADDRESS = '204.146.172.230'  # AT&T Production RIG
 
 logger = logging.getLogger(__name__)
+
+
+def retry(max_retries=5):
+    def outer(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            assert max_retries > 0
+            x = max_retries
+            while x >= 0:
+                try:
+                    return func(*args, **kwargs)
+                except IOError:
+                    x -= 1
+
+            # should not come to this
+            if can_restart_agnc_services():
+                restart_agnc_services()
+        return wrapper
+    return outer
 
 
 class AgnBinder(gobject.GObject):
@@ -152,38 +172,32 @@ class AgnBinder(gobject.GObject):
         logger.info('action_disconnect')
         self.__send__(2)
 
+    @retry()
     def get_connect_attempt_info(self):
         """
         Returns a dictionary with AGNC's connect attempt information.
         """
         logger.info('get_connect_attempt_info')
         self.__send__(3)
-        try:
-            return self.__get_object_response__()
-        except IOError:
-            return self.get_connect_attempt_info()
+        return self.__get_object_response__()
 
+    @retry()
     def get_state(self):
         """
         Returns an int with AGNC's current state
         """
         logger.info('get_state')
         self.__send__(4)
-        try:
-            return int(self.__get_lines__()[0])
-        except IOError:
-            return self.get_state()
+        return int(self.__get_lines__()[0])
 
+    @retry()
     def get_user_info(self):
         """
         Returns a dictionary with AGNC's user information.
         """
         logger.info('get_user_info')
         self.__send__(5)
-        try:
-            return self.__get_object_response__()
-        except IOError:
-            return self.get_user_info()
+        return self.__get_object_response__()
 
 
 def long2ip(long_ip):
@@ -195,7 +209,7 @@ def long2ip(long_ip):
 
 bus = dbus.SystemBus()
 b_proxy = bus.get_object('org.freedesktop.PolicyKit1',
-                       '/org/freedesktop/PolicyKit1/Authority')
+                         '/org/freedesktop/PolicyKit1/Authority')
 authority = dbus.Interface(
     b_proxy, dbus_interface='org.freedesktop.PolicyKit1.Authority')
 
@@ -214,6 +228,7 @@ def can_restart_agnc_services():
 
 
 def restart_agnc_services():
+    logger.info('Restarting AGNC services')
     call(['pkexec', find_executable('sagnc-service-restart')])
 
 
