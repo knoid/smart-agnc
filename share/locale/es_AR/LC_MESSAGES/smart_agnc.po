@@ -208,7 +208,7 @@ msgstr "Información de Conexión de VPN"
 
 #: src/smart_agnc/menu.py:59
 msgid "Edit Account settings..."
-msgstr "Editar configuración de Cuenta"
+msgstr "Configuración de Cuenta..."
 
 #: src/smart_agnc/menu.py:68
 msgid "About"
