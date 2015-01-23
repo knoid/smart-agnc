@@ -3,6 +3,7 @@
 # system imports
 import base64
 import gobject
+import gtk
 import logging
 import os
 import pynotify
@@ -60,6 +61,7 @@ class AgnNotifier(TrayIcon):
         self.config_win.connect('save', self.do_save)
 
         self.on_vpn_state_change(None, vpn.get_state())
+        gtk.gdk.notify_startup_complete()
 
         self.conn_info_win = ConnectionInformationWindow()
         self.set_menu(menu.create(
