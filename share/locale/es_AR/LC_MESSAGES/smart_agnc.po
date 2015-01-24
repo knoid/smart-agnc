@@ -184,7 +184,7 @@ msgid ""
 "and click on Like if you've found this app to be useful."
 msgstr ""
 "Por favor ve a %s\n"
-"y haz click en Like si esta aplicación de pareció útil."
+"y haz click en Like si esta aplicación te pareció útil."
 
 #: src/smart_agnc/about_win.py:33
 msgid "Author"
