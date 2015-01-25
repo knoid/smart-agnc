@@ -27,11 +27,16 @@ i18n_dir = os.path.join(share_dir, 'locale')
 gettext.install(__package__, i18n_dir)
 
 optp = OptionParser()
-optp.add_option('-v', '--verbose', dest='verbose', action='count',
-                help='Increase verbosity (specify multiple times for more)')
 optp.add_option('--exit-button', dest='exit_button', action='store_true',
                 help='Add an exit button to the icon\'s context menu')
+optp.add_option('--no-check-update', dest='check_update', action='store_false',
+                help='Disable checking for application updates.')
+optp.add_option('-v', '--verbose', dest='verbose', action='count',
+                help='Increase verbosity (specify multiple times for more)')
 opts, args = optp.parse_args()
+
+if opts.check_update is None:
+    opts.check_update = True
 
 log_level = logging.WARNING  # default
 if opts.verbose == 1:
@@ -61,6 +66,6 @@ logger.info('new run')
 
 CONFIG = UserPreferences({'keepalive': True, 'timeout': 40})
 AGN_BINDER = AgnBinder()
-AgnNotifier(CONFIG, AGN_BINDER, opts.exit_button)
+AgnNotifier(CONFIG, AGN_BINDER, opts)
 
 gtk.main()

@@ -12,14 +12,16 @@ from subprocess import Popen, PIPE
 import time
 
 # local imports
+import agn_binder as ab
 from conn_info_win import ConnectionInformationWindow
 import menu
 from new_password_win import NewPasswordWindow
 from settings_win import ConfigurationWindow
 from tray_icon import TrayIcon
-import agn_binder as ab
+import update_check
 
 logger = logging.getLogger(__name__)
+two_hours = 1000 * 60 * 60 * 2
 
 
 class AgnNotifier(TrayIcon):
@@ -41,7 +43,7 @@ class AgnNotifier(TrayIcon):
     connecting_timeout = 0
     want_to = ab.STATE_CONNECTED
 
-    def __init__(self, user_config, vpn, exit_button):
+    def __init__(self, user_config, vpn, opts):
         super(AgnNotifier, self).__init__(self._id)
         pynotify.init(self._id)
 
@@ -71,14 +73,22 @@ class AgnNotifier(TrayIcon):
             conn_info=self.do_conn_info,
             configure=self.do_configure,
             restart_agnc_services=self.do_restart_agnc_services,
-            exit_button=exit_button))
+            exit_button=opts.exit_button))
 
         gobject.timeout_add(self.reconnect_interval * 1000, self.reconnect)
+        if opts.check_update:
+            gobject.timeout_add(two_hours, self.check_updates)
 
     def alert(self, msg):
         notice = pynotify.Notification(self.title, msg)
         notice.show()
         logger.warning('Alert: %s', msg.replace('\n', '\n > '))
+
+    def check_updates(self):
+        if update_check.new_version_available():
+            self.alert('There is a new version available!')
+            menu.item_new_version.show()
+        return True
 
     def trigger_external_script(self, vpn, state):
         logger.info('trigger_external_script, state=%d', state)
