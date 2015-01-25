@@ -8,7 +8,7 @@ from optparse import OptionParser
 import os
 import sys
 
-from . import __title__, config_dir, config_file, logs_dir, share_dir
+from . import config_dir, config_file, logs_dir, share_dir
 from agn_binder import AgnBinder
 from agn_notifier import AgnNotifier
 from config import UserPreferences
@@ -24,7 +24,7 @@ if not os.path.isdir(logs_dir):
     os.mkdir(logs_dir)
 
 i18n_dir = os.path.join(share_dir, 'locale')
-gettext.install(__title__, i18n_dir)
+gettext.install(__package__, i18n_dir)
 
 optp = OptionParser()
 optp.add_option('-v', '--verbose', dest='verbose', action='count',

@@ -7,7 +7,6 @@ by adding a tray icon and keeping you connected whenever possible.
 
 import os
 
-__title__ = 'smart_agnc'
 __version__ = '0.1.0'
 __author__ = 'Ariel Barabas'
 
