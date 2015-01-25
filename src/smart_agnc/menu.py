@@ -37,13 +37,13 @@ def create(conn_toggle, keepalive_init_state, keepalive_toggle, conn_info,
 
     # Toggle connection state
     m_item = item_conn_toggle
-    m_item.connect("activate", conn_toggle)
+    m_item.connect('activate', conn_toggle)
     menu.append(m_item)
 
     # Auto reconnect checkbox
-    m_item = gtk.CheckMenuItem(_("Keep alive"))
+    m_item = gtk.CheckMenuItem(_('Keep alive'))
     m_item.set_active(keepalive_init_state)
-    m_item.connect("activate", keepalive_toggle)
+    m_item.connect('activate', keepalive_toggle)
     menu.append(m_item)
 
     # Separator
@@ -51,13 +51,13 @@ def create(conn_toggle, keepalive_init_state, keepalive_toggle, conn_info,
     menu.append(m_item)
 
     # Configuration menu item
-    m_item = gtk.MenuItem(_("VPN Connection Information"))
-    m_item.connect("activate", conn_info)
+    m_item = gtk.MenuItem(_('VPN Connection Information'))
+    m_item.connect('activate', conn_info)
     menu.append(m_item)
 
     # Configuration menu item
-    m_item = gtk.MenuItem(_("Edit Account settings..."))
-    m_item.connect("activate", configure)
+    m_item = gtk.MenuItem(_('Edit Account settings...'))
+    m_item.connect('activate', configure)
     menu.append(m_item)
 
     # Separator
@@ -65,14 +65,14 @@ def create(conn_toggle, keepalive_init_state, keepalive_toggle, conn_info,
     menu.append(m_item)
 
     # About
-    m_item = gtk.MenuItem(_("About"))
-    m_item.connect("activate", lambda a: about.present())
+    m_item = gtk.MenuItem(_('About'))
+    m_item.connect('activate', lambda a: about.present())
     menu.append(m_item)
 
     # Exit button
     if exit_button:
-        m_item = gtk.MenuItem(_("Exit"))
-        m_item.connect("activate", gtk.main_quit)
+        m_item = gtk.MenuItem(_('Exit'))
+        m_item.connect('activate', gtk.main_quit)
         menu.append(m_item)
 
     menu.show_all()

@@ -38,6 +38,6 @@ class AboutWindow(_WindowForm):
     def add_attr(self, label, value, top):
         key = self._make_label(label, 0, top)
         key.set_alignment(1, 0.5)
-        key.modify_font(pango.FontDescription("bold"))
+        key.modify_font(pango.FontDescription('bold'))
 
         self._make_label(value, 1, top)
