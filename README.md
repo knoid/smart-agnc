@@ -4,7 +4,7 @@ Smart AT&T Global Network Client improves upon the AT&T Global Network Client by
  * showing the status of the VPN connection with just a glance at the tray icon
  * reconnecting the VPN connection when it drops
  * providing quick connection through the tray icon
- * customized scripts to extend it your way.
+ * extending it your way by adding custom scripts.
 
 ## Prerequisites
 
@@ -12,17 +12,17 @@ Have the AT&T Global Network Client installed.
 
 ## Installation
 
-Just download the package you need from the
+Download and install the package you need from the
 [releases](//github.com/knoid/smart-agnc/releases) page.
 
 ## Hidden features
 
 Some of this features require modifying the configuration file in
-`~/.smart-agnc/config`. File uses `.ini` format with section and keys.
+`~/.smart-agnc/config`. This file uses `.ini` format with sections and keys.
 
 ### Execute a script when a certain connection state is met
 
-Add new section called `scripts` and set there any numeric status code as the
+Add a new section called `scripts` and set there any numeric status code as the
 key and a file path as the value. For example, to execute `my_script.sh` when
 the connection is established you would need:
 
@@ -32,8 +32,7 @@ the connection is established you would need:
     [scripts]
     400 = /home/my_user/my_script.sh
 
-You may also need to use `350 - STATE_VPN_RECONNECTED` depending on your
-purpose. You can find every connection state in
+You can find every connection state in
 [agn_binder.py](src/smart_agnc/agn_binder.py).
 
 ### Customize maximum timeout for connection attempt
@@ -53,3 +52,6 @@ to the context menu.
 ## Disclaimer
 
 I'm not a C programmer, so collaborations will be greatly appreciated.
+
+TODO:
+  disable inside IBM
