@@ -21,8 +21,13 @@ def new_version_available():
     # Bitly requirement
     req.add_header('Referer', 'http://' + __package__ + '/' + __version__)
 
-    content = urllib2.urlopen(req)
-    for release in json.loads(content.read()):
-        if StrictVersion(release['tag_name'][1:]) > current_version:
-            return True
+    try:
+        content = urllib2.urlopen(req)
+    except urllib2.URLError:
+        content = None
+
+    if content:
+        for release in json.loads(content.read()):
+            if StrictVersion(release['tag_name'][1:]) > current_version:
+                return True
     return False
