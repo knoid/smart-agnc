@@ -86,7 +86,7 @@ class AgnNotifier(TrayIcon):
 
     def check_updates(self):
         if update_check.new_version_available():
-            self.alert('There is a new version available!')
+            self.alert(_('There is a new version available!'))
             menu.item_new_version.show()
         return True
 

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: smart-agnc\n"
-"POT-Creation-Date: 2015-01-23 19:22-0300\n"
-"PO-Revision-Date: 2015-01-23 19:23-0300\n"
+"POT-Creation-Date: 2015-01-25 20:59-0300\n"
+"PO-Revision-Date: 2015-01-25 21:00-0300\n"
 "Last-Translator: Ariel Barabas <smart-agnc@knoid.me>\n"
 "Language-Team: \n"
 "Language: es_AR\n"
@@ -60,7 +60,7 @@ msgid "Connection Information"
 msgstr "Información de Conexión"
 
 #: src/smart_agnc/conn_info_win.py:24 src/smart_agnc/conn_info_win.py:28
-#: src/smart_agnc/agn_notifier.py:113
+#: src/smart_agnc/agn_notifier.py:125
 msgid "Not available."
 msgstr "No disponible."
 
@@ -194,55 +194,63 @@ msgstr "Autor"
 msgid "Version"
 msgstr "Versión"
 
-#: src/smart_agnc/menu.py:34
+#: src/smart_agnc/menu.py:38
 msgid "Restart AGNC Services"
 msgstr "Reiniciar servicios AGNC"
 
-#: src/smart_agnc/menu.py:44
+#: src/smart_agnc/menu.py:48
 msgid "Keep alive"
 msgstr "Mantener activo"
 
-#: src/smart_agnc/menu.py:54
+#: src/smart_agnc/menu.py:58
 msgid "VPN Connection Information"
 msgstr "Información de Conexión de VPN"
 
-#: src/smart_agnc/menu.py:59
+#: src/smart_agnc/menu.py:63
 msgid "Edit Account settings..."
 msgstr "Configuración de Cuenta..."
 
-#: src/smart_agnc/menu.py:68
+#: src/smart_agnc/menu.py:73
+msgid "Download new version"
+msgstr "Bajar la nueva versión"
+
+#: src/smart_agnc/menu.py:78
 msgid "About"
 msgstr "Acerca de"
 
-#: src/smart_agnc/menu.py:74
+#: src/smart_agnc/menu.py:84
 msgid "Exit"
 msgstr "Salir"
 
-#: src/smart_agnc/agn_notifier.py:108
+#: src/smart_agnc/agn_notifier.py:89
+msgid "There is a new version available!"
+msgstr "Hay una nueva versión disponible!"
+
+#: src/smart_agnc/agn_notifier.py:120
 msgid "Connect"
 msgstr "Conectar"
 
-#: src/smart_agnc/agn_notifier.py:110
+#: src/smart_agnc/agn_notifier.py:122
 msgid "Disconnect"
 msgstr "Desconectar"
 
-#: src/smart_agnc/agn_notifier.py:119
+#: src/smart_agnc/agn_notifier.py:131
 #, python-format
 msgid "IP: %s"
 msgstr "IP: %s"
 
-#: src/smart_agnc/agn_notifier.py:129
+#: src/smart_agnc/agn_notifier.py:141
 msgid "It is time to change your password!"
 msgstr "Es tiempo de cambiar tu contraseña!"
 
-#: src/smart_agnc/agn_notifier.py:135
+#: src/smart_agnc/agn_notifier.py:147
 msgid "Invalid credentials"
 msgstr "Credenciales inválidas"
 
-#: src/smart_agnc/agn_notifier.py:141
+#: src/smart_agnc/agn_notifier.py:153
 msgid "Unknown error!"
 msgstr "Error desconocido!"
 
-#: src/smart_agnc/agn_notifier.py:164
+#: src/smart_agnc/agn_notifier.py:176
 msgid "AGNC Services should be restarted."
 msgstr "Los servicios del AGNC deben ser reiniciados."

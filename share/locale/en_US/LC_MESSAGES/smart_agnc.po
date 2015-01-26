@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: smart-agnc\n"
-"POT-Creation-Date: 2015-01-23 19:21-0300\n"
-"PO-Revision-Date: 2015-01-23 19:22-0300\n"
+"POT-Creation-Date: 2015-01-25 20:59-0300\n"
+"PO-Revision-Date: 2015-01-25 21:00-0300\n"
 "Last-Translator: Ariel Barabas <smart-agnc@knoid.me>\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -60,7 +60,7 @@ msgid "Connection Information"
 msgstr "Connection Information"
 
 #: src/smart_agnc/conn_info_win.py:24 src/smart_agnc/conn_info_win.py:28
-#: src/smart_agnc/agn_notifier.py:113
+#: src/smart_agnc/agn_notifier.py:125
 msgid "Not available."
 msgstr "Not available."
 
@@ -194,55 +194,63 @@ msgstr "Author"
 msgid "Version"
 msgstr "Version"
 
-#: src/smart_agnc/menu.py:34
+#: src/smart_agnc/menu.py:38
 msgid "Restart AGNC Services"
 msgstr "Restart AGNC Services"
 
-#: src/smart_agnc/menu.py:44
+#: src/smart_agnc/menu.py:48
 msgid "Keep alive"
 msgstr "Keep alive"
 
-#: src/smart_agnc/menu.py:54
+#: src/smart_agnc/menu.py:58
 msgid "VPN Connection Information"
 msgstr "VPN Connection Information"
 
-#: src/smart_agnc/menu.py:59
+#: src/smart_agnc/menu.py:63
 msgid "Edit Account settings..."
 msgstr "Edit Account settings..."
 
-#: src/smart_agnc/menu.py:68
+#: src/smart_agnc/menu.py:73
+msgid "Download new version"
+msgstr "Download new version"
+
+#: src/smart_agnc/menu.py:78
 msgid "About"
 msgstr "About"
 
-#: src/smart_agnc/menu.py:74
+#: src/smart_agnc/menu.py:84
 msgid "Exit"
 msgstr "Exit"
 
-#: src/smart_agnc/agn_notifier.py:108
+#: src/smart_agnc/agn_notifier.py:89
+msgid "There is a new version available!"
+msgstr "There is a new version available!"
+
+#: src/smart_agnc/agn_notifier.py:120
 msgid "Connect"
 msgstr "Connect"
 
-#: src/smart_agnc/agn_notifier.py:110
+#: src/smart_agnc/agn_notifier.py:122
 msgid "Disconnect"
 msgstr "Disconnect"
 
-#: src/smart_agnc/agn_notifier.py:119
+#: src/smart_agnc/agn_notifier.py:131
 #, python-format
 msgid "IP: %s"
 msgstr "IP: %s"
 
-#: src/smart_agnc/agn_notifier.py:129
+#: src/smart_agnc/agn_notifier.py:141
 msgid "It is time to change your password!"
 msgstr "It is time to change your password!"
 
-#: src/smart_agnc/agn_notifier.py:135
+#: src/smart_agnc/agn_notifier.py:147
 msgid "Invalid credentials"
 msgstr "Invalid credentials"
 
-#: src/smart_agnc/agn_notifier.py:141
+#: src/smart_agnc/agn_notifier.py:153
 msgid "Unknown error!"
 msgstr "Unknown error!"
 
-#: src/smart_agnc/agn_notifier.py:164
+#: src/smart_agnc/agn_notifier.py:176
 msgid "AGNC Services should be restarted."
 msgstr "AGNC Services should be restarted."
