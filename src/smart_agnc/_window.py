@@ -20,6 +20,10 @@ class _Window(gtk.Window):
         self.connect('delete_event', __prevent_destroy__)
         self.connect('key-press-event', __on_key__)
 
+    def present(self):
+        self.set_position(gtk.WIN_POS_CENTER)
+        super(_Window, self).present()
+
 
 def __on_key__(widget, evt):
     if evt.keyval == gtk.keysyms.Escape:

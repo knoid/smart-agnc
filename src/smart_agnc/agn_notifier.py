@@ -239,10 +239,9 @@ class AgnNotifier(TrayIcon):
         self.config_win.present()
 
     def do_conn_info(self, m_item=None):
-        self.conn_info_win.present()
-
         attempt = self.vpn.get_connect_attempt_info()
         self.conn_info_win.set_dict(attempt)
+        self.conn_info_win.present()
 
     def do_restart_agnc_services(self, m_item=None):
         ab.restart_agnc_services()
