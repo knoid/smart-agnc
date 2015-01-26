@@ -5,6 +5,7 @@ This app will create a seamless VPN connection between you and your enterprise
 by adding a tray icon and keeping you connected whenever possible.
 """
 
+import gtk
 import os
 
 __version__ = '0.1.1'
@@ -22,3 +23,6 @@ config_dir = os.path.expanduser('~/.smart-agnc')
 logs_dir = os.path.join(config_dir, 'logs')
 config_file = os.path.join(config_dir, 'config')
 share_dir = os.path.join(root_path, 'share')
+
+icons_dir = os.path.join(share_dir, 'icons')
+gtk.icon_theme_get_default().append_search_path(icons_dir)

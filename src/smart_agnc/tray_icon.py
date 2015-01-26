@@ -9,8 +9,7 @@ try:
 except ImportError:
     HAS_APPINDICATOR = False
 
-from . import share_dir
-icons_dir = os.path.join(share_dir, 'icons')
+from . import icons_dir
 
 if HAS_APPINDICATOR:
 
@@ -36,7 +35,6 @@ else:
         def __init__(self, ti_id):
             super(TrayIcon, self).__init__()
             self.ti_id = ti_id
-            gtk.icon_theme_get_default().append_search_path(icons_dir)
             self.connect('button-press-event', self.__on_click__)
 
         def set_icon(self, state):
