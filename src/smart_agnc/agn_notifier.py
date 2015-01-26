@@ -114,6 +114,13 @@ class AgnNotifier(TrayIcon):
         if new_state > ab.STATE_CONNECTED:
             return
 
+        if new_state == ab.STATE_DAEMON_DEAD:
+            if ab.can_restart_agnc_services():
+                ab.restart_agnc_services()
+            else:
+                self.alert(_('AGNC Services should be restarted.'))
+                menu.item_restart_service.show()
+
         attempt = self.vpn.get_connect_attempt_info()
         menu.item_conn_status.set_label(attempt['StatusText'])
 

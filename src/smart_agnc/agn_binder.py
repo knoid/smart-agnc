@@ -10,7 +10,7 @@ import logging
 import os
 import socket
 import struct
-from subprocess import call, PIPE, Popen
+from subprocess import PIPE, Popen
 import time
 
 STATE_UNKNOWN = 0
@@ -229,7 +229,7 @@ def can_restart_agnc_services():
 
 def restart_agnc_services():
     logger.info('Restarting AGNC services')
-    call(['pkexec', find_executable('sagnc-service-restart')])
+    Popen(['pkexec', find_executable('sagnc-service-restart')])
 
 
 def __get_line__(stream):
