@@ -7,7 +7,7 @@ by adding a tray icon and keeping you connected whenever possible.
 
 import os
 
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 __author__ = 'Ariel Barabas'
 
 module_dir = os.path.abspath(os.path.dirname(__file__))

@@ -1,3 +1,11 @@
+## v0.1.1 (2015-01-26)
+
+ * Restarting AGNC daemon when necessary improves stability
+ * Connection information window redesign
+ * Added an About dialog
+ * Notify OS when finished loading
+ * Checks for new versions
+
 ## v0.1.0 (2015-01-22)
 
  * All main features implemented, so bumping version to 0.1.0
