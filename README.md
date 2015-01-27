@@ -52,6 +52,3 @@ to the context menu.
 ## Disclaimer
 
 I'm not a C programmer, so collaborations will be greatly appreciated.
-
-TODO:
-  disable inside IBM
