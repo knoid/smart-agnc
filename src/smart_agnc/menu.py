@@ -17,8 +17,6 @@ releases_url = 'https://github.com/knoid/smart-agnc/releases'
 def create(conn_toggle, keepalive_init_state, keepalive_toggle, conn_info,
            configure, restart_agnc_services, exit_button):
 
-    about = AboutWindow()
-
     menu = gtk.Menu()
 
     m_item = item_conn_status
@@ -76,7 +74,7 @@ def create(conn_toggle, keepalive_init_state, keepalive_toggle, conn_info,
 
     # About
     m_item = gtk.MenuItem(_('About'))
-    m_item.connect('activate', lambda a: about.present())
+    m_item.connect('activate', lambda mi: AboutWindow().present())
     menu.append(m_item)
 
     # Exit button
