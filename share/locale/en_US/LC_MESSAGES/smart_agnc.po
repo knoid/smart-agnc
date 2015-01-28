@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: smart-agnc\n"
-"POT-Creation-Date: 2015-01-25 20:59-0300\n"
-"PO-Revision-Date: 2015-01-25 21:00-0300\n"
+"POT-Creation-Date: 2015-01-28 12:09-0300\n"
+"PO-Revision-Date: 2015-01-28 12:10-0300\n"
 "Last-Translator: Ariel Barabas <smart-agnc@knoid.me>\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -27,11 +27,11 @@ msgstr "Account"
 msgid "Username"
 msgstr "Username"
 
-#: src/smart_agnc/settings_win.py:32 src/smart_agnc/settings_win.py:90
+#: src/smart_agnc/settings_win.py:32 src/smart_agnc/settings_win.py:91
 msgid "Password"
 msgstr "Password"
 
-#: src/smart_agnc/settings_win.py:36 src/smart_agnc/settings_win.py:94
+#: src/smart_agnc/settings_win.py:36 src/smart_agnc/settings_win.py:95
 msgid "Show password"
 msgstr "Show password"
 
@@ -47,11 +47,11 @@ msgstr "Change Password"
 msgid "You should disconnect first"
 msgstr "You should disconnect first"
 
-#: src/smart_agnc/settings_win.py:84
+#: src/smart_agnc/settings_win.py:85
 msgid "Server"
 msgstr "Server"
 
-#: src/smart_agnc/settings_win.py:87
+#: src/smart_agnc/settings_win.py:88
 msgid "User"
 msgstr "User"
 
@@ -60,7 +60,7 @@ msgid "Connection Information"
 msgstr "Connection Information"
 
 #: src/smart_agnc/conn_info_win.py:24 src/smart_agnc/conn_info_win.py:28
-#: src/smart_agnc/agn_notifier.py:125
+#: src/smart_agnc/agn_notifier.py:132
 msgid "Not available."
 msgstr "Not available."
 
@@ -161,15 +161,15 @@ msgstr ""
 msgid "Smart AGNC: Time for a new password"
 msgstr "Smart AGNC: Time for a new password"
 
-#: src/smart_agnc/new_password_win.py:65
+#: src/smart_agnc/new_password_win.py:67
 msgid "Password must contain numbers, uppercase and lowercase letters."
 msgstr "Password must contain numbers, uppercase and lowercase letters."
 
-#: src/smart_agnc/new_password_win.py:68
+#: src/smart_agnc/new_password_win.py:70
 msgid "Passwords don't match."
 msgstr "Passwords don't match."
 
-#: src/smart_agnc/new_password_win.py:72
+#: src/smart_agnc/new_password_win.py:74
 msgid "Error"
 msgstr "Error"
 
@@ -194,63 +194,63 @@ msgstr "Author"
 msgid "Version"
 msgstr "Version"
 
-#: src/smart_agnc/menu.py:38
+#: src/smart_agnc/menu.py:36
 msgid "Restart AGNC Services"
 msgstr "Restart AGNC Services"
 
-#: src/smart_agnc/menu.py:48
+#: src/smart_agnc/menu.py:46
 msgid "Keep alive"
 msgstr "Keep alive"
 
-#: src/smart_agnc/menu.py:58
+#: src/smart_agnc/menu.py:56
 msgid "VPN Connection Information"
 msgstr "VPN Connection Information"
 
-#: src/smart_agnc/menu.py:63
+#: src/smart_agnc/menu.py:61
 msgid "Edit Account settings..."
 msgstr "Edit Account settings..."
 
-#: src/smart_agnc/menu.py:73
+#: src/smart_agnc/menu.py:71
 msgid "Download new version"
 msgstr "Download new version"
 
-#: src/smart_agnc/menu.py:78
+#: src/smart_agnc/menu.py:76
 msgid "About"
 msgstr "About"
 
-#: src/smart_agnc/menu.py:84
-msgid "Exit"
-msgstr "Exit"
+#: src/smart_agnc/menu.py:82
+msgid "Quit"
+msgstr "Quit"
 
 #: src/smart_agnc/agn_notifier.py:89
 msgid "There is a new version available!"
 msgstr "There is a new version available!"
 
-#: src/smart_agnc/agn_notifier.py:120
+#: src/smart_agnc/agn_notifier.py:121 src/smart_agnc/agn_notifier.py:183
+msgid "AGNC Services should be restarted."
+msgstr "AGNC Services should be restarted."
+
+#: src/smart_agnc/agn_notifier.py:127
 msgid "Connect"
 msgstr "Connect"
 
-#: src/smart_agnc/agn_notifier.py:122
+#: src/smart_agnc/agn_notifier.py:129
 msgid "Disconnect"
 msgstr "Disconnect"
 
-#: src/smart_agnc/agn_notifier.py:131
+#: src/smart_agnc/agn_notifier.py:138
 #, python-format
 msgid "IP: %s"
 msgstr "IP: %s"
 
-#: src/smart_agnc/agn_notifier.py:141
+#: src/smart_agnc/agn_notifier.py:148
 msgid "It is time to change your password!"
 msgstr "It is time to change your password!"
 
-#: src/smart_agnc/agn_notifier.py:147
+#: src/smart_agnc/agn_notifier.py:154
 msgid "Invalid credentials"
 msgstr "Invalid credentials"
 
-#: src/smart_agnc/agn_notifier.py:153
+#: src/smart_agnc/agn_notifier.py:160
 msgid "Unknown error!"
 msgstr "Unknown error!"
-
-#: src/smart_agnc/agn_notifier.py:176
-msgid "AGNC Services should be restarted."
-msgstr "AGNC Services should be restarted."

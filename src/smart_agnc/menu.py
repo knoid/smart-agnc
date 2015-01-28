@@ -79,7 +79,7 @@ def create(conn_toggle, keepalive_init_state, keepalive_toggle, conn_info,
 
     # Exit button
     if exit_button:
-        m_item = gtk.MenuItem(_('Exit'))
+        m_item = gtk.MenuItem(_('Quit'))
         m_item.connect('activate', gtk.main_quit)
         menu.append(m_item)
 

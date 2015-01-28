@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: smart-agnc\n"
-"POT-Creation-Date: 2015-01-25 20:59-0300\n"
-"PO-Revision-Date: 2015-01-25 21:00-0300\n"
+"POT-Creation-Date: 2015-01-28 12:09-0300\n"
+"PO-Revision-Date: 2015-01-28 12:10-0300\n"
 "Last-Translator: Ariel Barabas <smart-agnc@knoid.me>\n"
 "Language-Team: \n"
 "Language: es_AR\n"
@@ -27,11 +27,11 @@ msgstr "Cuenta"
 msgid "Username"
 msgstr "Usuario"
 
-#: src/smart_agnc/settings_win.py:32 src/smart_agnc/settings_win.py:90
+#: src/smart_agnc/settings_win.py:32 src/smart_agnc/settings_win.py:91
 msgid "Password"
 msgstr "Contraseña"
 
-#: src/smart_agnc/settings_win.py:36 src/smart_agnc/settings_win.py:94
+#: src/smart_agnc/settings_win.py:36 src/smart_agnc/settings_win.py:95
 msgid "Show password"
 msgstr "Mostrar contraseña"
 
@@ -47,11 +47,11 @@ msgstr "Cambiar Contraseña"
 msgid "You should disconnect first"
 msgstr "Primero debes desconectarte"
 
-#: src/smart_agnc/settings_win.py:84
+#: src/smart_agnc/settings_win.py:85
 msgid "Server"
 msgstr "Servidor"
 
-#: src/smart_agnc/settings_win.py:87
+#: src/smart_agnc/settings_win.py:88
 msgid "User"
 msgstr "Usuario"
 
@@ -60,7 +60,7 @@ msgid "Connection Information"
 msgstr "Información de Conexión"
 
 #: src/smart_agnc/conn_info_win.py:24 src/smart_agnc/conn_info_win.py:28
-#: src/smart_agnc/agn_notifier.py:125
+#: src/smart_agnc/agn_notifier.py:132
 msgid "Not available."
 msgstr "No disponible."
 
@@ -161,15 +161,15 @@ msgstr ""
 msgid "Smart AGNC: Time for a new password"
 msgstr "Smart AGNC: Es tiempo de una nueva contraseña"
 
-#: src/smart_agnc/new_password_win.py:65
+#: src/smart_agnc/new_password_win.py:67
 msgid "Password must contain numbers, uppercase and lowercase letters."
 msgstr "La contraseña debe contener números y letras mayúsculas y minúsculas."
 
-#: src/smart_agnc/new_password_win.py:68
+#: src/smart_agnc/new_password_win.py:70
 msgid "Passwords don't match."
 msgstr "Las contraseñas no coinciden"
 
-#: src/smart_agnc/new_password_win.py:72
+#: src/smart_agnc/new_password_win.py:74
 msgid "Error"
 msgstr "Error"
 
@@ -194,63 +194,63 @@ msgstr "Autor"
 msgid "Version"
 msgstr "Versión"
 
-#: src/smart_agnc/menu.py:38
+#: src/smart_agnc/menu.py:36
 msgid "Restart AGNC Services"
 msgstr "Reiniciar servicios AGNC"
 
-#: src/smart_agnc/menu.py:48
+#: src/smart_agnc/menu.py:46
 msgid "Keep alive"
 msgstr "Mantener activo"
 
-#: src/smart_agnc/menu.py:58
+#: src/smart_agnc/menu.py:56
 msgid "VPN Connection Information"
 msgstr "Información de Conexión de VPN"
 
-#: src/smart_agnc/menu.py:63
+#: src/smart_agnc/menu.py:61
 msgid "Edit Account settings..."
 msgstr "Configuración de Cuenta..."
 
-#: src/smart_agnc/menu.py:73
+#: src/smart_agnc/menu.py:71
 msgid "Download new version"
 msgstr "Bajar la nueva versión"
 
-#: src/smart_agnc/menu.py:78
+#: src/smart_agnc/menu.py:76
 msgid "About"
 msgstr "Acerca de"
 
-#: src/smart_agnc/menu.py:84
-msgid "Exit"
+#: src/smart_agnc/menu.py:82
+msgid "Quit"
 msgstr "Salir"
 
 #: src/smart_agnc/agn_notifier.py:89
 msgid "There is a new version available!"
 msgstr "Hay una nueva versión disponible!"
 
-#: src/smart_agnc/agn_notifier.py:120
+#: src/smart_agnc/agn_notifier.py:121 src/smart_agnc/agn_notifier.py:183
+msgid "AGNC Services should be restarted."
+msgstr "Los servicios del AGNC deben ser reiniciados."
+
+#: src/smart_agnc/agn_notifier.py:127
 msgid "Connect"
 msgstr "Conectar"
 
-#: src/smart_agnc/agn_notifier.py:122
+#: src/smart_agnc/agn_notifier.py:129
 msgid "Disconnect"
 msgstr "Desconectar"
 
-#: src/smart_agnc/agn_notifier.py:131
+#: src/smart_agnc/agn_notifier.py:138
 #, python-format
 msgid "IP: %s"
 msgstr "IP: %s"
 
-#: src/smart_agnc/agn_notifier.py:141
+#: src/smart_agnc/agn_notifier.py:148
 msgid "It is time to change your password!"
 msgstr "Es tiempo de cambiar tu contraseña!"
 
-#: src/smart_agnc/agn_notifier.py:147
+#: src/smart_agnc/agn_notifier.py:154
 msgid "Invalid credentials"
 msgstr "Credenciales inválidas"
 
-#: src/smart_agnc/agn_notifier.py:153
+#: src/smart_agnc/agn_notifier.py:160
 msgid "Unknown error!"
 msgstr "Error desconocido!"
-
-#: src/smart_agnc/agn_notifier.py:176
-msgid "AGNC Services should be restarted."
-msgstr "Los servicios del AGNC deben ser reiniciados."
