@@ -3,7 +3,7 @@
 import gettext
 import gtk
 import logging
-from logging.handlers import TimedRotatingFileHandler
+from logging.handlers import RotatingFileHandler
 from optparse import OptionParser
 import os
 import sys
@@ -48,8 +48,8 @@ elif opts.verbose >= 2:
 streamLog = logging.StreamHandler(sys.stdout)
 streamLog.setLevel(log_level)
 
-fileLog = TimedRotatingFileHandler(os.path.join(logs_dir, 'log'),
-                                   encoding='utf-8', when='D', backupCount=5)
+fileLog = RotatingFileHandler(os.path.join(logs_dir, 'log'), 'a', 1 << 20,
+                              backupCount=5, encoding='utf-8')
 fileLog.setLevel(logging.INFO)
 
 formatter_keys = ('asctime', 'name', 'levelname', 'message')
