@@ -237,5 +237,5 @@ def __get_line__(stream):
     # trim \n
     return line[0:len(line) - 1]
 
-for evt in ['agn_action_requested', 'agn_state_change']:
+for evt in ['agn-action-requested', 'agn-state-change']:
     gobject.signal_new(evt, AgnBinder, gobject.SIGNAL_RUN_FIRST, None, (int, ))

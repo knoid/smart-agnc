@@ -53,8 +53,8 @@ class AgnNotifier(TrayIcon):
         self.new_password_win.connect('new-password', self.set_new_password)
 
         self.vpn = vpn
-        vpn.connect('agn_state_change', self.on_vpn_state_change)
-        vpn.connect('agn_state_change', self.trigger_external_script)
+        vpn.connect('agn-state-change', self.on_vpn_state_change)
+        vpn.connect('agn-state-change', self.trigger_external_script)
 
         vpn_values, proxy_values = self.get_config_values()
         self.config_win = ConfigurationWindow(

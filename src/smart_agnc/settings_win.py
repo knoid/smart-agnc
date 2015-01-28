@@ -55,13 +55,13 @@ class ConfigurationWindow(_WindowCentered, _WindowForm):
         self._attach(button, 2, 5)
 
         self.table.show_all()
-        self.connect('form_submit', self.__on_submit__)
+        self.connect('form-submit', self.__on_submit__)
         self.connect('hide', self.__on_hide__, change_password_win)
 
         self.proxy_table = self.init_proxy_table()
         self._attach(self.proxy_table, 0, 4, 3)
 
-        agn.connect('agn_state_change', self.on_agn_state_change)
+        agn.connect('agn-state-change', self.on_agn_state_change)
         self.on_agn_state_change(vpn, agn.get_state())
         self.on_proxy_toggled(self.check_proxy)
 

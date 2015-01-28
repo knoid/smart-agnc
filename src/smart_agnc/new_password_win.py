@@ -30,7 +30,7 @@ class NewPasswordWindow(_WindowForm):
         close_save.connect('clicked', self.__on_submit__)
 
         self.table.show_all()
-        self.connect('form_submit', self.__on_submit__)
+        self.connect('form-submit', self.__on_submit__)
 
     def present(self):
         self.txt_password1.set_text('')

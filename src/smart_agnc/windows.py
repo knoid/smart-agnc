@@ -9,7 +9,7 @@ class _Window(gtk.Window):
     """
     Abstract Window class that predefines the behaviour of every window. It
     lets you close with Esc and submit with Return. It also adds a new signal
-    called `form_submit` to handle the Return key.
+    called `form-submit` to handle the Return key.
     """
 
     def __init__(self):
@@ -17,10 +17,10 @@ class _Window(gtk.Window):
 
         self.set_resizable(False)
         self.set_border_width(10)
-        self.connect('delete_event', __prevent_destroy__)
+        self.connect('delete-event', __prevent_destroy__)
         self.connect('key-press-event', __on_key__)
 
-gobject.signal_new('form_submit', _Window, gobject.SIGNAL_RUN_FIRST, None, ())
+gobject.signal_new('form-submit', _Window, gobject.SIGNAL_RUN_FIRST, None, ())
 
 
 def __on_key__(widget, evt):
@@ -28,7 +28,7 @@ def __on_key__(widget, evt):
         widget.hide()
 
     if evt.keyval == gtk.keysyms.Return:
-        widget.emit('form_submit')
+        widget.emit('form-submit')
 
 
 def __prevent_destroy__(widget, _=None):
