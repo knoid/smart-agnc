@@ -7,7 +7,7 @@ import gtk
 import os
 import re
 
-from _window_form import _WindowForm
+from windows import _WindowForm
 
 
 class NewPasswordWindow(_WindowForm):

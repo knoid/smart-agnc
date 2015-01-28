@@ -4,11 +4,11 @@
 import gobject
 import gtk
 
-from _window_form import _WindowForm
+from windows import _WindowCentered, _WindowForm
 import agn_binder as ab
 
 
-class ConfigurationWindow(_WindowForm):
+class ConfigurationWindow(_WindowCentered, _WindowForm):
 
     txt_account = None
     txt_username = None

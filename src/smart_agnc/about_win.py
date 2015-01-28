@@ -4,13 +4,13 @@ import gtk
 import pango
 
 from . import __author__, __version__
-from _window_form import _WindowForm
+from windows import _WindowCentered, _WindowForm
 
 tap_url = 'https://tap.innovate.ibm.com/app/3768'
 tap_url = '<a href="%s">%s</a>' % (tap_url, tap_url)
 
 
-class AboutWindow(_WindowForm):
+class AboutWindow(_WindowCentered, _WindowForm):
 
     def __init__(self):
         super(AboutWindow, self).__init__()

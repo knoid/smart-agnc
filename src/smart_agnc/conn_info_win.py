@@ -3,11 +3,11 @@
 # system imports
 import time
 
-from _window_form import _WindowForm
+from windows import _WindowCentered, _WindowForm
 from agn_binder import long2ip
 
 
-class ConnectionInformationWindow(_WindowForm):
+class ConnectionInformationWindow(_WindowCentered, _WindowForm):
 
     fields = {}
 
