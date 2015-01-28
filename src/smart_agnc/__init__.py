@@ -8,7 +8,7 @@ by adding a tray icon and keeping you connected whenever possible.
 import gtk
 import os
 
-__version__ = '0.1.1'
+__version__ = '0.1.2'
 __author__ = 'Ariel Barabas'
 
 module_dir = os.path.abspath(os.path.dirname(__file__))

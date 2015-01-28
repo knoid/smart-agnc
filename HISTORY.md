@@ -1,3 +1,10 @@
+## v0.1.2 (2015-01-28)
+
+ * Restarting AGNC daemon when DAEMON_DEAD state is received
+ * Restarting AGNC daemon in background process
+ * Windows start centered
+ * Logs now rotate depending on their file size
+
 ## v0.1.1 (2015-01-26)
 
  * Restarting AGNC daemon when necessary improves stability

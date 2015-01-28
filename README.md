@@ -51,4 +51,9 @@ to the context menu.
 
 ## Disclaimer
 
+By using this application, you agree to share the version you are running and
+your country of residence; but don't worry, we only collect this information to
+know the real level of adoption this tool has and then be able to improve your
+experience accordingly.
+
 I'm not a C programmer, so collaborations will be greatly appreciated.
