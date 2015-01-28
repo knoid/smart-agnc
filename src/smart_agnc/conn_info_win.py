@@ -9,10 +9,10 @@ from agn_binder import long2ip
 
 class ConnectionInformationWindow(_WindowCentered, _WindowForm):
 
-    fields = {}
-
     def __init__(self):
         super(ConnectionInformationWindow, self).__init__()
+
+        self.fields = {}
 
         self.set_title(_('Connection Information'))
         self.table.set_property('n-columns', 2)
