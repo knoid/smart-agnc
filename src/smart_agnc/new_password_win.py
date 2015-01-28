@@ -52,6 +52,8 @@ class NewPasswordWindow(_WindowForm):
         if response == gtk.RESPONSE_OK:
             self.emit('new-password', new_password)
         else:
+            self.set_position(gtk.WIN_POS_CENTER)
+            self.set_transient_for(None)
             self.present()
 
     def __on_submit__(self, widget):

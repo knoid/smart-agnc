@@ -51,11 +51,12 @@ class ConfigurationWindow(_WindowCentered, _WindowForm):
 
         self.change_password = button = gtk.Button(_('Change Password'))
         button.set_tooltip_text(_('You should disconnect first'))
-        button.connect('clicked', present_window(change_password_win))
+        button.connect('clicked', self.do_change_password, change_password_win)
         self._attach(button, 2, 5)
 
         self.table.show_all()
         self.connect('form_submit', self.__on_submit__)
+        self.connect('hide', self.__on_hide__, change_password_win)
 
         self.proxy_table = self.init_proxy_table()
         self._attach(self.proxy_table, 0, 4, 3)
@@ -124,6 +125,11 @@ class ConfigurationWindow(_WindowCentered, _WindowForm):
                   ret['proxy']['user'],
                   ret['proxy']['password'])
 
+    def do_change_password(self, btn, change_password_win):
+        change_password_win.set_position(gtk.WIN_POS_NONE)
+        change_password_win.set_transient_for(self)
+        change_password_win.present()
+
     def on_agn_state_change(self, vpn, state):
         enabled = state < ab.STATE_BEFORE_CONNECT
         self.change_password.set_sensitive(enabled)
@@ -138,12 +144,13 @@ class ConfigurationWindow(_WindowCentered, _WindowForm):
         else:
             self.proxy_table.hide()
 
+    def __on_hide__(self, _, change_password_win):
+        if change_password_win.get_transient_for() is self:
+            change_password_win.hide()
+
     def __on_submit__(self, _):
         self.do_btn_save(False)
 
-
-def present_window(win):
-    return lambda w: win.present()
 
 gobject.signal_new('save', ConfigurationWindow, gobject.SIGNAL_RUN_FIRST,
                    None, (str, str, str, bool, str, str, str, ))
