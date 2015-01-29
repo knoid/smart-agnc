@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: smart-agnc\n"
-"POT-Creation-Date: 2015-01-28 12:09-0300\n"
-"PO-Revision-Date: 2015-01-28 12:10-0300\n"
+"POT-Creation-Date: 2015-01-29 17:55-0300\n"
+"PO-Revision-Date: 2015-01-29 17:55-0300\n"
 "Last-Translator: Ariel Barabas <smart-agnc@knoid.me>\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -173,11 +173,11 @@ msgstr "Passwords don't match."
 msgid "Error"
 msgstr "Error"
 
-#: src/smart_agnc/about_win.py:18
+#: src/smart_agnc/about_win.py:24
 msgid "About Smart AGNC"
 msgstr "About Smart AGNC"
 
-#: src/smart_agnc/about_win.py:28
+#: src/smart_agnc/about_win.py:33
 #, python-format
 msgid ""
 "Please go to %s\n"
@@ -186,39 +186,47 @@ msgstr ""
 "Please go to %s\n"
 "and click on Like if you've found this app to be useful."
 
-#: src/smart_agnc/about_win.py:33
+#: src/smart_agnc/about_win.py:38
 msgid "Author"
 msgstr "Author"
 
-#: src/smart_agnc/about_win.py:34
+#: src/smart_agnc/about_win.py:39
 msgid "Version"
 msgstr "Version"
 
-#: src/smart_agnc/menu.py:36
+#: src/smart_agnc/about_win.py:44
+msgid "Help"
+msgstr "Help"
+
+#: src/smart_agnc/about_win.py:48
+msgid "Close"
+msgstr "Close"
+
+#: src/smart_agnc/menu.py:38
 msgid "Restart AGNC Services"
 msgstr "Restart AGNC Services"
 
-#: src/smart_agnc/menu.py:46
+#: src/smart_agnc/menu.py:48
 msgid "Keep alive"
 msgstr "Keep alive"
 
-#: src/smart_agnc/menu.py:56
+#: src/smart_agnc/menu.py:58
 msgid "VPN Connection Information"
 msgstr "VPN Connection Information"
 
-#: src/smart_agnc/menu.py:61
+#: src/smart_agnc/menu.py:63
 msgid "Edit Account settings..."
 msgstr "Edit Account settings..."
 
-#: src/smart_agnc/menu.py:71
+#: src/smart_agnc/menu.py:73
 msgid "Download new version"
 msgstr "Download new version"
 
-#: src/smart_agnc/menu.py:76
+#: src/smart_agnc/menu.py:78
 msgid "About"
 msgstr "About"
 
-#: src/smart_agnc/menu.py:82
+#: src/smart_agnc/menu.py:84
 msgid "Quit"
 msgstr "Quit"
 
