@@ -89,7 +89,7 @@ class AgnBinder(gobject.GObject):
             return False
         try:
             (change_type, param) = line.split('\t')
-            gobject.idle_add(self.emit, 'agn_' + change_type, int(param))
+            gobject.idle_add(self.emit, 'agn-' + change_type, int(param))
         except ValueError:
             pass
         return True

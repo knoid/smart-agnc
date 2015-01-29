@@ -13,12 +13,12 @@
 #define MAX_COMMANDS 6
 
 int state_change_callback(int parameter) {
-    fprintf(stderr, "state_change\t%d\n", parameter);
+    fprintf(stderr, "state-change\t%d\n", parameter);
     return EXIT_SUCCESS;
 }
 
 int action_requested_callback(int parameter) {
-    fprintf(stderr, "action_requested\t%d\n", parameter);
+    fprintf(stderr, "action-requested\t%d\n", parameter);
     return EXIT_SUCCESS;
 }
 
