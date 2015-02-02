@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: smart-agnc\n"
-"POT-Creation-Date: 2015-01-29 17:55-0300\n"
-"PO-Revision-Date: 2015-01-29 17:55-0300\n"
+"POT-Creation-Date: 2015-02-02 09:23-0300\n"
+"PO-Revision-Date: 2015-02-02 09:24-0300\n"
 "Last-Translator: Ariel Barabas <smart-agnc@knoid.me>\n"
 "Language-Team: \n"
 "Language: es_AR\n"
@@ -202,6 +202,10 @@ msgstr "Ayuda"
 msgid "Close"
 msgstr "Cerrar"
 
+#: src/smart_agnc/agn_monitor.py:84 src/smart_agnc/agn_notifier.py:121
+msgid "AGNC Services should be restarted."
+msgstr "Los servicios del AGNC deben ser reiniciados."
+
 #: src/smart_agnc/menu.py:38
 msgid "Restart AGNC Services"
 msgstr "Reiniciar servicios AGNC"
@@ -234,10 +238,6 @@ msgstr "Salir"
 msgid "There is a new version available!"
 msgstr "Hay una nueva versión disponible!"
 
-#: src/smart_agnc/agn_notifier.py:121 src/smart_agnc/agn_notifier.py:183
-msgid "AGNC Services should be restarted."
-msgstr "Los servicios del AGNC deben ser reiniciados."
-
 #: src/smart_agnc/agn_notifier.py:127
 msgid "Connect"
 msgstr "Conectar"
@@ -262,3 +262,11 @@ msgstr "Credenciales inválidas"
 #: src/smart_agnc/agn_notifier.py:160
 msgid "Unknown error!"
 msgstr "Error desconocido!"
+
+#: src/smart_agnc/agn_notifier.py:215
+msgid "VPN Disconnected"
+msgstr "VPN desconectada"
+
+#: src/smart_agnc/agn_notifier.py:219
+msgid "Complete credentials to connect"
+msgstr "Ingrese sus credenciales para conectase"

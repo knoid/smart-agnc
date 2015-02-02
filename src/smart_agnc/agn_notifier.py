@@ -211,11 +211,11 @@ class AgnNotifier(TrayIcon):
                     if force or self.config.getboolean('vpn', 'keepalive'):
                         self.vpn_connect(vpn, proxy)
                     else:
-                        self.alert('VPN Disconnected')
+                        self.alert(_('VPN Disconnected'))
                         self.want_to = ab.STATE_NOT_CONNECTED
 
                 else:
-                    self.alert('Complete credentials to connect')
+                    self.alert(_('Complete credentials to connect'))
                     self.do_configure()
                     self.want_to = ab.STATE_NOT_CONNECTED
 
