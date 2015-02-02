@@ -19,10 +19,9 @@ import menu
 from new_password_win import NewPasswordWindow
 from settings_win import ConfigurationWindow
 from tray_icon import TrayIcon
-import update_check
+import update
 
 logger = logging.getLogger(__name__)
-two_hours = 1000 * 60 * 60 * 2
 
 
 class AgnNotifier(TrayIcon):
@@ -78,13 +77,7 @@ class AgnNotifier(TrayIcon):
 
         gobject.timeout_add(self.reconnect_interval * 1000, self.reconnect)
         if opts.check_update:
-            gobject.timeout_add(two_hours, self.check_updates)
-
-    def check_updates(self):
-        if update_check.new_version_available():
-            alert(_('There is a new version available!'))
-            menu.item_new_version.show()
-        return True
+            update.check_periodically(self.upgrade_available)
 
     def trigger_external_script(self, vpn, state):
         logger.info('trigger_external_script, state=%d', state)
@@ -222,6 +215,10 @@ class AgnNotifier(TrayIcon):
         self.changing_password = new_password
         self.vpn_connect(vpn, proxy, new_password)
         self.want_to = ab.STATE_CONNECTED
+
+    def upgrade_available(self):
+        alert(_('There is a new version available!'))
+        menu.item_new_version.show()
 
     def vpn_connect(self, vpn, proxy=None, new_password=''):
         timeout_secs = self.config.getint('vpn', 'timeout')
