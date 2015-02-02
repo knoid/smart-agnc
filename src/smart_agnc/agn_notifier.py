@@ -79,14 +79,9 @@ class AgnNotifier(TrayIcon):
         if opts.check_update:
             gobject.timeout_add(two_hours, self.check_updates)
 
-    def alert(self, msg):
-        notice = pynotify.Notification(self.title, msg)
-        notice.show()
-        logger.warning('Alert: %s', msg.replace('\n', '\n > '))
-
     def check_updates(self):
         if update_check.new_version_available():
-            self.alert(_('There is a new version available!'))
+            alert(_('There is a new version available!'))
             menu.item_new_version.show()
         return True
 
@@ -104,7 +99,7 @@ class AgnNotifier(TrayIcon):
             if proc:  # the external process was successfully initialized
                 output += [s.rstrip() for s in proc.communicate() if s]
             if len(output) > 1:
-                self.alert('\n'.join(output))
+                alert('\n'.join(output))
 
     def on_vpn_state_change(self, vpn, new_state):
         logger.info('on_vpn_state_change, new_state=%d', new_state)
@@ -118,7 +113,7 @@ class AgnNotifier(TrayIcon):
             if ab.can_restart_agnc_services():
                 ab.restart_agnc_services()
             else:
-                self.alert(_('AGNC Services should be restarted.'))
+                alert(_('AGNC Services should be restarted.'))
                 menu.item_restart_service.show()
 
         attempt = self.vpn.get_connect_attempt_info()
@@ -142,19 +137,19 @@ class AgnNotifier(TrayIcon):
         # 16 = incorrect new password
         if attempt['StatusCode'] in [12, 16]:
             self.want_to = ab.STATE_NOT_CONNECTED
-            self.alert(_('It is time to change your password!'))
+            alert(_('It is time to change your password!'))
             self.new_password_win.request_new_password()
 
         # 8 = Invalid credentials
         elif 8 == attempt['StatusCode']:
             self.want_to = ab.STATE_NOT_CONNECTED
-            self.alert(_('Invalid credentials'))
+            alert(_('Invalid credentials'))
             self.do_configure()
 
         # 502 = User-requested disconnect
         elif 0 < attempt['StatusCode'] and 502 != attempt['StatusCode']:
             self.want_to = ab.STATE_NOT_CONNECTED
-            self.alert(_('Unknown error!') + '\n' + attempt['StatusText'])
+            alert(_('Unknown error!') + '\n' + attempt['StatusText'])
             self.do_configure()
 
         self.last_state = new_state
@@ -177,7 +172,7 @@ class AgnNotifier(TrayIcon):
                     ab.restart_agnc_services()
                     self.fail_connect = 0
                 else:
-                    self.alert(_('AGNC Services should be restarted.'))
+                    alert(_('AGNC Services should be restarted.'))
                     menu.item_restart_service.show()
             else:
                 self.fail_connect += 1
@@ -211,11 +206,11 @@ class AgnNotifier(TrayIcon):
                     if force or self.config.getboolean('vpn', 'keepalive'):
                         self.vpn_connect(vpn, proxy)
                     else:
-                        self.alert(_('VPN Disconnected'))
+                        alert(_('VPN Disconnected'))
                         self.want_to = ab.STATE_NOT_CONNECTED
 
                 else:
-                    self.alert(_('Complete credentials to connect'))
+                    alert(_('Complete credentials to connect'))
                     self.do_configure()
                     self.want_to = ab.STATE_NOT_CONNECTED
 
