@@ -29,11 +29,3 @@ share_dir = os.path.join(root_path, 'share')
 
 icons_dir = os.path.join(share_dir, 'icons')
 gtk.icon_theme_get_default().append_search_path(icons_dir)
-
-logger = logging.getLogger(__name__)
-
-
-def alert(msg):
-    notice = pynotify.Notification('Smart AT&T Client', msg)
-    notice.show()
-    logger.warning('Alert: %s', msg.replace('\n', '\n > '))
