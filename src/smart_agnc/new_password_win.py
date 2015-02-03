@@ -56,7 +56,7 @@ class NewPasswordWindow(_WindowForm):
             self.set_transient_for(None)
             self.present()
 
-    def __on_submit__(self, widget):
+    def __on_submit__(self, unused_widget):
         password1 = self.txt_password1.get_text()
         password2 = self.txt_password2.get_text()
         if password1 == password2 and is_valid_password(password1):

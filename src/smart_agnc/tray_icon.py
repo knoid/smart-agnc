@@ -43,7 +43,7 @@ else:
         def set_menu(self, menu):
             self.menu = menu
 
-        def __on_click__(self, _, evt):
+        def __on_click__(self, unused, evt):
             if self.menu:
                 self.menu.popup(None, None,
                                 self.__position_menu__, evt.button, evt.time)

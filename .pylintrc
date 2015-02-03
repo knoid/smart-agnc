@@ -1,0 +1,3 @@
+[VARIABLES]
+dummy-variables-rgx=unused
+additional-builtins=_

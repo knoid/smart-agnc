@@ -79,7 +79,7 @@ class AgnNotifier(TrayIcon):
         if opts.check_update:
             update.check_periodically(self.upgrade_available)
 
-    def trigger_external_script(self, vpn, state):
+    def trigger_external_script(self, unused_vpn, state):
         logger.info('trigger_external_script, state=%d', state)
         script_path = self.config.get('scripts', str(state))
         if len(script_path) > 0:
@@ -210,7 +210,7 @@ class AgnNotifier(TrayIcon):
 
         return True  # prevent the timeout from expiring
 
-    def set_new_password(self, win, new_password):
+    def set_new_password(self, unused_win, new_password):
         vpn, proxy = self.get_config_values()
         self.changing_password = new_password
         self.vpn_connect(vpn, proxy, new_password)
@@ -228,15 +228,15 @@ class AgnNotifier(TrayIcon):
         self.vpn.action_connect(vpn['account'], vpn['username'],
                                 vpn['password'], new_password, proxy)
 
-    def do_configure(self, m_item=None):
+    def do_configure(self, unused_m_item=None):
         self.config_win.present()
 
-    def do_conn_info(self, m_item=None):
+    def do_conn_info(self, unused_m_item=None):
         attempt = self.vpn.get_connect_attempt_info()
         self.conn_info_win.set_dict(attempt)
         self.conn_info_win.present()
 
-    def do_restart_agnc_services(self, m_item=None):
+    def do_restart_agnc_services(self, unused_m_item=None):
         ab.restart_agnc_services()
 
     def do_save(self, config_win,
@@ -254,7 +254,7 @@ class AgnNotifier(TrayIcon):
         self.want_to = ab.STATE_CONNECTED
         self.reconnect()
 
-    def do_toggle_connection(self, m_item=None):
+    def do_toggle_connection(self, unused_m_item=None):
         if self.want_to == ab.STATE_CONNECTED:
             self.want_to = ab.STATE_NOT_CONNECTED
             self.vpn.action_disconnect()

@@ -123,7 +123,7 @@ class AgnBinder(gobject.GObject):
     def __get_object_response__(self):
         res = {}
         for line in self.__get_lines__():
-            (_, prop, value) = line.split("\t")
+            (unused, prop, value) = line.split("\t")
             if prop.startswith('sz'):
                 prop = prop[2:]
             else:
@@ -220,8 +220,9 @@ def can_restart_agnc_services():
     flags = 1             # AllowUserInteraction flag
     cancellation_id = ''  # No cancellation id
     try:
-        is_authorized, is_challenge, details = authority.CheckAuthorization(
-            subject, action_id, {}, flags, cancellation_id)
+        (is_authorized, unused_is_challenge, unused_details) \
+            = authority.CheckAuthorization(
+                subject, action_id, {}, flags, cancellation_id)
         return bool(is_authorized)
     except dbus.exceptions.DBusException:
         return False

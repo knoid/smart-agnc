@@ -110,7 +110,7 @@ class ConfigurationWindow(_WindowCentered, _WindowForm):
         self.check_proxy.set_active(use_proxy)
         self.on_proxy_toggled(self.check_proxy)
 
-    def do_btn_save(self, _):
+    def do_btn_save(self, unused):
         ret = {}
         mappers = [('vpn', self.vpn_mapper), ('proxy', self.proxy_mapper)]
         for sect, mapper in mappers:
@@ -125,12 +125,12 @@ class ConfigurationWindow(_WindowCentered, _WindowForm):
                   ret['proxy']['user'],
                   ret['proxy']['password'])
 
-    def do_change_password(self, btn, change_password_win):
+    def do_change_password(self, unused_btn, change_password_win):
         change_password_win.set_position(gtk.WIN_POS_NONE)
         change_password_win.set_transient_for(self)
         change_password_win.present()
 
-    def on_agn_state_change(self, vpn, state):
+    def on_agn_state_change(self, unused_vpn, state):
         enabled = state < ab.STATE_BEFORE_CONNECT
         self.change_password.set_sensitive(enabled)
         self.change_password.set_has_tooltip(not enabled)
@@ -144,11 +144,11 @@ class ConfigurationWindow(_WindowCentered, _WindowForm):
         else:
             self.proxy_table.hide()
 
-    def __on_hide__(self, _, change_password_win):
+    def __on_hide__(self, unused, change_password_win):
         if change_password_win.get_transient_for() is self:
             change_password_win.hide()
 
-    def __on_submit__(self, _):
+    def __on_submit__(self, unused):
         self.do_btn_save(False)
 
 
