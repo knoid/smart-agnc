@@ -11,6 +11,7 @@ import os
 import socket
 import struct
 from subprocess import PIPE, Popen
+import threading
 import time
 
 STATE_UNKNOWN = 0
@@ -28,6 +29,7 @@ STATE_AFTER_CONNECT = 600
 SERVICE_MANAGER_ADDRESS = '204.146.172.230'  # AT&T Production RIG
 
 logger = logging.getLogger(__name__)
+rlock = threading.RLock()
 
 
 def retry(max_retries=5):
@@ -111,11 +113,13 @@ class AgnBinder(gobject.GObject):
                     raise
 
     def __get_lines__(self):
+        rlock.acquire()
         lines = []
         while True:
             line = self.__next_line__()
             logger.debug('vpn > %s', line)
             if line == 'EOF':
+                rlock.release()
                 return lines
             else:
                 lines.append(line)
