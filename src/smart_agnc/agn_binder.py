@@ -65,6 +65,7 @@ class AgnBinder(gobject.GObject):
         super(AgnBinder, self).__init__()
         self.setup_process()
         atexit.register(self.proc.kill)
+        gobject.idle_add(self.emit, 'agn-state-change', self.get_state())
 
     def setup_process(self):
         if self.__io_watch > 0:

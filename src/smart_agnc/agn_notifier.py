@@ -62,7 +62,6 @@ class AgnNotifier(TrayIcon):
             proxy_values, self.new_password_win)
         self.config_win.connect('save', self.do_save)
 
-        self.on_vpn_state_change(None, vpn.get_state())
         gtk.gdk.notify_startup_complete()
 
         self.conn_info_win = ConnectionInformationWindow()

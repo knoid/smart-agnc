@@ -62,7 +62,6 @@ class ConfigurationWindow(_WindowCentered, _WindowForm):
         self._attach(self.proxy_table, 0, 4, 3)
 
         agn.connect('agn-state-change', self.on_agn_state_change)
-        self.on_agn_state_change(vpn, agn.get_state())
         self.on_proxy_toggled(self.check_proxy)
 
         self.vpn_mapper = {
