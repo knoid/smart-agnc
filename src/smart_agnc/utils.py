@@ -3,6 +3,7 @@
 # system imports
 import logging
 import pynotify
+import threading
 
 # local imports
 import agn_binder as ab
@@ -15,6 +16,31 @@ def alert(msg):
     notice = pynotify.Notification('Smart AT&T Client', msg)
     notice.show()
     logger.warning('Alert: %s', msg.replace('\n', '\n > '))
+
+
+def async(blocking=True):
+    lock = threading.Lock()
+
+    def outer(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            LockingThread(blocking, lock,
+                          target=func, args=args, kwargs=kwargs).start()
+        return wrapper
+    return outer
+
+
+class LockingThread(threading.Thread):
+
+    def __init__(self, blocking, lock, **kwargs):
+        super(LockingThread, self).__init__(**kwargs)
+        self.blocking = blocking
+        self.lock = lock
+
+    def run(self):
+        if self.lock.acquire(self.blocking):
+            super(LockingThread, self).run()
+            self.lock.release()
 
 
 def restart_agnc_services():

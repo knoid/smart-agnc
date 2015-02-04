@@ -5,11 +5,11 @@ from distutils.version import StrictVersion
 import gobject
 import json
 import logging
-import threading
 import urllib2
 
 # local imports
 from . import __version__
+import utils
 
 logger = logging.getLogger(__name__)
 current_version = StrictVersion(__version__)
@@ -22,12 +22,13 @@ def check_periodically(upgrade_available_callback):
     gobject.timeout_add(two_hours, check_updates, upgrade_available_callback)
 
 
+@utils.async()
 def check_updates(callback):
-    threading.Thread(target=check_new_version, args=(callback, )).start()
-    return True
 
+    # a return value from an async func wont reach the caller, so we just
+    # schedule the next update check.
+    check_periodically(callback)
 
-def check_new_version(callback):
     logger.info('Checking updates')
     req = urllib2.Request(gh_api)
 

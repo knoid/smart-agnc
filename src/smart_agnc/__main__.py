@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import gettext
+import gobject
 import gtk
 import logging
 from logging.handlers import RotatingFileHandler
@@ -63,6 +64,8 @@ logger.setLevel(logging.DEBUG)
 logger.addHandler(streamLog)
 logger.addHandler(fileLog)
 logger.info('new run')
+
+gobject.threads_init()
 
 AGN_BINDER = AgnBinder()
 CONFIG = UserPreferences({'keepalive': True, 'timeout': 40}, AGN_BINDER)
