@@ -153,6 +153,7 @@ class AgnBinder(gobject.GObject):
             self.setup_process()
             self.__send__(num, args)
 
+    @retry()
     def exit(self):
         """
         Exit subprocess.
@@ -160,6 +161,7 @@ class AgnBinder(gobject.GObject):
         logger.info('exit')
         self.__send__(0)
 
+    @retry()
     def action_connect(self, account, username, password, new_password='',
                        proxy=None):
         """
@@ -174,6 +176,7 @@ class AgnBinder(gobject.GObject):
             args += [proxy['server'], proxy['user'], proxy['password']]
         self.__send__(1, args)
 
+    @retry()
     def action_disconnect(self):
         """
         Issues a disconnect action to the daemon.
