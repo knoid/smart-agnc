@@ -29,7 +29,7 @@ STATE_AFTER_CONNECT = 600
 SERVICE_MANAGER_ADDRESS = '204.146.172.230'  # AT&T Production RIG
 
 logger = logging.getLogger(__name__)
-rlock = threading.RLock()
+lock = threading.Lock()
 
 
 def retry(max_retries=5):
@@ -37,12 +37,17 @@ def retry(max_retries=5):
         @wraps(func)
         def wrapper(*args, **kwargs):
             assert max_retries > 0
+            lock.acquire()
             x = max_retries
             while x >= 0:
                 try:
-                    return func(*args, **kwargs)
+                    ret = func(*args, **kwargs)
+                    lock.release()
+                    return ret
                 except IOError:
                     x -= 1
+
+            lock.release()
 
             # should not come to this
             if can_restart_agnc_services():
@@ -114,13 +119,11 @@ class AgnBinder(gobject.GObject):
                     raise
 
     def __get_lines__(self):
-        rlock.acquire()
         lines = []
         while True:
             line = self.__next_line__()
             logger.debug('vpn > %s', line)
             if line == 'EOF':
-                rlock.release()
                 return lines
             else:
                 lines.append(line)
