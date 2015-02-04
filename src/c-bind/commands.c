@@ -5,6 +5,14 @@
 
 #include "commands.h"
 
+void replace_newlines(char* text) {
+    char* newLine = text;
+    while (newLine = strstr(newLine, "\n")) {
+        strcpy(newLine, newLine);
+        strncpy(newLine, "|", 1);
+    }
+}
+
 int cmd_exit(agnHandle_t handle, int argc, char *argv[]) {
     return EXIT_FAILURE;
 }
@@ -42,6 +50,7 @@ int cmd_get_connect_attempt_info(agnHandle_t handle, int argc, char *argv[]) {
     agnConnectAttempt_t attempt;
     attempt.ulStructSize = sizeof(agnConnectAttempt_t);
     if (0 == agncGetConnectAttemptInfo(&attempt)) {
+        replace_newlines(attempt.szStatusText);
         printf("agnConnectAttempt\tszStatusText\t%s\n", attempt.szStatusText);
         printf("agnConnectAttempt\tTimeStarted\t%lu\n", attempt.TimeStarted);
         printf("agnConnectAttempt\tTimeConnected\t%lu\n", attempt.TimeConnected);

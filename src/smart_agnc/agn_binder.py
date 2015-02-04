@@ -128,9 +128,10 @@ class AgnBinder(gobject.GObject):
     def __get_object_response__(self):
         res = {}
         for line in self.__get_lines__():
-            (unused, prop, value) = line.split("\t")
+            (unused, prop, value) = line.split('\t')
             if prop.startswith('sz'):
                 prop = prop[2:]
+                value = value.replace('|', '\n')
             else:
                 value = int(value)
             res[prop] = value
