@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 # system imports
+import functools
+import gobject
 import logging
 import pynotify
 import threading
@@ -28,6 +30,27 @@ def async(blocking=True):
                           target=func, args=args, kwargs=kwargs).start()
         return wrapper
     return outer
+
+
+class EventsManager(gobject.GObject):
+
+    __gsignals__ = {
+        'agn-action-requested': (
+            gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, [
+                gobject.TYPE_INT]),
+        'agn-state-change': (
+            gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, [
+                gobject.TYPE_INT]),
+        'configuration-error': (
+            gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, [
+                gobject.TYPE_INT])
+    }
+
+    def __init__(self):
+        super(EventsManager, self).__init__()
+
+    def emit(self, *args):
+        gobject.idle_add(super(EventsManager, self).emit, *args)
 
 
 class LockingThread(threading.Thread):

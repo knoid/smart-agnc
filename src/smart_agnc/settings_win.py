@@ -18,7 +18,7 @@ class ConfigurationWindow(_WindowCentered, _WindowForm):
     txt_proxy_user = None
     txt_proxy_password = None
 
-    def __init__(self, agn, vpn, use_proxy, proxy, change_password_win):
+    def __init__(self, events, vpn, use_proxy, proxy, change_password_win):
         super(ConfigurationWindow, self).__init__()
 
         self.set_title(_('Configuration'))
@@ -61,7 +61,7 @@ class ConfigurationWindow(_WindowCentered, _WindowForm):
         self.proxy_table = self.init_proxy_table()
         self._attach(self.proxy_table, 0, 4, 3)
 
-        agn.connect('agn-state-change', self.on_agn_state_change)
+        events.connect('agn-state-change', self.on_agn_state_change)
         self.on_proxy_toggled(self.check_proxy)
 
         self.vpn_mapper = {

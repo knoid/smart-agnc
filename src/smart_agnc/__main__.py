@@ -11,8 +11,10 @@ import sys
 
 from . import config_dir, config_file, logs_dir, share_dir
 from agn_binder import AgnBinder
+from agn_monitor import AgnMonitor
 from agn_notifier import AgnNotifier
 from config import UserPreferences
+import utils
 
 # move config file to .smart-agnc folder (remove in July)
 if os.path.isfile(config_dir):
@@ -67,8 +69,10 @@ logger.info('new run')
 
 gobject.threads_init()
 
-AGN_BINDER = AgnBinder()
+EVENTS = utils.EventsManager()
+AGN_BINDER = AgnBinder(EVENTS)
 CONFIG = UserPreferences({'keepalive': True, 'timeout': 40}, AGN_BINDER)
-AgnNotifier(CONFIG, AGN_BINDER, opts)
+AGN_MONITOR = AgnMonitor(AGN_BINDER, CONFIG, EVENTS)
+AgnNotifier(CONFIG, AGN_BINDER, AGN_MONITOR, EVENTS, opts)
 
 gtk.main()

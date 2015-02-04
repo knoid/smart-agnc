@@ -10,7 +10,7 @@ import logging
 import os
 import socket
 import struct
-from subprocess import PIPE, Popen
+from subprocess import call, PIPE, Popen
 import threading
 import time
 
@@ -56,7 +56,7 @@ def retry(max_retries=5):
     return outer
 
 
-class AgnBinder(gobject.GObject):
+class AgnBinder(object):
     """
     Provides an interface between python and AGNC's daemon.
     """
@@ -66,11 +66,11 @@ class AgnBinder(gobject.GObject):
     # event source id
     __io_watch = 0
 
-    def __init__(self):
-        super(AgnBinder, self).__init__()
+    def __init__(self, events):
+        self.events = events
         self.setup_process()
         atexit.register(self.proc.kill)
-        gobject.idle_add(self.emit, 'agn-state-change', self.get_state())
+        events.emit('agn-state-change', self.get_state())
 
     def setup_process(self):
         if self.__io_watch > 0:
@@ -91,13 +91,13 @@ class AgnBinder(gobject.GObject):
         self.__io_watch = gobject.io_add_watch(proc.stderr, gobject.IO_IN,
                                                self.__get_event__)
 
-    def __get_event__(self, stderr, _):
+    def __get_event__(self, stderr, unused):
         line = __get_line__(stderr)
         if line == '':
             return False
         try:
             (change_type, param) = line.split('\t')
-            gobject.idle_add(self.emit, 'agn-' + change_type, int(param))
+            self.events.emit('agn-' + change_type, int(param))
         except ValueError:
             pass
         return True
@@ -242,13 +242,10 @@ def can_restart_agnc_services():
 
 def restart_agnc_services():
     logger.info('Restarting AGNC services')
-    Popen(['pkexec', find_executable('sagnc-service-restart')])
+    call(['pkexec', find_executable('sagnc-service-restart')])
 
 
 def __get_line__(stream):
     line = stream.readline()
     # trim \n
     return line[0:len(line) - 1]
-
-for evt in ['agn-action-requested', 'agn-state-change']:
-    gobject.signal_new(evt, AgnBinder, gobject.SIGNAL_RUN_FIRST, None, (int, ))
