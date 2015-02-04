@@ -64,8 +64,8 @@ logger.addHandler(streamLog)
 logger.addHandler(fileLog)
 logger.info('new run')
 
-CONFIG = UserPreferences({'keepalive': True, 'timeout': 40})
 AGN_BINDER = AgnBinder()
+CONFIG = UserPreferences({'keepalive': True, 'timeout': 40}, AGN_BINDER)
 AgnNotifier(CONFIG, AGN_BINDER, opts)
 
 gtk.main()

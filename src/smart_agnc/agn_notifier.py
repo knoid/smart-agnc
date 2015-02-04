@@ -56,7 +56,7 @@ class AgnNotifier(TrayIcon):
         vpn.connect('agn-state-change', self.on_vpn_state_change)
         vpn.connect('agn-state-change', self.trigger_external_script)
 
-        vpn_values, proxy_values = self.get_config_values()
+        vpn_values, proxy_values = self.config.get_connection_values()
         self.config_win = ConfigurationWindow(
             vpn, vpn_values, user_config.getboolean('proxy', 'enabled'),
             proxy_values, self.new_password_win)
@@ -188,7 +188,7 @@ class AgnNotifier(TrayIcon):
 
             if self.want_to > state:  # I want to get connected
 
-                vpn, proxy = self.get_config_values()
+                vpn, proxy = self.config.get_config_values()
                 use_proxy = self.config.getboolean('proxy', 'enabled')
                 if len(vpn) == 3 and (not use_proxy or len(proxy) == 3):
 
@@ -261,47 +261,3 @@ class AgnNotifier(TrayIcon):
     def do_toggle_keepalive(self, m_item):
         self.config.setboolean('vpn', 'keepalive', m_item.get_active())
         self.config.write_to_disk()
-
-    def get_config_values(self):
-        section_keys = (('vpn', ['account', 'username', 'password']),
-                        ('proxy', ['server', 'user', 'password']))
-        user_info = None
-        res = []
-
-        for section, keys in section_keys:
-            values = {}
-            for key in keys:
-                values[key] = self.config.get(section, key)
-
-            if len(values['password']) > 0:
-                try:
-                    decoded_password = base64.b64decode(values['password'])
-                except TypeError:
-                    decoded_password = ''
-                if len(decoded_password) > 0 and is_printable(decoded_password):
-                    # password was base64 encoded
-                    values['password'] = decoded_password
-                else:
-                    logger.warning('Password was not encoded in config file.')
-
-            if len(values) == 0:
-                if not user_info:
-                    user_info = self.vpn.get_user_info()
-                for key in keys:
-                    agnc_key = 'Proxy' * (section == 'proxy') + key.title()
-                    values[key] = user_info[agnc_key]
-
-            res.append(filter_empty(values))
-
-        return res
-
-non_printables = ''.join([unichr(x) for x in (range(0, 32) + range(127, 160))])
-non_printables_re = re.compile('[%s]' % re.escape(non_printables))
-
-
-def is_printable(string):
-    return non_printables_re.search(string) is None
-
-
-def filter_empty(values):
-    return dict((key, val) for key, val in values.items() if len(val) > 0)
