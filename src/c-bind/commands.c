@@ -8,7 +8,6 @@
 void replace_newlines(char* text) {
     char* newLine = text;
     while (newLine = strstr(newLine, "\n")) {
-        strcpy(newLine, newLine);
         strncpy(newLine, "|", 1);
     }
 }
