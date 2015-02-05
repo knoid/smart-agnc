@@ -15,7 +15,7 @@ class PreSourceBuild(sdist):
             get_files(os.path.join('src', package)) + \
             [('', ['setup.py'])]
         with open('MANIFEST', 'w') as f:
-            for path, files in manifest_files:
+            for unused_path, files in manifest_files:
                 for fpath in files:
                     if not (fpath.endswith('.svg') or fpath.endswith('.po')):
                         f.write(fpath + '\n')
@@ -56,7 +56,7 @@ class PreBdistRpm(bdist_rpm):
 
 def get_files(path, prefix=''):
     all_files = []
-    for root, subdirs, files in os.walk(path):
+    for root, unused_subdirs, files in os.walk(path):
         dir_files = []
         for filename in files:
             dir_files.append(os.path.join(root, filename))
