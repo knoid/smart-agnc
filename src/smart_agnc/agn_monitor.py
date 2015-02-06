@@ -20,6 +20,7 @@ is_running = threading.RLock()
 class AgnMonitor(object):
 
     connecting_timeout = 0
+    event_source = False
     fail_connect = 0
     want_to = ab.STATE_CONNECTED
 
@@ -29,11 +30,14 @@ class AgnMonitor(object):
         self.binder = binder
         self.config = config
         self.events = events
-        self.check_connection()
+        self.check_connection(False, True)
 
     @utils.async()
-    def check_connection(self, force=False):
+    def check_connection(self, force=False, timeout=False):
         logger.info('check_connection')
+
+        if not timeout:
+            gobject.source_remove(self.event_source)
 
         # to keep the subprocess alive
         state = self.binder.get_state()
@@ -84,20 +88,14 @@ class AgnMonitor(object):
 
         return self.thread_end()
 
-    @utils.async(False)
-    def check_connection_nonblock(self):
-        """
-        The call will be made only if available and will be skiped if busy.
-        """
-        self.check_connection()
-
     def set_want_to(self, state):
         self.want_to = state
         connection_timeout = self.config.getint('vpn', 'timeout')
         self.connecting_timeout = time.time() + connection_timeout
 
     def thread_end(self):
-        gobject.timeout_add(RECONNECT_INTERVAL, self.check_connection_nonblock)
+        self.event_source = gobject.timeout_add(
+            RECONNECT_INTERVAL, self.check_connection, False, True)
 
     def vpn_connect(self, vpn, proxy=None, new_password=''):
         timeout_secs = self.config.getint('vpn', 'timeout')
