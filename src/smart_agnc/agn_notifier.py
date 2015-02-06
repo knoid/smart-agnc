@@ -65,7 +65,7 @@ class AgnNotifier(TrayIcon):
 
         gtk.gdk.notify_startup_complete()
 
-    @utils.async()
+    @utils.async(True)  # blocks repetead calls so they all get called
     def trigger_external_script(self, unused_events, state):
         logger.info('trigger_external_script, state=%d', state)
         script_path = self.config.get('scripts', str(state))

@@ -20,7 +20,7 @@ def alert(msg):
     logger.warning('Alert: %s', msg.replace('\n', '\n > '))
 
 
-def async(blocking=True):
+def async(blocking=False):
     lock = threading.Lock()
 
     def outer(func):
