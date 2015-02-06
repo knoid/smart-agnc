@@ -37,6 +37,7 @@ def retry(max_retries=5):
         @wraps(func)
         def wrapper(*args, **kwargs):
             assert max_retries > 0
+            logger.info(func.__name__)
             lock.acquire()
             x = max_retries
             while x >= 0:
@@ -158,7 +159,6 @@ class AgnBinder(object):
         """
         Exit subprocess.
         """
-        logger.info('exit')
         self.__send__(0)
 
     @retry()
@@ -168,8 +168,6 @@ class AgnBinder(object):
         Issues a connect action to AGNC's daemon with the provided account,
         username and password against AT&T's production servers.
         """
-        logger.info('action_connect')
-
         args = [account, username, password, new_password,
                 SERVICE_MANAGER_ADDRESS]
         if proxy:
@@ -181,7 +179,6 @@ class AgnBinder(object):
         """
         Issues a disconnect action to the daemon.
         """
-        logger.info('action_disconnect')
         self.__send__(2)
 
     @retry()
@@ -189,7 +186,6 @@ class AgnBinder(object):
         """
         Returns a dictionary with AGNC's connect attempt information.
         """
-        logger.info('get_connect_attempt_info')
         self.__send__(3)
         return self.__get_object_response__()
 
@@ -198,7 +194,6 @@ class AgnBinder(object):
         """
         Returns an int with AGNC's current state
         """
-        logger.info('get_state')
         self.__send__(4)
         return int(self.__get_lines__()[0])
 
@@ -207,7 +202,6 @@ class AgnBinder(object):
         """
         Returns a dictionary with AGNC's user information.
         """
-        logger.info('get_user_info')
         self.__send__(5)
         return self.__get_object_response__()
 
