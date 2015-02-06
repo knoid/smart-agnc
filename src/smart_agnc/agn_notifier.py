@@ -82,7 +82,7 @@ class AgnNotifier(TrayIcon):
             if len(output) > 1:
                 utils.alert('\n'.join(output))
 
-    @utils.async()
+    @utils.async(True)  # blocks repetead calls so they all get called
     def on_vpn_state_change(self, unused_events, new_state):
         logger.info('on_vpn_state_change, new_state=%d', new_state)
 
