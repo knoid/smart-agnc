@@ -39,6 +39,9 @@ class AgnMonitor(object):
         if not timeout:
             gobject.source_remove(self.event_source)
 
+        self.event_source = gobject.timeout_add(
+            RECONNECT_INTERVAL, self.check_connection, False, True)
+
         # to keep the subprocess alive
         state = self.binder.get_state()
 
@@ -54,7 +57,7 @@ class AgnMonitor(object):
             else:
                 self.fail_connect += 1
 
-            return self.thread_end()
+            return
 
         if ab.STATE_BEFORE_CONNECT < state <= ab.STATE_CONNECTED:
             # I'm connected
@@ -86,16 +89,10 @@ class AgnMonitor(object):
                     self.events.emit('configuration-error', state)
                     self.want_to = ab.STATE_NOT_CONNECTED
 
-        return self.thread_end()
-
     def set_want_to(self, state):
         self.want_to = state
         connection_timeout = self.config.getint('vpn', 'timeout')
         self.connecting_timeout = time.time() + connection_timeout
-
-    def thread_end(self):
-        self.event_source = gobject.timeout_add(
-            RECONNECT_INTERVAL, self.check_connection, False, True)
 
     def vpn_connect(self, vpn, proxy=None, new_password=''):
         timeout_secs = self.config.getint('vpn', 'timeout')
