@@ -4,7 +4,7 @@
 
 # system imports
 import base64
-import ConfigParser
+import iniparse.compat as ConfigParser
 import logging
 import os
 import re
