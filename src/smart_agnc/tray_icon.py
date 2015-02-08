@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import gtk
-import os
 
 try:
     import appindicator
