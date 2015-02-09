@@ -2,6 +2,7 @@
 
 # system imports
 import base64
+import gobject
 import gtk
 import logging
 import os
@@ -120,9 +121,10 @@ class AgnNotifier(TrayIcon):
         # 12 = password expired
         # 16 = incorrect new password
         if attempt['StatusCode'] in [12, 16]:
+            if self.monitor.want_to == ab.STATE_CONNECTED:
+                utils.alert(_('It is time to change your password!'))
+                gobject.idle_add(self.new_password_win.request_new_password)
             self.monitor.set_want_to(ab.STATE_NOT_CONNECTED)
-            utils.alert(_('It is time to change your password!'))
-            self.new_password_win.request_new_password()
 
         # 8 = Invalid credentials
         elif 8 == attempt['StatusCode']:
@@ -137,7 +139,7 @@ class AgnNotifier(TrayIcon):
             self.events.emit('configuration-error', attempt['StatusCode'])
 
     def set_new_password(self, unused_win, new_password):
-        vpn, proxy = self.config.get_config_values()
+        vpn, proxy = self.config.get_connection_values()
         self.changing_password = new_password
         self.monitor.vpn_connect(vpn, proxy, new_password)
         self.monitor.set_want_to(ab.STATE_CONNECTED)
