@@ -1,3 +1,12 @@
+## v0.1.3 (2015-02-18)
+
+ * Added help and close buttons to about window
+ * Added alert messages translations
+ * Multi-threading for AGNC communications
+ * Multi-threading for checking updates
+ * Using iniparse library to preserve comments in configuration file
+ * Added pt_BR translation thanks to htancredi@br.ibm.com
+
 ## v0.1.2 (2015-01-28)
 
  * Restarting AGNC daemon when DAEMON_DEAD state is received

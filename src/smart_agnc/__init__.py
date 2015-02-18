@@ -10,7 +10,7 @@ import logging
 import os
 import pynotify
 
-__version__ = '0.1.2'
+__version__ = '0.1.3'
 __author__ = 'Ariel Barabas'
 
 module_dir = os.path.abspath(os.path.dirname(__file__))
