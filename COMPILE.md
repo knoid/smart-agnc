@@ -1,15 +1,15 @@
 ## Prerequisites
 
-Only have the AT&T Global Network Client working and install the appropriate
+Have the AT&T Global Network Client working and install the appropriate
 libraries to build the program.
 
 ### In Ubuntu
 
-    sudo apt-get install gettext librsvg2-bin gcc libc6-dev-x32
+    sudo apt-get install gettext librsvg2-bin gcc libc6-dev-x32 python-iniparse
 
 ### In CentOS
 
-    sudo yum install gettext librsvg2 gcc glibc-devel.i686
+    sudo yum install gettext librsvg2 gcc glibc-devel.i686 python-iniparse
 
 ## Compile & run
 
