@@ -58,6 +58,7 @@ class LockingThread(threading.Thread):
     def __init__(self, blocking, lock, **kwargs):
         super(LockingThread, self).__init__(**kwargs)
         self.blocking = blocking
+        self.daemon = True
         self.lock = lock
 
     def run(self):
