@@ -1,3 +1,5 @@
+## v0.1.4
+
 ## v0.1.3 (2015-02-18)
 
  * Added help and close buttons to about window
@@ -5,7 +7,7 @@
  * Multi-threading for AGNC communications
  * Multi-threading for checking updates
  * Using iniparse library to preserve comments in configuration file
- * Added pt_BR translation thanks to htancredi@br.ibm.com
+ * Added pt_BR translation
 
 ## v0.1.2 (2015-01-28)
 
